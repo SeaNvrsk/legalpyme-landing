@@ -13,22 +13,21 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "LegalPyme.mx | Servicios Legales para PyMEs en México — Asesoría Fiscal y SAT",
+  title: "DerechoLaboral.mx | Defiende tus derechos laborales en México",
   description:
-    "Servicios legales profesionales para PyMEs en México: asesoría fiscal, trámites ante el SAT, constitución de empresas, contratos y cumplimiento normativo. Apoyo jurídico integral para tu negocio.",
+    "Despidos injustificados, falta de pago, liquidaciones incorrectas. Especialistas en derecho laboral. Primera evaluación gratis. Te ayudamos a recibir lo que te corresponde por ley.",
   keywords: [
-    "servicios legales",
-    "PyMEs México",
-    "asesoría fiscal",
-    "SAT",
-    "empresas México",
-    "constitución de empresas",
-    "contratos",
+    "derecho laboral",
+    "despido injustificado",
+    "liquidación",
+    "abogado laboral México",
+    "demanda laboral",
+    "conciliación laboral",
   ],
   openGraph: {
-    title: "LegalPyme.mx | Servicios Legales para PyMEs en México",
+    title: "DerechoLaboral.mx | Defiende tus derechos laborales",
     description:
-      "Servicios legales profesionales para PyMEs: asesoría fiscal, SAT, constitución de empresas y contratos. Asesoría jurídica integral en México.",
+      "Orientación y acompañamiento legal en despidos, liquidaciones y conflictos laborales. Evaluación de caso gratis.",
     locale: "es_MX",
     type: "website",
   },
@@ -36,7 +35,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  metadataBase: new URL("https://legalpyme.mx"),
+  metadataBase: new URL("https://derecholaboral.mx"),
 };
 
 export const viewport = {

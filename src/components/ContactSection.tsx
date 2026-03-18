@@ -46,10 +46,10 @@ export default function ContactSection() {
           className="text-center text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          ¿Listo para proteger tu negocio?
+          Cuéntanos tu caso
         </h2>
         <p className="mt-6 text-center text-zinc-300">
-          Cuéntanos tu proyecto y te respondemos a la brevedad.
+          Te evaluamos sin compromiso y te respondemos en breve.
         </p>
 
         <form
@@ -105,7 +105,7 @@ export default function ContactSection() {
                 rows={4}
                 required
                 className={`${inputClass} resize-y`}
-                placeholder="Describe brevemente en qué necesitas asesoría."
+                placeholder="Describe tu situación laboral: despido, falta de pago, liquidación, etc."
               />
             </div>
           </div>
@@ -118,8 +118,8 @@ export default function ContactSection() {
               {status === "sending"
                 ? "Enviando…"
                 : status === "sent"
-                  ? "Solicitud enviada"
-                  : "Enviar solicitud"}
+                  ? "Caso enviado"
+                  : "Enviar mi caso"}
             </button>
             {status === "error" && (
               <p className="mt-3 text-center text-sm text-red-400">

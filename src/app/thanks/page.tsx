@@ -13,7 +13,7 @@ export default function ThanksPage() {
             href="/"
             className="text-xl font-bold tracking-tighter hover:text-blue-400 transition-colors"
           >
-            LegalPyme<span className="text-blue-500">.mx</span>
+            DerechoLaboral<span className="text-blue-500">.mx</span>
           </Link>
         </div>
       </nav>
@@ -35,10 +35,10 @@ export default function ThanksPage() {
         <div className="relative z-10 mx-auto max-w-xl text-center">
           <CheckCircle className="mx-auto h-24 w-24 text-blue-500 sm:h-28 sm:w-28" strokeWidth={1.5} />
           <h1 className="mt-8 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            ¡Gracias por contactarnos!
+            ¡Recibimos tu caso!
           </h1>
           <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-zinc-300">
-            Hemos recibido tu solicitud. Revisaremos tu consulta y nos pondremos en contacto contigo en un plazo de <strong className="text-white">24 horas</strong>.
+            Revisaremos tu situación y nos pondremos en contacto contigo en un plazo de <strong className="text-white">24 horas</strong> para la evaluación.
           </p>
           <p className="mt-4 text-sm text-zinc-400">
             Si necesitas una respuesta urgente, escríbenos por WhatsApp.

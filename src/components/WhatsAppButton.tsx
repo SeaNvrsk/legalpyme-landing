@@ -1,7 +1,7 @@
 "use client";
 
 const WHATSAPP_NUMBER = "5215512345678"; // Reemplazar con número real
-const MESSAGE = "Hola, necesito asesoría legal para mi PyME";
+const MESSAGE = "Hola, necesito evaluar mi caso laboral";
 const WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(MESSAGE)}`;
 
 export default function WhatsAppButton() {
@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2 focus:ring-offset-black"
-      aria-label="Contactar por WhatsApp"
+      aria-label="Consulta por WhatsApp"
     >
       <svg
         viewBox="0 0 24 24"
