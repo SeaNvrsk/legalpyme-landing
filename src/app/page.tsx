@@ -89,6 +89,12 @@ const CASOS = [
     resultado:
       "Reparto de utilidades blindado fiscalmente. Marcas vigentes, sin contingencias pendientes.",
   },
+  {
+    titulo: "Proveedor clave que frenaba la operación",
+    subtitulo: "Retail · Monterrey",
+    resultado:
+      "Aclaramos un contrato ambiguo, fijamos entregas y penalidades y acordamos una salida ordenada si fallaba el cumplimiento. La cadena de suministro se restableció sin juicio.",
+  },
 ];
 
 const FAQ = [
