@@ -13,7 +13,7 @@ export default function ThanksPage() {
             href="/"
             className="text-xl font-bold tracking-tighter hover:text-blue-400 transition-colors"
           >
-            DerechoLaboral<span className="text-blue-500">.mx</span>
+            LegalPyme<span className="text-blue-500">.mx</span>
           </Link>
         </div>
       </nav>

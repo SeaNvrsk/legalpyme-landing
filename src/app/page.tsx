@@ -3,76 +3,132 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  Building2,
+  AlertTriangle,
+  Receipt,
   Scale,
-  FileCheck,
-  Handshake,
+  Users,
+  UserCircle,
+  Layers,
+  ShieldCheck,
+  FileWarning,
   Gavel,
-  AlertCircle,
-  ClipboardList,
-  BadgeDollarSign,
-  UserX,
-  Clock,
   HelpCircle,
   ChevronRight,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import ContactSection from "@/components/ContactSection";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import SiteFooter from "@/components/SiteFooter";
+import StickyCtaBar from "@/components/StickyCtaBar";
+import TeamCarousel from "@/components/TeamCarousel";
 
 const PROBLEMAS = [
-  { text: "Me despidieron y no me quieren pagar liquidación", icon: BadgeDollarSign },
-  { text: "Me obligaron a firmar renuncia", icon: FileCheck },
-  { text: "No me pagan horas extra", icon: Clock },
-  { text: "Me acosan o me tratan mal en el trabajo", icon: AlertCircle },
-  { text: "No tengo contrato ni prestaciones", icon: ClipboardList },
-  { text: "Me deben salario", icon: BadgeDollarSign },
+  { text: "Estás contratando personal sin protección legal", icon: Users },
+  { text: "Ya tienes un problema legal y no sabes por dónde empezar", icon: AlertTriangle },
+  { text: "Estás pagando impuestos sin una estrategia clara", icon: Receipt },
+  { text: "Tu negocio no está completamente en regla y puede generarte multas", icon: Scale },
+  { text: "Tienes conflictos con socios, clientes o proveedores", icon: FileWarning },
+  { text: "Tu empresa está a tu nombre personal y no sabes si eso te pone en riesgo", icon: UserCircle },
 ];
 
 const SERVICIOS = [
   {
-    title: "Despido injustificado",
-    description: "Te ayudamos a reclamar liquidación completa según la ley.",
-    icon: UserX,
+    title: "Estructura legal y fiscal desde el inicio",
+    description:
+      "Definimos la mejor base para tu empresa y evitamos errores que después cuestan tiempo y dinero.",
+    icon: Layers,
   },
   {
-    title: "Cálculo de liquidación",
-    description: "Revisamos si te están pagando lo correcto.",
-    icon: Scale,
+    title: "Protege tu operación y tu patrimonio",
+    description:
+      "Contratos claros con socios, clientes y proveedores para que tu negocio no dependa de acuerdos de palabra.",
+    icon: ShieldCheck,
   },
   {
-    title: "Conciliación laboral",
-    description: "Negociamos con la empresa para resolver tu caso.",
-    icon: Handshake,
+    title: "Prevención de riesgos legales y fiscales",
+    description:
+      "Detectamos problemas antes de que se conviertan en multas, demandas o pérdidas.",
+    icon: Building2,
   },
   {
-    title: "Demanda laboral",
-    description: "Representación legal si tu caso lo requiere.",
+    title: "Resolución de problemas legales",
+    description:
+      "Si ya estás en una situación complicada, diseñamos una estrategia para resolverla y reducir el impacto en tu negocio.",
     icon: Gavel,
   },
 ];
 
 const CASOS = [
-  { titulo: "Trabajador despedido sin liquidación", resultado: "Recuperó: $85,000 MXN" },
-  { titulo: "Empresa debía salarios atrasados", resultado: "Pago completo + indemnización" },
-  { titulo: "Despido sin causa después de 8 años", resultado: "Liquidación + prima de antigüedad" },
-  { titulo: "Renuncia forzada anulada", resultado: "Reconocimiento de despido injustificado" },
-  { titulo: "Horas extra no pagadas", resultado: "Pago retroactivo + recargos" },
+  {
+    titulo: "Su socio intentó quedarse con el negocio",
+    subtitulo: "Empresa comercial · Ciudad de México",
+    resultado:
+      "El cliente recuperó el control total de la empresa. Reestructuramos el pacto de socios para evitar que se repita.",
+  },
+  {
+    titulo: "Startup con irregularidades corporativas",
+    subtitulo: "Tecnología · Guadalajara",
+    resultado:
+      "Regularizamos actas, contratos y estructura accionaria en 6 semanas. La empresa cerró su ronda de inversión sin contratiempos.",
+  },
+  {
+    titulo: "Costos laborales ocultos",
+    subtitulo: "Sector salud",
+    resultado:
+      "Rediseñamos el esquema de contratación. Eliminamos una contingencia laboral de millones de pesos.",
+  },
+  {
+    titulo: "Conflicto que amenazaba a una escuela",
+    subtitulo: "Educación · Estado de México",
+    resultado:
+      "Contingencia resuelta sin juicio. La institución cuenta hoy con reglamentos y contratos que la protegen.",
+  },
+  {
+    titulo: "Dividendos y revisión fiscal",
+    subtitulo: "Sector inmobiliario",
+    resultado:
+      "Reparto de utilidades blindado fiscalmente. Marcas vigentes, sin contingencias pendientes.",
+  },
 ];
 
 const FAQ = [
-  { q: "¿Si me despiden sin contrato puedo reclamar?", a: "Sí. La relación laboral puede acreditarse con recibos de nómina, correos, testigos u otros medios. Tienes derecho a reclamar lo que te corresponde por ley." },
-  { q: "¿Cuánto tiempo tengo para demandar?", a: "En México generalmente tienes un año a partir del día siguiente al despido para presentar tu demanda ante la Junta de Conciliación y Arbitraje. No conviene esperar." },
-  { q: "¿Qué pasa si firmé renuncia?", a: "Si te presionaron o engañaron, la renuncia puede impugnarse. Revisamos tu caso para ver si hay vicios que permitan anularla y reclamar como despido injustificado." },
-  { q: "¿Cuánto cuesta un abogado laboral?", a: "En muchos casos los honorarios se pactan por resultado: solo pagas si ganas. La primera evaluación de tu caso es gratuita." },
-  { q: "¿Cuánto tarda un juicio laboral?", a: "Depende de la Junta y la complejidad. La conciliación puede resolver en semanas; un juicio puede llevar varios meses. Te explicamos los plazos en la evaluación." },
+  {
+    q: "¿Cuánto cuesta trabajar con ustedes?",
+    a: "Depende del alcance. En la primera orientación gratuita te explicamos honorarios y opciones. Contáctanos para una cotización orientativa.",
+  },
+  {
+    q: "¿Qué pasa en la primera orientación gratuita?",
+    a: "Revisamos tu situación, identificamos riesgos y te decimos los siguientes pasos sin compromiso.",
+  },
+  {
+    q: "¿Cuánto tiempo toma regularizar mi empresa?",
+    a: "Varía según el atraso y la complejidad. Te damos un estimado realista tras el análisis inicial.",
+  },
+  {
+    q: "¿Qué pasa si encontramos irregularidades graves?",
+    a: "Te presentamos un plan priorizado para corregirlas y mitigar riesgos ante autoridades o terceros.",
+  },
+  {
+    q: "Ya tengo un problema legal activo, ¿pueden ayudarme?",
+    a: "Sí. Diseñamos una estrategia para defender tu posición o negociar la mejor salida posible.",
+  },
+  {
+    q: "¿Cómo sé si necesito un abogado o lo resuelvo solo?",
+    a: "Si hay dinero, contratos, socios o fiscalidad en juego, la asesoría especializada suele evitar costos mayores. La orientación inicial aclara si hace falta representación formal.",
+  },
+  {
+    q: "¿Trabajan solo con empresas grandes o también con PyMEs?",
+    a: "Trabajamos con negocios de todos los tamaños, desde emprendedores hasta empresas establecidas.",
+  },
+  {
+    q: "Llevo años sin toda la documentación en regla. ¿Es tarde para regularizarme?",
+    a: "No es tarde mientras operes. Cuanto antes regularices, menores multas y contingencias. Evaluamos tu caso y el camino más eficiente.",
+  },
 ];
 
 export default function Home() {
   const [scrollFade, setScrollFade] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [calcSalario, setCalcSalario] = useState("");
-  const [calcAnios, setCalcAnios] = useState("");
-  const [calcTipo, setCalcTipo] = useState("injustificado");
 
   useEffect(() => {
     const onScroll = () => {
@@ -84,125 +140,135 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const calcEstimacion = () => {
-    const s = parseFloat(calcSalario) || 0;
-    const a = parseFloat(calcAnios) || 0;
-    if (s <= 0 || a <= 0) return null;
-    const diasSalario = s / 30;
-    const primaAntiguedad = Math.min(12 * diasSalario * a, 12 * diasSalario * 12);
-    const indemnizacion = calcTipo === "injustificado" ? 90 * diasSalario : 0;
-    const aguinaldoVacaciones = (15 + 6) * diasSalario * (a / 365) * 20;
-    const total = Math.round(primaAntiguedad + indemnizacion + aguinaldoVacaciones);
-    return total > 0 ? total : null;
-  };
-
-  const estimacion = calcEstimacion();
-
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-      {/* Nav */}
+    <div className="min-h-screen bg-black pb-28 text-white selection:bg-blue-500/30">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-xl font-bold tracking-tighter">
-            DerechoLaboral<span className="text-blue-500">.mx</span>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+          <Link href="/" className="shrink-0 text-lg font-bold tracking-tighter sm:text-xl">
+            LegalPyme<span className="text-blue-500">.mx</span>
           </Link>
-          <a
-            href="#contacto"
-            className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold transition hover:bg-blue-700"
-          >
-            Evaluar mi caso gratis
-          </a>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="relative flex min-h-screen min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-20 text-center lg:pt-48 lg:pb-32">
-        <div className="absolute inset-0 z-0 transition-opacity duration-150" style={{ opacity: 1 - scrollFade }} aria-hidden>
-          <Image src="/image_3d84fb.jpg" alt="" fill className="object-cover" priority sizes="100vw" />
-        </div>
-        <div className="absolute inset-0 z-0 bg-black/60" aria-hidden />
-        <div className="relative z-10">
-          <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            ¿Problemas con tu trabajo?
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-white/95 sm:text-2xl">
-            Te ayudamos a defender tus derechos laborales en México.
-          </p>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-300">
-            Despidos injustificados, falta de pago, abuso laboral o liquidaciones incorrectas. Nuestro equipo te orienta y te acompaña para que recibas lo que te corresponde por ley.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <div className="flex min-w-0 flex-1 items-center justify-end gap-1.5 sm:gap-2 md:gap-3">
             <a
-              href="https://wa.me/5215512345678?text=Hola,%20necesito%20evaluar%20mi%20caso%20laboral"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 font-bold text-white transition hover:bg-[#20bd5a]"
+              href="#ubicacion"
+              className="rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10 sm:px-4 sm:text-sm"
             >
-              Consulta por WhatsApp
+              Dónde estamos
+            </a>
+            <a
+              href="#nosotros"
+              className="rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10 sm:px-4 sm:text-sm"
+            >
+              Nosotros
             </a>
             <a
               href="#contacto"
-              className="flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 font-bold transition hover:bg-white/5"
+              className="shrink-0 rounded-full bg-blue-600 px-3 py-1.5 text-[11px] font-semibold transition hover:bg-blue-700 sm:px-5 sm:py-2 sm:text-sm"
             >
-              Evaluar mi caso gratis <ChevronRight className="h-5 w-5" />
+              <span className="hidden min-[400px]:inline">Evaluar mi caso gratis</span>
+              <span className="min-[400px]:hidden">Evaluar gratis</span>
             </a>
           </div>
         </div>
-      </section>
+      </nav>
 
-      {/* Bloque de confianza */}
-      <section className="border-t border-white/10 bg-zinc-950/80 py-16 lg:py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
-            <div>
-              <p className="text-sm font-semibold text-blue-400">Especialistas</p>
-              <p className="mt-1 text-zinc-300">en derecho laboral</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-blue-400">Experiencia</p>
-              <p className="mt-1 text-zinc-300">en leyes mexicanas</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-blue-400">+XXX</p>
-              <p className="mt-1 text-zinc-300">casos asesorados</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-blue-400">Primera evaluación</p>
-              <p className="mt-1 text-zinc-300">de caso gratis</p>
+      <section className="relative min-h-[100dvh] overflow-hidden">
+        <div
+          className="absolute inset-0 z-0 transition-opacity duration-150"
+          style={{ opacity: 1 - scrollFade }}
+          aria-hidden
+        >
+          <Image src="/image_3d84fb.jpg" alt="" fill className="object-cover" priority sizes="100vw" />
+        </div>
+        <div className="absolute inset-0 z-0 bg-black/60" aria-hidden />
+        <div className="relative z-10 flex min-h-[100dvh] flex-col items-center px-6 pb-24 pt-28 text-center sm:pt-32 lg:pb-32">
+          <div className="min-h-[28vh] w-full flex-1 shrink-0" aria-hidden />
+          <div className="w-full max-w-4xl shrink-0">
+            <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Evita problemas laborales que pueden costarte caro
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-white/95 sm:text-2xl">
+              Te ayudamos a proteger tu negocio desde hoy.
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-300">
+              Cumplimiento laboral y fiscal, contratos, manejo de personal y prevención de demandas. Te ayudamos a tomar decisiones seguras y mantener tu negocio en orden.
+            </p>
+            <p className="mx-auto mt-3 text-sm text-zinc-500">Respuesta rápida. Sin compromiso.</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <a
+                href="https://wa.me/5215512345678?text=Hola%2C%20necesito%20orientaci%C3%B3n%20legal%20para%20mi%20empresa%20(LegalPyme.mx)"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 font-bold text-white transition hover:bg-[#20bd5a]"
+              >
+                Consulta por WhatsApp
+              </a>
+              <a
+                href="#contacto"
+                className="flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 font-bold transition hover:bg-white/5"
+              >
+                Evaluar mi caso gratis <ChevronRight className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ¿Te está pasando esto? */}
+      <section className="border-t border-white/10 bg-zinc-950/80 py-16 lg:py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <p className="text-sm font-semibold text-blue-400">Especialistas</p>
+              <p className="mt-1 text-zinc-300">en derecho empresarial</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-blue-400">Experiencia real</p>
+              <p className="mt-1 text-zinc-300">en operación y gestión de negocios</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-blue-400">+50,000</p>
+              <p className="mt-1 text-zinc-300">casos asesorados</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-blue-400">Primera orientación</p>
+              <p className="mt-1 text-zinc-300">gratuita</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="problemas" className="scroll-mt-20 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">¿Te está pasando esto?</h2>
-          <p className="mt-4 text-center text-zinc-400">No estás solo. Te ayudamos a revisar tu caso.</p>
+          <p className="mt-4 text-center text-zinc-400">Identificamos riesgos antes de que escalen.</p>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {PROBLEMAS.map((p, i) => (
-              <div
-                key={i}
-                className="flex items-start gap-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-6 transition hover:border-blue-500/40"
-              >
-                <p.icon className="h-6 w-6 shrink-0 text-blue-500" />
-                <p className="text-white">{p.text}</p>
-              </div>
-            ))}
+            {PROBLEMAS.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={i}
+                  className="flex items-start gap-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-6 transition hover:border-blue-500/40"
+                >
+                  <Icon className="h-6 w-6 shrink-0 text-blue-500" />
+                  <span className="text-left text-white">{item.text}</span>
+                </div>
+              );
+            })}
           </div>
           <p className="mt-10 text-center">
-            <a href="#contacto" className="rounded-full bg-blue-600 px-8 py-4 font-semibold text-white transition hover:bg-blue-700">
-              Quiero revisar mi caso
+            <a
+              href="#contacto"
+              className="rounded-full bg-blue-600 px-8 py-4 font-semibold text-white transition hover:bg-blue-700"
+            >
+              Revisar mi empresa
             </a>
           </p>
         </div>
       </section>
 
-      {/* Servicios */}
       <section id="servicios" className="scroll-mt-20 border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">Qué podemos hacer por ti</h2>
-          <p className="mt-4 text-center text-zinc-400">Servicios de derecho laboral para trabajadores.</p>
+          <p className="mt-4 text-center text-zinc-400">Servicios legales y fiscales para empresas.</p>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICIOS.map((s, i) => (
               <div
@@ -218,60 +284,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Cómo funciona */}
       <section className="border-t border-white/10 py-20 lg:py-28">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-bold sm:text-4xl">¿Cómo funciona?</h2>
           <div className="mt-12 space-y-8">
             <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">Paso 1</span>
-              <p className="text-xl font-semibold text-white">Cuéntanos tu caso</p>
-              <p className="text-zinc-400">Por WhatsApp o con el formulario. Sin compromiso.</p>
+              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">1</span>
+              <p className="text-xl font-semibold text-white">Analizamos tu situación</p>
+              <p className="text-zinc-400">Nos cuentas cómo funciona tu negocio o qué problema tienes.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">Paso 2</span>
-              <p className="text-xl font-semibold text-white">Analizamos tu situación legal</p>
-              <p className="text-zinc-400">Te decimos qué opciones tienes y qué puedes reclamar.</p>
+              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">2</span>
+              <p className="text-xl font-semibold text-white">Definimos la mejor estrategia</p>
+              <p className="text-zinc-400">Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">Paso 3</span>
-              <p className="text-xl font-semibold text-white">Te acompañamos en el proceso</p>
-              <p className="text-zinc-400">Conciliación, demanda o asesoría según tu caso.</p>
+              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">3</span>
+              <p className="text-xl font-semibold text-white">Te acompañamos en la ejecución</p>
+              <p className="text-zinc-400">Implementamos contigo las soluciones necesarias.</p>
             </div>
           </div>
-          <p className="mt-10 rounded-xl border border-blue-500/30 bg-blue-500/10 px-6 py-4 text-blue-300">
-            En muchos casos los honorarios se pagan <strong>solo si ganas el caso</strong>.
+          <p className="mt-10 rounded-xl border border-blue-500/30 bg-blue-500/10 px-6 py-4 text-blue-200">
+            Sin procesos complicados. Sin lenguaje legal innecesario.
           </p>
         </div>
       </section>
 
-      {/* Casos reales */}
       <section className="border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">Casos reales</h2>
-          <p className="mt-4 text-center text-zinc-400">Resultados de nuestros asesorados.</p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="mt-4 text-center text-zinc-400">Ejemplos de cómo hemos ayudado a empresas.</p>
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {CASOS.map((c, i) => (
-              <div key={i} className="rounded-2xl border border-white/10 bg-black/40 p-6">
-                <p className="font-medium text-white">{c.titulo}</p>
-                <p className="mt-2 text-blue-400 font-semibold">{c.resultado}</p>
+              <div key={i} className="rounded-2xl border border-white/10 bg-black/40 p-6 text-left">
+                <p className="font-semibold text-white">{c.titulo}</p>
+                <p className="mt-1 text-sm text-zinc-500">{c.subtitulo}</p>
+                <p className="mt-4 text-sm leading-relaxed text-zinc-300">{c.resultado}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="border-t border-white/10 py-20 lg:py-28">
         <div className="mx-auto max-w-2xl px-6">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">Preguntas frecuentes</h2>
           <div className="mt-12 space-y-2">
             {FAQ.map((f, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-white/10 bg-zinc-900/50 overflow-hidden"
-              >
+              <div key={i} className="overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50">
                 <button
+                  type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="flex w-full items-center justify-between px-6 py-4 text-left font-medium text-white"
                 >
@@ -287,82 +349,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Calculadora / lead magnet */}
-      <section id="calculadora" className="scroll-mt-20 border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
-        <div className="mx-auto max-w-md px-6">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">Calculadora de liquidación</h2>
-          <p className="mt-4 text-center text-zinc-400">Estimación aproximada. Recibe el cálculo completo por WhatsApp.</p>
-          <div className="mt-10 rounded-2xl border border-white/10 bg-black/40 p-6 space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-zinc-300">Salario mensual (MXN)</label>
-              <input
-                type="number"
-                value={calcSalario}
-                onChange={(e) => setCalcSalario(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-                placeholder="Ej. 15000"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-zinc-300">Años trabajados</label>
-              <input
-                type="number"
-                step="0.5"
-                value={calcAnios}
-                onChange={(e) => setCalcAnios(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-                placeholder="Ej. 5"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-zinc-300">Tipo de despido</label>
-              <select
-                value={calcTipo}
-                onChange={(e) => setCalcTipo(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-              >
-                <option value="injustificado">Despido injustificado</option>
-                <option value="justificado">Despido justificado / renuncia</option>
-              </select>
-            </div>
-            {estimacion !== null && (
-              <p className="rounded-xl bg-blue-500/20 px-4 py-3 text-center font-bold text-blue-300">
-                Estimación aproximada: ${estimacion.toLocaleString("es-MX")} MXN
-              </p>
-            )}
-            <a
-              href="https://wa.me/5215512345678?text=Quiero%20recibir%20el%20c%C3%A1lculo%20completo%20de%20mi%20liquidaci%C3%B3n"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full rounded-full bg-[#25D366] py-4 text-center font-semibold text-white transition hover:bg-[#20bd5a]"
-            >
-              Recibe cálculo completo por WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
+      <TeamCarousel />
 
-      {/* Sobre el abogado */}
       <section className="border-t border-white/10 py-20 lg:py-28">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Sobre el abogado</h2>
-          <div className="mt-10 flex flex-col items-center gap-6">
-            <div className="h-32 w-32 rounded-full bg-zinc-700 flex items-center justify-center text-4xl text-zinc-500">
-              Foto
-            </div>
-            <div>
-              <p className="font-semibold text-white">[Nombre del abogado]</p>
-              <p className="mt-2 text-zinc-400">Especialista en derecho laboral. [Experiencia]. [Misión — defender los derechos de los trabajadores en México.]</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA final */}
-      <section className="border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
         <div className="mx-auto max-w-2xl px-6 text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Revisa tu caso hoy mismo</h2>
-          <p className="mt-4 text-zinc-400">Consulta inicial por WhatsApp.</p>
+          <h2 className="text-3xl font-bold sm:text-4xl">Agenda tu orientación gratuita</h2>
+          <p className="mt-4 text-sm text-zinc-500">
+            Sin compromiso. En 30 minutos sabes exactamente en qué situación está tu empresa.
+          </p>
           <a
             href="#contacto"
             className="mt-8 inline-block rounded-full bg-blue-600 px-12 py-5 text-lg font-bold text-white transition hover:bg-blue-700"
@@ -373,24 +367,9 @@ export default function Home() {
       </section>
 
       <ContactSection />
-      <WhatsAppButton />
+      <StickyCtaBar />
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-12">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col items-center gap-4 text-center text-sm text-zinc-500">
-            <p>WhatsApp · Teléfono · Correo · Ciudad</p>
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1">
-              <Link href="/despido-injustificado" className="hover:text-white">Despido injustificado</Link>
-              <Link href="/calculo-liquidacion" className="hover:text-white">Cálculo liquidación</Link>
-              <Link href="/derechos-laborales-mexico" className="hover:text-white">Derechos laborales</Link>
-              <Link href="/que-hacer-si-me-despiden" className="hover:text-white">Qué hacer si me despiden</Link>
-            </div>
-            <Link href="/aviso-de-privacidad" className="underline hover:text-zinc-400">Aviso de privacidad</Link>
-            <p>© 2026 DerechoLaboral México. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

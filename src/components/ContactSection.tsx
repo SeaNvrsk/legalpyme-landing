@@ -46,10 +46,10 @@ export default function ContactSection() {
           className="text-center text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          Cuéntanos tu caso
+          Agenda tu orientación gratuita
         </h2>
         <p className="mt-6 text-center text-zinc-300">
-          Te evaluamos sin compromiso y te respondemos en breve.
+          Cuéntanos sobre tu empresa o tu situación legal. Respuesta rápida. Sin compromiso.
         </p>
 
         <form
@@ -105,7 +105,7 @@ export default function ContactSection() {
                 rows={4}
                 required
                 className={`${inputClass} resize-y`}
-                placeholder="Describe tu situación laboral: despido, falta de pago, liquidación, etc."
+                placeholder="Describe tu empresa o el tema legal que necesitas resolver."
               />
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full rounded-xl bg-blue-600 px-6 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 disabled:opacity-60"
+              className="w-full rounded-full bg-blue-600 px-6 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 disabled:opacity-60"
             >
               {status === "sending"
                 ? "Enviando…"

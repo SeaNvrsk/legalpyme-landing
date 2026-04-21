@@ -13,21 +13,20 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "DerechoLaboral.mx | Defiende tus derechos laborales en México",
+  title: "LegalPyme.mx | Asesoría legal y fiscal para empresas en México",
   description:
-    "Despidos injustificados, falta de pago, liquidaciones incorrectas. Especialistas en derecho laboral. Primera evaluación gratis. Te ayudamos a recibir lo que te corresponde por ley.",
+    "Cumplimiento laboral y fiscal, contratos, personal y prevención de demandas. Especialistas en derecho empresarial. Primera orientación gratuita.",
   keywords: [
-    "derecho laboral",
-    "despido injustificado",
-    "liquidación",
-    "abogado laboral México",
-    "demanda laboral",
-    "conciliación laboral",
+    "asesoría legal PyME",
+    "derecho empresarial México",
+    "contratos empresas",
+    "regularización fiscal",
+    "LegalPyme",
   ],
   openGraph: {
-    title: "DerechoLaboral.mx | Defiende tus derechos laborales",
+    title: "LegalPyme.mx | Protege tu negocio con asesoría legal",
     description:
-      "Orientación y acompañamiento legal en despidos, liquidaciones y conflictos laborales. Evaluación de caso gratis.",
+      "Estructura legal y fiscal, contratos, prevención de riesgos y resolución de conflictos para empresas en México.",
     locale: "es_MX",
     type: "website",
   },
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  metadataBase: new URL("https://derecholaboral.mx"),
+  metadataBase: new URL("https://legalpyme.mx"),
 };
 
 export const viewport = {
