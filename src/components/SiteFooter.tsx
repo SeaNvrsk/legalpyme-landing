@@ -20,17 +20,20 @@ export default function SiteFooter() {
     <footer id="ubicacion" className="scroll-mt-20 border-t border-white/10 py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-6">
         {/* Mapa izquierda, enlaces derecha — 2 columnas desde sm (640px); en pantallas muy estrechas, columna única */}
-        <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 sm:gap-x-6 md:gap-x-10 lg:gap-x-14">
-          <aside className="order-2 min-w-0 sm:order-1" aria-label="Ubicación">
-            <h2 className="text-lg font-semibold text-white">Ubicación</h2>
-            <p className="mt-1 text-sm text-zinc-500">
+        <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 sm:items-start sm:gap-x-6 md:gap-x-10 lg:gap-x-14">
+          <aside
+            className="order-2 flex min-w-0 flex-col sm:order-1"
+            aria-label="Ubicación"
+          >
+            <h2 className="text-lg font-semibold tracking-tight text-white">Ubicación</h2>
+            <p className="mt-1.5 text-sm leading-snug text-zinc-500">
               Ciudad de México, CDMX — orientación y citas previa coordinación.
             </p>
-            <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-inner">
+            <div className="mt-2 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-inner">
               <iframe
                 title="Mapa — LegalPyme.mx, Ciudad de México"
                 src={MAP_EMBED_SRC}
-                className="h-[240px] w-full border-0 sm:h-[280px] lg:h-[300px]"
+                className="h-[220px] w-full border-0 sm:h-[248px] lg:h-[260px]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
@@ -40,7 +43,7 @@ export default function SiteFooter() {
               href="https://www.google.com/maps/search/?api=1&query=Ciudad+de+M%C3%A9xico+CDMX"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 text-xs text-zinc-500 transition hover:text-zinc-300"
+              className="mt-2.5 text-xs text-zinc-500 transition hover:text-zinc-300"
             >
               Abrir en Google Maps →
             </a>
@@ -48,8 +51,8 @@ export default function SiteFooter() {
 
           <div className="order-1 min-w-0 sm:order-2 sm:border-l sm:border-white/10 sm:pl-6 md:pl-10 lg:pl-14 flex flex-col gap-5 text-sm text-zinc-500">
             <div>
-              <p className="font-medium text-zinc-400">Contacto</p>
-              <p className="mt-2 leading-relaxed">
+              <h3 className="text-lg font-semibold tracking-tight text-white">Contacto</h3>
+              <p className="mt-1.5 leading-relaxed">
                 WhatsApp · +52 55 1234 5678 · contacto@legalpyme.mx
               </p>
               <p className="mt-1 text-zinc-600">Ciudad de México, CDMX</p>
