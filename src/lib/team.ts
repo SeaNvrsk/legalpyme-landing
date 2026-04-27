@@ -19,6 +19,7 @@ export type TeamMember = {
   tags: string[];
   email: string;
   imageSrc: string;
+  imagePosition?: string;
   accent: TeamAccent;
 };
 
@@ -40,6 +41,7 @@ export const TEAM: TeamMember[] = [
     ],
     email: "msgarcia@iparkman.com.mx",
     imageSrc: "/manuel-garcia.jpg",
+    imagePosition: "50% 50%",
     accent: "blue",
   },
   {
@@ -59,6 +61,7 @@ export const TEAM: TeamMember[] = [
     ],
     email: "estefania.soberanes@iparkman.com.mx",
     imageSrc: "/estefania.jpg",
+    imagePosition: "50% 24%",
     accent: "emerald",
   },
   {
@@ -78,6 +81,7 @@ export const TEAM: TeamMember[] = [
     ],
     email: "salvador.corona@iparkman.com.mx",
     imageSrc: "/salvador.jpg",
+    imagePosition: "50% 24%",
     accent: "orange",
   },
   {
@@ -97,6 +101,7 @@ export const TEAM: TeamMember[] = [
     ],
     email: "veronica.martinez@iparkman.com.mx",
     imageSrc: "/veronica-martinez.jpg",
+    imagePosition: "50% 22%",
     accent: "violet",
   },
   {
@@ -111,6 +116,7 @@ export const TEAM: TeamMember[] = [
     tags: ["Datos personales", "Propiedad intelectual", "FinTech", "Arbitraje"],
     email: "beatriz.gastinel@iparkman.com.mx",
     imageSrc: "/beatriz.jpg",
+    imagePosition: "50% 22%",
     accent: "amber",
   },
 ];

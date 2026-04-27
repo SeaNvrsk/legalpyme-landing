@@ -165,6 +165,7 @@ export default function TeamCarousel() {
                           width={280}
                           height={280}
                           className="h-full w-full object-cover"
+                          style={{ objectPosition: member.imagePosition ?? "50% 50%" }}
                           sizes="140px"
                           priority={i === 0}
                         />
