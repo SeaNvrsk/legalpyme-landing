@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   Building2,
@@ -16,8 +15,9 @@ import {
   HelpCircle,
   ChevronRight,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ContactSection from "@/components/ContactSection";
+import HeroScrollBackground from "@/components/HeroScrollBackground";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
@@ -133,18 +133,7 @@ const FAQ = [
 ];
 
 export default function Home() {
-  const [scrollFade, setScrollFade] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const vh = typeof window !== "undefined" ? window.innerHeight : 800;
-      setScrollFade(Math.min(window.scrollY / vh, 1));
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-black pb-28 text-white selection:bg-blue-500/30">
@@ -178,13 +167,7 @@ export default function Home() {
       </nav>
 
       <section className="relative min-h-[100dvh] overflow-hidden">
-        <div
-          className="absolute inset-0 z-0 transition-opacity duration-150"
-          style={{ opacity: 1 - scrollFade }}
-          aria-hidden
-        >
-          <Image src="/image_3d84fb.jpg" alt="" fill className="object-cover" priority sizes="100vw" />
-        </div>
+        <HeroScrollBackground />
         <div className="absolute inset-0 z-0 bg-black/60" aria-hidden />
         <div className="relative z-10 flex min-h-[100dvh] flex-col items-center px-6 pb-24 pt-28 text-center sm:pt-32 lg:pb-32">
           <div className="min-h-[28vh] w-full flex-1 shrink-0" aria-hidden />
