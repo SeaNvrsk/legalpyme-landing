@@ -100,35 +100,35 @@ const CASOS = [
 const FAQ = [
   {
     q: "¿Cuánto cuesta trabajar con ustedes?",
-    a: "Depende del alcance. En la primera orientación gratuita te explicamos honorarios y opciones. Contáctanos para una cotización orientativa.",
+    a: "Manejamos esquemas de honorarios flexibles: por proyecto, por hora o un paquete mensual, según el acompañamiento que requiera su empresa. En la primera sesión, que no tiene costo, le entregamos una propuesta clara, en pesos y con alcance definido, a partir de su situación real. Sin sorpresas y sin letra chica.",
   },
   {
     q: "¿Qué pasa en la primera orientación gratuita?",
-    a: "Revisamos tu situación, identificamos riesgos y te decimos los siguientes pasos sin compromiso.",
+    a: "Revisamos su caso, ordenamos riesgos en orden de prioridad y le explicamos con lenguaje claro qué caminos hay. Al salir, tendrá el panorama de su empresa y los siguientes pasos posibles, sin presión para contratar.",
   },
   {
     q: "¿Cuánto tiempo toma regularizar mi empresa?",
-    a: "Varía según el atraso y la complejidad. Te damos un estimado realista tras el análisis inicial.",
+    a: "Depende de qué tan atrás venga (laboral, fiscal, societario) y de la complejidad; en muchos casos, entre tres y seis meses se ve un avance muy sólido. Sí le podemos asegurar esto: desde el primer mes empezamos a bajar el riesgo inmediato y a ordenar lo más urgente.",
   },
   {
-    q: "¿Qué pasa si encontramos irregularidades graves?",
-    a: "Te presentamos un plan priorizado para corregirlas y mitigar riesgos ante autoridades o terceros.",
+    q: "¿Qué pasa si revisamos mi empresa y encontramos irregularidades graves?",
+    a: "Cálmese: detectar un problema a tiempo es el primer paso para corregirlo. Le damos un diagnóstico ordenado, le decimos en qué orden conviene actuar (ante autoridad laboral, fiscal o con terceros) y caminamos con usted, para que no se quede solo con un folder de advertencias.",
   },
   {
-    q: "Ya tengo un problema legal activo, ¿pueden ayudarme?",
-    a: "Sí. Diseñamos una estrategia para defender tu posición o negociar la mejor salida posible.",
+    q: "Ya tengo un problema legal activo, ¿todavía pueden ayudarme?",
+    a: "Sí. Apoyamos en el esquema actual de justicia laboral, conciliación y, cuando aplica, litigio. Entre más pronto hable con nosotros, más margen de maniobra tenemos. No deje crecer el asunto: en México muchos problemas cuestan mucho más por reaccionar tarde que por asesorarse a tiempo.",
   },
   {
-    q: "¿Cómo sé si necesito un abogado o lo resuelvo solo?",
-    a: "Si hay dinero, contratos, socios o fiscalidad en juego, la asesoría especializada suele evitar costos mayores. La orientación inicial aclara si hace falta representación formal.",
+    q: "¿Cómo sé si realmente necesito un abogado?",
+    a: "Si ya pasó un conflicto y lo atendió solo, es común que haya dejado cabos sueltos o que le haya costado caro. La asesoría especializada suele salir más barata que un error en IMSS, finiquitos o cláusulas. La primera consulta no tiene costo: con eso le decimos si conviene acompañamiento formal o bastan acciones puntuales.",
   },
   {
-    q: "¿Trabajan solo con empresas grandes o también con PyMEs?",
-    a: "Trabajamos con negocios de todos los tamaños, desde emprendedores hasta empresas establecidas.",
+    q: "¿Trabajan solo con empresas grandes?",
+    a: "No. Trabajamos con microempresas, PyMEs y empresas ya establecidas. En un mercado como el de México, acompañar a un negocio desde que crece le ayuda a evitar multas, juicios o cruces con el SAT, que luego cuestan mucho más de corregir.",
   },
   {
-    q: "Llevo años sin toda la documentación en regla. ¿Es tarde para regularizarme?",
-    a: "No es tarde mientras operes. Cuanto antes regularices, menores multas y contingencias. Evaluamos tu caso y el camino más eficiente.",
+    q: "Llevo años operando sin toda la documentación en regla. ¿Es demasiado tarde?",
+    a: "Nunca es tarde para alinear, pero mientras pasa el tiempo, el riesgo se acumula. Lo clave es saber dónde está hoy: contratos, obligaciones fiscales, seguridad social y papeles de socios. A partir de ahí armamos un plan por etapas, con tiempos reales. Muchos de nuestros clientes empezaron en la misma situación y hoy operan con la carpeta bajo control.",
   },
 ];
 
