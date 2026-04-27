@@ -81,7 +81,7 @@ export const TEAM: TeamMember[] = [
     ],
     email: "salvador.corona@iparkman.com.mx",
     imageSrc: "/salvador.jpg",
-    imagePosition: "50% 24%",
+    imagePosition: "50% 30%",
     accent: "orange",
   },
   {
@@ -101,7 +101,7 @@ export const TEAM: TeamMember[] = [
     ],
     email: "veronica.martinez@iparkman.com.mx",
     imageSrc: "/veronica-martinez.jpg",
-    imagePosition: "50% 22%",
+    imagePosition: "50% 30%",
     accent: "violet",
   },
   {

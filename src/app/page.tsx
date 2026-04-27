@@ -14,8 +14,10 @@ import {
   Gavel,
   HelpCircle,
   ChevronRight,
+  Menu,
+  X,
 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import ContactSection from "@/components/ContactSection";
 import HeroScrollBackground from "@/components/HeroScrollBackground";
 import SiteFooter from "@/components/SiteFooter";
@@ -134,23 +136,78 @@ const FAQ = [
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const onTopNavClick = useCallback((targetId: string, label: string) => {
+    if (typeof window === "undefined") return;
+
+    const debug = window.location.search.includes("debugNav=1");
+    const t0 = performance.now();
+    const target = document.getElementById(targetId);
+
+    if (debug) {
+      console.info(`[TopNav] click "${label}" -> #${targetId}`, {
+        y: Math.round(window.scrollY),
+        t: Math.round(t0),
+        targetFound: Boolean(target),
+      });
+    }
+
+    if (!target) {
+      if (debug) console.warn(`[TopNav] target not found: #${targetId}`);
+      return;
+    }
+
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", `#${targetId}`);
+
+    if (debug) {
+      const probe = (ms: number) => {
+        window.setTimeout(() => {
+          console.info(`[TopNav] ${label} +${ms}ms`, {
+            y: Math.round(window.scrollY),
+            elapsed: Math.round(performance.now() - t0),
+          });
+        }, ms);
+      };
+      probe(150);
+      probe(400);
+      probe(900);
+    }
+  }, []);
+
+  const onMobileNavClick = useCallback(
+    (targetId: string, label: string) => {
+      setMobileMenuOpen(false);
+      onTopNavClick(targetId, label);
+    },
+    [onTopNavClick]
+  );
 
   return (
     <div className="min-h-screen bg-black pb-28 text-white selection:bg-blue-500/30">
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
           <Link href="/" className="shrink-0 text-lg font-bold tracking-tighter sm:text-xl">
             LegalPyme<span className="text-blue-500">.mx</span>
           </Link>
-          <div className="flex min-w-0 flex-1 items-center justify-end gap-1.5 sm:gap-2 md:gap-3">
+
+          <div className="hidden min-w-0 flex-1 items-center justify-end gap-2 md:flex md:gap-3">
             <a
               href="#ubicacion"
+              onClick={(e) => {
+                e.preventDefault();
+                onTopNavClick("ubicacion", "Dónde estamos");
+              }}
               className="rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10 sm:px-4 sm:text-sm"
             >
               Dónde estamos
             </a>
             <a
               href="#nosotros"
+              onClick={(e) => {
+                e.preventDefault();
+                onTopNavClick("nosotros", "Nosotros");
+              }}
               className="rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10 sm:px-4 sm:text-sm"
             >
               Nosotros
@@ -163,7 +220,46 @@ export default function Home() {
               <span className="min-[400px]:hidden">Evaluar gratis</span>
             </a>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-zinc-100 transition hover:bg-white/10 md:hidden"
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div id="mobile-nav" className="border-t border-white/10 px-4 pb-4 pt-3 md:hidden sm:px-6">
+            <div className="flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => onMobileNavClick("ubicacion", "Dónde estamos")}
+                className="rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10"
+              >
+                Dónde estamos
+              </button>
+              <button
+                type="button"
+                onClick={() => onMobileNavClick("nosotros", "Nosotros")}
+                className="rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10"
+              >
+                Nosotros
+              </button>
+              <a
+                href="#contacto"
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-xl bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-blue-700"
+              >
+                Evaluar mi caso gratis
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section className="relative min-h-[100dvh] overflow-hidden">
