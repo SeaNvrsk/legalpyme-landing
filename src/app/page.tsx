@@ -185,6 +185,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black pb-28 text-white selection:bg-blue-500/30">
+      <button
+        type="button"
+        aria-label="Cerrar menú"
+        onClick={() => setMobileMenuOpen(false)}
+        className={`fixed inset-0 z-40 bg-black/55 transition-opacity duration-250 md:hidden ${
+          mobileMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
           <Link href="/" className="shrink-0 text-lg font-bold tracking-tighter sm:text-xl">
@@ -233,33 +242,51 @@ export default function Home() {
           </button>
         </div>
 
-        {mobileMenuOpen && (
-          <div id="mobile-nav" className="border-t border-white/10 px-4 pb-4 pt-3 md:hidden sm:px-6">
-            <div className="flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => onMobileNavClick("ubicacion", "Dónde estamos")}
-                className="rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10"
-              >
-                Dónde estamos
-              </button>
-              <button
-                type="button"
-                onClick={() => onMobileNavClick("nosotros", "Nosotros")}
-                className="rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10"
-              >
-                Nosotros
-              </button>
-              <a
-                href="#contacto"
-                onClick={() => setMobileMenuOpen(false)}
-                className="rounded-xl bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-blue-700"
-              >
-                Evaluar mi caso gratis
-              </a>
-            </div>
+        <div
+          id="mobile-nav"
+          className={`overflow-hidden border-t border-white/10 px-4 sm:px-6 md:hidden ${
+            mobileMenuOpen ? "max-h-64 pb-4 pt-3" : "max-h-0 pb-0 pt-0"
+          } transition-[max-height,padding] duration-300 ease-out`}
+        >
+          <div className="flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={() => onMobileNavClick("ubicacion", "Dónde estamos")}
+              className={`rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition-all duration-300 hover:border-white/30 hover:bg-white/10 ${
+                mobileMenuOpen
+                  ? "translate-y-0 opacity-100"
+                  : "pointer-events-none -translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? "40ms" : "0ms" }}
+            >
+              Dónde estamos
+            </button>
+            <button
+              type="button"
+              onClick={() => onMobileNavClick("nosotros", "Nosotros")}
+              className={`rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition-all duration-300 hover:border-white/30 hover:bg-white/10 ${
+                mobileMenuOpen
+                  ? "translate-y-0 opacity-100"
+                  : "pointer-events-none -translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? "110ms" : "0ms" }}
+            >
+              Nosotros
+            </button>
+            <a
+              href="#contacto"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`rounded-xl bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-blue-700 ${
+                mobileMenuOpen
+                  ? "translate-y-0 opacity-100"
+                  : "pointer-events-none -translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? "180ms" : "0ms" }}
+            >
+              Evaluar mi caso gratis
+            </a>
           </div>
-        )}
+        </div>
       </nav>
 
       <section className="relative min-h-[100dvh] overflow-hidden">
