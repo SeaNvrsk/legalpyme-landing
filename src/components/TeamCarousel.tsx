@@ -7,7 +7,7 @@ import { TEAM, type TeamAccent } from "@/lib/team";
 
 const TRANSITION_MS = 650;
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const AUTOPLAY_MS = 10000;
+const AUTOPLAY_MS = 3000;
 
 const ACCENT_RING: Record<TeamAccent, string> = {
   blue: "ring-blue-500/45",
