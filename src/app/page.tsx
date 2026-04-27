@@ -100,35 +100,35 @@ const CASOS = [
 const FAQ = [
   {
     q: "¿Cuánto cuesta trabajar con ustedes?",
-    a: "Manejamos esquemas de honorarios flexibles: por proyecto, por hora o un paquete mensual, según el acompañamiento que requiera su empresa. En la primera sesión, que no tiene costo, le entregamos una propuesta clara, en pesos y con alcance definido, a partir de su situación real. Sin sorpresas y sin letra chica.",
+    a: "Trabajamos con esquemas flexibles: por proyecto, por hora o con una tarifa mensual fija según el nivel de acompañamiento que necesite su empresa. En la primera consulta —que es gratuita— le presentamos una propuesta concreta basada en su situación real. No hay sorpresas ni letras pequeñas.",
   },
   {
     q: "¿Qué pasa en la primera orientación gratuita?",
-    a: "Revisamos su caso, ordenamos riesgos en orden de prioridad y le explicamos con lenguaje claro qué caminos hay. Al salir, tendrá el panorama de su empresa y los siguientes pasos posibles, sin presión para contratar.",
+    a: "Escuchamos su situación, identificamos los riesgos más urgentes y le explicamos con claridad qué opciones tiene. Al terminar, sabrá exactamente en qué situación se encuentra su empresa y cuáles son los siguientes pasos, sin compromiso de contratación.",
   },
   {
     q: "¿Cuánto tiempo toma regularizar mi empresa?",
-    a: "Depende de qué tan atrás venga (laboral, fiscal, societario) y de la complejidad; en muchos casos, entre tres y seis meses se ve un avance muy sólido. Sí le podemos asegurar esto: desde el primer mes empezamos a bajar el riesgo inmediato y a ordenar lo más urgente.",
+    a: "Depende del punto de partida, pero en la mayoría de los casos el proceso toma entre tres y seis meses. Lo que sí podemos garantizar es que, desde el primer mes, su empresa ya estará en una posición más sólida y con los riesgos más críticos bajo control.",
   },
   {
     q: "¿Qué pasa si revisamos mi empresa y encontramos irregularidades graves?",
-    a: "Cálmese: detectar un problema a tiempo es el primer paso para corregirlo. Le damos un diagnóstico ordenado, le decimos en qué orden conviene actuar (ante autoridad laboral, fiscal o con terceros) y caminamos con usted, para que no se quede solo con un folder de advertencias.",
+    a: "No entre en pánico: encontrar un problema es el primer paso para resolverlo. Hacemos una evaluación de riesgos, le explicamos el panorama completo y priorizamos las acciones según urgencia e impacto. Nuestro trabajo es acompañarle en ese proceso, no dejarlo solo frente a un diagnóstico.",
   },
   {
     q: "Ya tengo un problema legal activo, ¿todavía pueden ayudarme?",
-    a: "Sí. Apoyamos en el esquema actual de justicia laboral, conciliación y, cuando aplica, litigio. Entre más pronto hable con nosotros, más margen de maniobra tenemos. No deje crecer el asunto: en México muchos problemas cuestan mucho más por reaccionar tarde que por asesorarse a tiempo.",
+    a: "Sí. Contamos con un área de litigio laboral activa y experimentada. Cuanto antes nos contacte, más opciones tenemos para actuar. No espere a que el problema escale.",
   },
   {
     q: "¿Cómo sé si realmente necesito un abogado?",
-    a: "Si ya pasó un conflicto y lo atendió solo, es común que haya dejado cabos sueltos o que le haya costado caro. La asesoría especializada suele salir más barata que un error en IMSS, finiquitos o cláusulas. La primera consulta no tiene costo: con eso le decimos si conviene acompañamiento formal o bastan acciones puntuales.",
+    a: "Una señal clara: si ya tuvo un problema y lo resolvió usted solo, probablemente pagó más de lo necesario o dejó un precedente que puede repetirse. Los conflictos laborales mal gestionados cuestan mucho más que la asesoría que los habría evitado. La consulta inicial es gratuita: en un día le decimos si realmente necesita apoyo o no.",
   },
   {
     q: "¿Trabajan solo con empresas grandes?",
-    a: "No. Trabajamos con microempresas, PyMEs y empresas ya establecidas. En un mercado como el de México, acompañar a un negocio desde que crece le ayuda a evitar multas, juicios o cruces con el SAT, que luego cuestan mucho más de corregir.",
+    a: "No. Trabajamos con empresas de todos los tamaños, incluyendo negocios pequeños y emprendimientos en crecimiento. De hecho, acompañar a una empresa desde sus primeras etapas es una de las formas más efectivas de evitar problemas costosos más adelante.",
   },
   {
     q: "Llevo años operando sin toda la documentación en regla. ¿Es demasiado tarde?",
-    a: "Nunca es tarde para alinear, pero mientras pasa el tiempo, el riesgo se acumula. Lo clave es saber dónde está hoy: contratos, obligaciones fiscales, seguridad social y papeles de socios. A partir de ahí armamos un plan por etapas, con tiempos reales. Muchos de nuestros clientes empezaron en la misma situación y hoy operan con la carpeta bajo control.",
+    a: "Nunca es tarde, pero sí hay un costo de esperar: cada mes que pasa sin regularizarse es un mes de exposición innecesaria. Lo importante es saber exactamente en qué situación está su empresa hoy. A partir de ahí, trazamos un plan realista. Muchos de nuestros clientes llegaron en situaciones similares y hoy operan con total tranquilidad.",
   },
 ];
 
