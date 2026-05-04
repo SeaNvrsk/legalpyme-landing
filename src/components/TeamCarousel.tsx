@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Mail } from "lucide-react";
 import { TEAM, type TeamAccent } from "@/lib/team";
 
 const TRANSITION_MS = 650;
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const AUTOPLAY_MS = 5000;
+/** Two cards side-by-side from this breakpoint up */
+const TWO_COL_MEDIA = "(min-width: 1024px)";
 
 const ACCENT_RING: Record<TeamAccent, string> = {
   blue: "ring-blue-500/45",
@@ -35,12 +37,18 @@ const ACCENT_STAT: Record<TeamAccent, string> = {
 
 export default function TeamCarousel() {
   const [index, setIndex] = useState(0);
+  const [perView, setPerView] = useState(1);
+  const [viewportW, setViewportW] = useState(0);
   const [pauseHover, setPauseHover] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [autoplayEpoch, setAutoplayEpoch] = useState(0);
   const touchStartX = useRef<number | null>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
 
   const n = TEAM.length;
+  /** On desktop request 2 columns, but never exceed member count (e.g. 1 person → full width). */
+  const activePerView = Math.max(1, Math.min(perView, n));
+  const maxIndex = Math.max(0, n - activePerView);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -49,6 +57,30 @@ export default function TeamCarousel() {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia(TWO_COL_MEDIA);
+    const sync = () => setPerView(mq.matches ? 2 : 1);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useLayoutEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setViewportW(el.clientWidth));
+    ro.observe(el);
+    setViewportW(el.clientWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    setIndex((i) => Math.min(Math.max(0, i), maxIndex));
+  }, [maxIndex]);
+
+  const slideWidth = viewportW > 0 ? viewportW / activePerView : 0;
+  const translateX = index * slideWidth;
 
   const restartAutoplayTimer = useCallback(() => {
     setAutoplayEpoch((x) => x + 1);
@@ -59,20 +91,20 @@ export default function TeamCarousel() {
       restartAutoplayTimer();
       setIndex((i) => {
         const next = i + dir;
-        if (next < 0) return n - 1;
-        if (next >= n) return 0;
+        if (next < 0) return maxIndex;
+        if (next > maxIndex) return 0;
         return next;
       });
     },
-    [n, restartAutoplayTimer]
+    [maxIndex, restartAutoplayTimer]
   );
 
   const goTo = useCallback(
     (i: number) => {
       restartAutoplayTimer();
-      setIndex(((i % n) + n) % n);
+      setIndex(Math.min(Math.max(0, i), maxIndex));
     },
-    [n, restartAutoplayTimer]
+    [maxIndex, restartAutoplayTimer]
   );
 
   useEffect(() => {
@@ -80,10 +112,13 @@ export default function TeamCarousel() {
     const ms = reducedMotion ? Math.round(AUTOPLAY_MS * 1.75) : AUTOPLAY_MS;
     const id = window.setInterval(() => {
       if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
-      setIndex((i) => (i + 1) % n);
+      setIndex((i) => {
+        if (maxIndex <= 0) return 0;
+        return i >= maxIndex ? 0 : i + 1;
+      });
     }, ms);
     return () => window.clearInterval(id);
-  }, [reducedMotion, pauseHover, autoplayEpoch, n]);
+  }, [reducedMotion, pauseHover, autoplayEpoch, maxIndex]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -99,7 +134,7 @@ export default function TeamCarousel() {
       id="nosotros"
       className="scroll-mt-20 border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-neutral-900 lg:py-28"
     >
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="mx-auto max-w-3xl px-6 lg:max-w-6xl">
         <h2 className="text-center text-3xl font-bold sm:text-4xl">Sobre el equipo</h2>
         <p className="mx-auto mt-3 max-w-lg text-center text-sm text-neutral-600">
           Abogados con experiencia en PyMEs, negocio y cumplimiento.
@@ -113,7 +148,7 @@ export default function TeamCarousel() {
           <button
             type="button"
             onClick={() => go(-1)}
-            className="absolute left-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-neutral-300 bg-white/95 p-2.5 text-neutral-900 shadow-lg backdrop-blur-md transition-colors hover:bg-white md:-left-2 lg:-left-5"
+            className="absolute left-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-neutral-300 bg-white/95 p-2.5 text-neutral-900 shadow-lg backdrop-blur-md transition-colors hover:bg-white md:-left-2 lg:-left-4"
             aria-label="Anterior"
           >
             <ChevronLeft className="h-6 w-6" />
@@ -121,13 +156,14 @@ export default function TeamCarousel() {
           <button
             type="button"
             onClick={() => go(1)}
-            className="absolute right-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-neutral-300 bg-white/95 p-2.5 text-neutral-900 shadow-lg backdrop-blur-md transition-colors hover:bg-white md:-right-2 lg:-right-5"
+            className="absolute right-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-neutral-300 bg-white/95 p-2.5 text-neutral-900 shadow-lg backdrop-blur-md transition-colors hover:bg-white md:-right-2 lg:-right-4"
             aria-label="Siguiente"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
 
           <div
+            ref={viewportRef}
             className="touch-pan-y overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-[0_24px_80px_-20px_rgba(0,0,0,0.12)]"
             onTouchStart={(e) => {
               touchStartX.current = e.touches[0].clientX;
@@ -146,7 +182,8 @@ export default function TeamCarousel() {
             <div
               className="flex"
               style={{
-                transform: `translate3d(-${index * 100}%, 0, 0)`,
+                transform:
+                  slideWidth > 0 ? `translate3d(-${translateX}px, 0, 0)` : undefined,
                 transition: `transform ${TRANSITION_MS}ms ${EASE}`,
                 backfaceVisibility: "hidden",
               }}
@@ -154,13 +191,16 @@ export default function TeamCarousel() {
               {TEAM.map((member, i) => (
                 <article
                   key={member.id}
-                  className="w-full shrink-0 px-4 py-6 sm:px-8 sm:py-8"
-                  aria-hidden={index !== i}
+                  className="shrink-0 px-3 py-6 sm:px-6 sm:py-8 lg:px-5 lg:py-8"
+                  style={{
+                    width: slideWidth > 0 ? `${slideWidth}px` : `${100 / activePerView}%`,
+                  }}
+                  aria-hidden={i < index || i >= index + activePerView}
                 >
-                  <div className="mx-auto max-w-xl">
+                  <div className="mx-auto max-w-xl lg:max-w-none">
                     <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:gap-6">
                       <div
-                        className={`relative h-[140px] w-[140px] shrink-0 overflow-hidden rounded-full ring-4 ring-offset-4 ring-offset-[var(--lp-band-bg)] ${ACCENT_RING[member.accent]}`}
+                        className={`relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-full ring-4 ring-offset-4 ring-offset-white sm:h-[140px] sm:w-[140px] ${ACCENT_RING[member.accent]}`}
                       >
                         <Image
                           src={member.imageSrc}
@@ -169,7 +209,7 @@ export default function TeamCarousel() {
                           height={280}
                           className="h-full w-full object-cover"
                           style={{ objectPosition: member.imagePosition ?? "50% 50%" }}
-                          sizes="140px"
+                          sizes="(max-width: 1024px) 120px, 140px"
                           priority={i === 0}
                         />
                       </div>
@@ -227,9 +267,9 @@ export default function TeamCarousel() {
           </div>
 
           <div className="mt-8 flex flex-wrap justify-center gap-2">
-            {TEAM.map((m, i) => (
+            {Array.from({ length: maxIndex + 1 }, (_, i) => (
               <button
-                key={m.id}
+                key={i}
                 type="button"
                 onClick={() => goTo(i)}
                 className={`h-2.5 rounded-full transition-all duration-500 ease-out ${
@@ -237,7 +277,7 @@ export default function TeamCarousel() {
                     ? "w-8 bg-neutral-900"
                     : "w-2.5 bg-neutral-900/30 hover:bg-neutral-900/50"
                 }`}
-                aria-label={`Perfil ${i + 1} de ${n}: ${m.name}`}
+                aria-label={`Posición ${i + 1} de ${maxIndex + 1}`}
                 aria-current={i === index}
               />
             ))}
