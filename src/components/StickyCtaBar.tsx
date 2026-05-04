@@ -10,9 +10,9 @@ const WA =
 
 export default function StickyCtaBar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-black/85 backdrop-blur-lg safe-area-pb">
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-neutral-200 bg-white/95 backdrop-blur-lg safe-area-pb">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 py-3 sm:flex-row sm:justify-center sm:gap-6">
-        <p className="text-center text-xs text-zinc-500 sm:text-left">
+        <p className="text-center text-xs text-neutral-500 sm:text-left">
           Respuesta rápida. Sin compromiso.
         </p>
         <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center sm:justify-center sm:gap-3">
@@ -28,7 +28,7 @@ export default function StickyCtaBar() {
           </a>
           <a
             href="#contacto"
-            className="flex min-h-[46px] items-center justify-center gap-1 whitespace-nowrap rounded-full border border-white/20 bg-white/5 px-3 py-2.5 text-[13px] font-semibold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] transition hover:bg-white/10 sm:min-h-[44px] sm:px-5 sm:text-sm"
+            className="flex min-h-[46px] items-center justify-center gap-1 whitespace-nowrap rounded-full border-2 border-neutral-950 bg-white px-3 py-2.5 text-[13px] font-semibold text-neutral-950 transition hover:bg-neutral-950 hover:text-white sm:min-h-[44px] sm:px-5 sm:text-sm"
           >
             <span className="hidden min-[420px]:inline">Evaluar mi caso gratis</span>
             <span className="min-[420px]:hidden">Evaluar gratis</span>

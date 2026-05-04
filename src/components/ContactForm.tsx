@@ -8,29 +8,24 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending");
-    // TODO: подключить отправку (API, email, etc.)
     await new Promise((r) => setTimeout(r, 800));
     setStatus("sent");
   };
 
+  const inputClass =
+    "w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-neutral-950 placeholder-neutral-400 outline-none transition focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/15";
+
   return (
-    <section id="contacto" className="scroll-mt-20 border-t border-white/10 bg-black py-20 lg:py-28">
+    <section id="contacto" className="scroll-mt-20 border-t border-neutral-200 bg-white py-20 lg:py-28">
       <div className="mx-auto max-w-2xl px-6">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Contacto
-          </h2>
-          <p className="mt-4 text-zinc-400">
-            Cuéntanos tu proyecto y te respondemos a la brevedad.
-          </p>
+          <h2 className="text-3xl font-bold tracking-tight text-neutral-950 sm:text-4xl">Contacto</h2>
+          <p className="mt-4 text-neutral-600">Cuéntanos tu proyecto y te respondemos a la brevedad.</p>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6 sm:p-8"
-        >
+        <form onSubmit={handleSubmit} className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8">
           <div className="space-y-6">
             <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-medium text-zinc-300">
+              <label htmlFor="name" className="mb-2 block text-sm font-medium text-neutral-700">
                 Nombre
               </label>
               <input
@@ -38,24 +33,24 @@ export default function ContactForm() {
                 name="name"
                 type="text"
                 required
-                className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder-zinc-500 outline-none transition focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
+                className={inputClass}
                 placeholder="Tu nombre"
               />
             </div>
             <div>
-              <label htmlFor="company" className="mb-2 block text-sm font-medium text-zinc-300">
+              <label htmlFor="company" className="mb-2 block text-sm font-medium text-neutral-700">
                 Nombre de la empresa
               </label>
               <input
                 id="company"
                 name="company"
                 type="text"
-                className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder-zinc-500 outline-none transition focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
+                className={inputClass}
                 placeholder="Empresa o PyME"
               />
             </div>
             <div>
-              <label htmlFor="phone" className="mb-2 block text-sm font-medium text-zinc-300">
+              <label htmlFor="phone" className="mb-2 block text-sm font-medium text-neutral-700">
                 WhatsApp / Teléfono
               </label>
               <input
@@ -63,12 +58,12 @@ export default function ContactForm() {
                 name="phone"
                 type="tel"
                 required
-                className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder-zinc-500 outline-none transition focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
+                className={inputClass}
                 placeholder="+52 55 1234 5678"
               />
             </div>
             <div>
-              <label htmlFor="message" className="mb-2 block text-sm font-medium text-zinc-300">
+              <label htmlFor="message" className="mb-2 block text-sm font-medium text-neutral-700">
                 Descripción del proyecto o consulta
               </label>
               <textarea
@@ -76,7 +71,7 @@ export default function ContactForm() {
                 name="message"
                 rows={4}
                 required
-                className="w-full resize-y rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder-zinc-500 outline-none transition focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20"
+                className={`${inputClass} resize-y`}
                 placeholder="Describe brevemente en qué necesitas asesoría legal o fiscal."
               />
             </div>
@@ -85,7 +80,7 @@ export default function ContactForm() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full rounded-full bg-blue-600 px-6 py-4 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+              className="w-full rounded-full bg-neutral-950 px-6 py-4 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-60"
             >
               {status === "sending"
                 ? "Enviando…"
@@ -94,9 +89,7 @@ export default function ContactForm() {
                   : "Enviar consulta"}
             </button>
             {status === "error" && (
-              <p className="mt-3 text-center text-sm text-red-400">
-                No se pudo enviar. Intenta de nuevo.
-              </p>
+              <p className="mt-3 text-center text-sm text-red-600">No se pudo enviar. Intenta de nuevo.</p>
             )}
           </div>
         </form>

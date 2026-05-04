@@ -18,8 +18,8 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useState } from "react";
+import BrandLogo from "@/components/BrandLogo";
 import ContactSection from "@/components/ContactSection";
-import HeroScrollBackground from "@/components/HeroScrollBackground";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
@@ -184,20 +184,23 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-black pb-28 text-white selection:bg-blue-500/30">
+    <div className="min-h-screen bg-white pb-28 text-neutral-950 selection:bg-neutral-200">
       <button
         type="button"
         aria-label="Cerrar menú"
         onClick={() => setMobileMenuOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/55 transition-opacity duration-250 md:hidden ${
+        className={`fixed inset-0 z-40 bg-neutral-950/30 transition-opacity duration-250 md:hidden ${
           mobileMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
 
-      <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-md">
+      <nav className="fixed top-0 z-50 w-full border-b border-neutral-200 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-          <Link href="/" className="shrink-0 text-lg font-bold tracking-tighter sm:text-xl">
-            LegalPyme<span className="text-blue-500">.mx</span>
+          <Link href="/" className="flex shrink-0 items-center gap-2.5 sm:gap-3">
+            <BrandLogo size="md" variant="onLight" />
+            <span className="text-lg font-bold tracking-tight text-neutral-950 sm:text-xl">
+              LegalPyme<span className="text-neutral-500">.mx</span>
+            </span>
           </Link>
 
           <div className="hidden min-w-0 flex-1 items-center justify-end gap-2 md:flex md:gap-3">
@@ -207,7 +210,7 @@ export default function Home() {
                 e.preventDefault();
                 onTopNavClick("ubicacion", "Dónde estamos");
               }}
-              className="rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10 sm:px-4 sm:text-sm"
+              className="rounded-full border border-neutral-300 bg-white px-2.5 py-1.5 text-[11px] font-medium text-neutral-800 transition hover:border-neutral-400 hover:bg-neutral-50 sm:px-4 sm:text-sm"
             >
               Dónde estamos
             </a>
@@ -217,13 +220,13 @@ export default function Home() {
                 e.preventDefault();
                 onTopNavClick("nosotros", "Nosotros");
               }}
-              className="rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition hover:border-white/30 hover:bg-white/10 sm:px-4 sm:text-sm"
+              className="rounded-full border border-neutral-300 bg-white px-2.5 py-1.5 text-[11px] font-medium text-neutral-800 transition hover:border-neutral-400 hover:bg-neutral-50 sm:px-4 sm:text-sm"
             >
               Nosotros
             </a>
             <a
               href="#contacto"
-              className="shrink-0 rounded-full bg-blue-600 px-3 py-1.5 text-[11px] font-semibold transition hover:bg-blue-700 sm:px-5 sm:py-2 sm:text-sm"
+              className="shrink-0 rounded-full bg-neutral-950 px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-neutral-800 sm:px-5 sm:py-2 sm:text-sm"
             >
               <span className="hidden min-[400px]:inline">Evaluar mi caso gratis</span>
               <span className="min-[400px]:hidden">Evaluar gratis</span>
@@ -233,7 +236,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-zinc-100 transition hover:bg-white/10 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-900 transition hover:bg-neutral-50 md:hidden"
             aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav"
@@ -244,7 +247,7 @@ export default function Home() {
 
         <div
           id="mobile-nav"
-          className={`overflow-hidden border-t border-white/10 px-4 sm:px-6 md:hidden ${
+          className={`overflow-hidden border-t border-neutral-200 bg-white px-4 sm:px-6 md:hidden ${
             mobileMenuOpen ? "max-h-64 pb-4 pt-3" : "max-h-0 pb-0 pt-0"
           } transition-[max-height,padding] duration-300 ease-out`}
         >
@@ -252,7 +255,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => onMobileNavClick("ubicacion", "Dónde estamos")}
-              className={`rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition-all duration-300 hover:border-white/30 hover:bg-white/10 ${
+              className={`rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-left text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-neutral-100 ${
                 mobileMenuOpen
                   ? "translate-y-0 opacity-100"
                   : "pointer-events-none -translate-y-2 opacity-0"
@@ -264,7 +267,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => onMobileNavClick("nosotros", "Nosotros")}
-              className={`rounded-xl border border-white/20 bg-white/5 px-4 py-2.5 text-left text-sm font-medium text-zinc-200 transition-all duration-300 hover:border-white/30 hover:bg-white/10 ${
+              className={`rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-left text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-neutral-100 ${
                 mobileMenuOpen
                   ? "translate-y-0 opacity-100"
                   : "pointer-events-none -translate-y-2 opacity-0"
@@ -276,7 +279,7 @@ export default function Home() {
             <a
               href="#contacto"
               onClick={() => setMobileMenuOpen(false)}
-              className={`rounded-xl bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-blue-700 ${
+              className={`rounded-xl bg-neutral-950 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800 ${
                 mobileMenuOpen
                   ? "translate-y-0 opacity-100"
                   : "pointer-events-none -translate-y-2 opacity-0"
@@ -289,22 +292,26 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className="relative min-h-[100dvh] overflow-hidden">
-        <HeroScrollBackground />
-        <div className="absolute inset-0 z-0 bg-black/60" aria-hidden />
+      <section className="relative min-h-[100dvh] overflow-hidden bg-white">
         <div className="relative z-10 flex min-h-[100dvh] flex-col items-center px-6 pb-24 pt-28 text-center sm:pt-32 lg:pb-32">
-          <div className="min-h-[28vh] w-full flex-1 shrink-0" aria-hidden />
+          <div className="min-h-[20vh] w-full flex-1 shrink-0 sm:min-h-[24vh]" aria-hidden />
           <div className="w-full max-w-4xl shrink-0">
-            <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <p className="mb-4 flex justify-center">
+              <BrandLogo size="lg" variant="onLight" decorative />
+            </p>
+            <h1
+              className="max-w-4xl text-4xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
+            >
               Evita problemas laborales que pueden costarte caro
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-white/95 sm:text-2xl">
+            <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-neutral-800 sm:text-2xl">
               Te ayudamos a proteger tu negocio desde hoy.
             </p>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-300">
+            <p className="mx-auto mt-4 max-w-2xl text-center text-neutral-600">
               Cumplimiento laboral y fiscal, contratos, manejo de personal y prevención de demandas. Te ayudamos a tomar decisiones seguras y mantener tu negocio en orden.
             </p>
-            <p className="mx-auto mt-3 text-sm text-zinc-500">Respuesta rápida. Sin compromiso.</p>
+            <p className="mx-auto mt-3 text-sm text-neutral-500">Respuesta rápida. Sin compromiso.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
                 href="https://wa.me/5215512345678?text=Hola%2C%20necesito%20orientaci%C3%B3n%20legal%20para%20mi%20empresa%20(LegalPyme.mx)"
@@ -316,7 +323,7 @@ export default function Home() {
               </a>
               <a
                 href="#contacto"
-                className="flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 font-bold transition hover:bg-white/5"
+                className="flex items-center gap-2 rounded-full border-2 border-neutral-950 bg-white px-8 py-4 font-bold text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
               >
                 Evaluar mi caso gratis <ChevronRight className="h-5 w-5" />
               </a>
@@ -325,24 +332,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-zinc-950/80 py-16 lg:py-20">
+      <section className="border-t border-white/10 bg-[var(--lp-graphite)] py-16 text-white lg:py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <p className="text-sm font-semibold text-blue-400">Especialistas</p>
-              <p className="mt-1 text-zinc-300">en derecho empresarial</p>
+              <p className="text-sm font-semibold text-white">Especialistas</p>
+              <p className="mt-1 text-white/75">en derecho empresarial</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-blue-400">Experiencia real</p>
-              <p className="mt-1 text-zinc-300">en operación y gestión de negocios</p>
+              <p className="text-sm font-semibold text-white">Experiencia real</p>
+              <p className="mt-1 text-white/75">en operación y gestión de negocios</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-blue-400">+50,000</p>
-              <p className="mt-1 text-zinc-300">casos asesorados</p>
+              <p className="text-sm font-semibold text-white">+50,000</p>
+              <p className="mt-1 text-white/75">casos asesorados</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-blue-400">Primera orientación</p>
-              <p className="mt-1 text-zinc-300">gratuita</p>
+              <p className="text-sm font-semibold text-white">Primera orientación</p>
+              <p className="mt-1 text-white/75">gratuita</p>
             </div>
           </div>
         </div>
@@ -350,18 +357,18 @@ export default function Home() {
 
       <section id="problemas" className="scroll-mt-20 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">¿Te está pasando esto?</h2>
-          <p className="mt-4 text-center text-zinc-400">Identificamos riesgos antes de que escalen.</p>
+          <h2 className="text-center text-3xl font-bold text-neutral-950 sm:text-4xl">¿Te está pasando esto?</h2>
+          <p className="mt-4 text-center text-neutral-600">Identificamos riesgos antes de que escalen.</p>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PROBLEMAS.map((item, i) => {
               const Icon = item.icon;
               return (
                 <div
                   key={i}
-                  className="flex items-start gap-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-6 transition hover:border-blue-500/40"
+                  className="flex items-start gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-400"
                 >
-                  <Icon className="h-6 w-6 shrink-0 text-blue-500" />
-                  <span className="text-left text-white">{item.text}</span>
+                  <Icon className="h-6 w-6 shrink-0 text-neutral-950" />
+                  <span className="text-left text-neutral-900">{item.text}</span>
                 </div>
               );
             })}
@@ -369,7 +376,7 @@ export default function Home() {
           <p className="mt-10 text-center">
             <a
               href="#contacto"
-              className="rounded-full bg-blue-600 px-8 py-4 font-semibold text-white transition hover:bg-blue-700"
+              className="inline-block rounded-full bg-neutral-950 px-8 py-4 font-semibold text-white transition hover:bg-neutral-800"
             >
               Revisar mi empresa
             </a>
@@ -377,83 +384,86 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="servicios" className="scroll-mt-20 border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
+      <section
+        id="servicios"
+        className="scroll-mt-20 border-t border-white/10 bg-[var(--lp-graphite)] py-20 text-white lg:py-28"
+      >
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">Qué podemos hacer por ti</h2>
-          <p className="mt-4 text-center text-zinc-400">Servicios legales y fiscales para empresas.</p>
+          <p className="mt-4 text-center text-white/75">Servicios legales y fiscales para empresas.</p>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICIOS.map((s, i) => (
               <div
                 key={i}
-                className="rounded-2xl border border-white/10 bg-black/40 p-6 transition hover:border-blue-500/40"
+                className="rounded-2xl border border-white/15 bg-white/5 p-6 transition hover:border-white/30"
               >
-                <s.icon className="h-10 w-10 text-blue-500" />
-                <h3 className="mt-4 text-lg font-bold text-white">{s.title}</h3>
-                <p className="mt-2 text-sm text-zinc-400">{s.description}</p>
+                <s.icon className="h-10 w-10 text-white" />
+                <h3 className="mt-4 text-lg font-bold">{s.title}</h3>
+                <p className="mt-2 text-sm text-white/70">{s.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-20 lg:py-28">
+      <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">¿Cómo funciona?</h2>
+          <h2 className="text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
           <div className="mt-12 space-y-8">
             <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">1</span>
-              <p className="text-xl font-semibold text-white">Analizamos tu situación</p>
-              <p className="text-zinc-400">Nos cuentas cómo funciona tu negocio o qué problema tienes.</p>
+              <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">1</span>
+              <p className="text-xl font-semibold text-neutral-950">Analizamos tu situación</p>
+              <p className="text-neutral-600">Nos cuentas cómo funciona tu negocio o qué problema tienes.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">2</span>
-              <p className="text-xl font-semibold text-white">Definimos la mejor estrategia</p>
-              <p className="text-zinc-400">Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.</p>
+              <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">2</span>
+              <p className="text-xl font-semibold text-neutral-950">Definimos la mejor estrategia</p>
+              <p className="text-neutral-600">Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.</p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-blue-600 px-4 py-1 text-sm font-bold">3</span>
-              <p className="text-xl font-semibold text-white">Te acompañamos en la ejecución</p>
-              <p className="text-zinc-400">Implementamos contigo las soluciones necesarias.</p>
+              <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">3</span>
+              <p className="text-xl font-semibold text-neutral-950">Te acompañamos en la ejecución</p>
+              <p className="text-neutral-600">Implementamos contigo las soluciones necesarias.</p>
             </div>
           </div>
-          <p className="mt-10 rounded-xl border border-blue-500/30 bg-blue-500/10 px-6 py-4 text-blue-200">
+          <p className="mt-10 rounded-xl border border-neutral-300 bg-neutral-100 px-6 py-4 text-neutral-800">
             Sin procesos complicados. Sin lenguaje legal innecesario.
           </p>
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
+      <section className="border-t border-white/10 bg-[var(--lp-graphite)] py-20 text-white lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <h2 className="text-center text-3xl font-bold sm:text-4xl">Casos reales</h2>
-          <p className="mt-4 text-center text-zinc-400">Ejemplos de cómo hemos ayudado a empresas.</p>
+          <p className="mt-4 text-center text-white/75">Ejemplos de cómo hemos ayudado a empresas.</p>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {CASOS.map((c, i) => (
-              <div key={i} className="rounded-2xl border border-white/10 bg-black/40 p-6 text-left">
-                <p className="font-semibold text-white">{c.titulo}</p>
-                <p className="mt-1 text-sm text-zinc-500">{c.subtitulo}</p>
-                <p className="mt-4 text-sm leading-relaxed text-zinc-300">{c.resultado}</p>
+              <div key={i} className="rounded-2xl border border-white/15 bg-white/5 p-6 text-left">
+                <p className="font-semibold">{c.titulo}</p>
+                <p className="mt-1 text-sm text-white/60">{c.subtitulo}</p>
+                <p className="mt-4 text-sm leading-relaxed text-white/85">{c.resultado}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-20 lg:py-28">
+      <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-2xl px-6">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">Preguntas frecuentes</h2>
+          <h2 className="text-center text-3xl font-bold text-neutral-950 sm:text-4xl">Preguntas frecuentes</h2>
           <div className="mt-12 space-y-2">
             {FAQ.map((f, i) => (
-              <div key={i} className="overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50">
+              <div key={i} className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="flex w-full items-center justify-between px-6 py-4 text-left font-medium text-white"
+                  className="flex w-full items-center justify-between px-6 py-4 text-left font-medium text-neutral-950"
                 >
                   {f.q}
-                  <HelpCircle className="h-5 w-5 shrink-0 text-blue-500" />
+                  <HelpCircle className="h-5 w-5 shrink-0 text-neutral-950" />
                 </button>
                 {openFaq === i && (
-                  <p className="border-t border-white/10 px-6 py-4 text-zinc-400">{f.a}</p>
+                  <p className="border-t border-neutral-200 px-6 py-4 text-neutral-600">{f.a}</p>
                 )}
               </div>
             ))}
@@ -463,15 +473,15 @@ export default function Home() {
 
       <TeamCarousel />
 
-      <section className="border-t border-white/10 py-20 lg:py-28">
+      <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-2xl px-6 text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">Agenda tu orientación gratuita</h2>
-          <p className="mt-4 text-sm text-zinc-500">
+          <h2 className="text-3xl font-bold text-neutral-950 sm:text-4xl">Agenda tu orientación gratuita</h2>
+          <p className="mt-4 text-sm text-neutral-600">
             Sin compromiso. En 30 minutos sabes exactamente en qué situación está tu empresa.
           </p>
           <a
             href="#contacto"
-            className="mt-8 inline-block rounded-full bg-blue-600 px-12 py-5 text-lg font-bold text-white transition hover:bg-blue-700"
+            className="mt-8 inline-block rounded-full bg-neutral-950 px-12 py-5 text-lg font-bold text-white transition hover:bg-neutral-800"
           >
             Enviar mi caso
           </a>

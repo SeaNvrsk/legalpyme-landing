@@ -1,26 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import LegalHeader from "@/components/LegalHeader";
 
 export default function AvisoPrivacidadPage() {
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-      <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-xl font-bold tracking-tighter">
-            LegalPyme<span className="text-blue-500">.mx</span>
-          </Link>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-white text-neutral-950 selection:bg-neutral-200">
+      <LegalHeader />
       <main className="mx-auto max-w-3xl px-6 pt-32 pb-24">
-        <Link href="/" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-blue-400 mb-8">← Volver al inicio</Link>
+        <Link
+          href="/"
+          className="mb-8 inline-flex items-center gap-1 text-sm text-neutral-500 transition hover:text-neutral-950"
+        >
+          ← Volver al inicio
+        </Link>
         <h1 className="text-4xl font-bold">Aviso de privacidad</h1>
-        <p className="mt-6 text-zinc-400 leading-relaxed">
+        <p className="mt-6 leading-relaxed text-neutral-600">
           LegalPyme México es responsable del tratamiento de sus datos personales. Los datos que nos proporcione (nombre, correo, teléfono, WhatsApp y descripción de su consulta) serán utilizados para dar seguimiento a su solicitud y, en su caso, prestar servicios de asesoría legal y fiscal. Puede ejercer sus derechos ARCO contactándonos. No realizamos transferencias de sus datos sin su consentimiento. Más información: contacto@legalpyme.mx.
         </p>
       </main>
-      <footer className="border-t border-white/10 py-8">
-        <div className="mx-auto max-w-7xl px-6 text-center text-zinc-500 text-sm">
+      <footer className="border-t border-neutral-200 py-8">
+        <div className="mx-auto max-w-7xl px-6 text-center text-sm text-neutral-500">
           © 2026 LegalPyme México. Todos los derechos reservados.
         </div>
       </footer>

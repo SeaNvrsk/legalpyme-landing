@@ -10,27 +10,27 @@ const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 const AUTOPLAY_MS = 5000;
 
 const ACCENT_RING: Record<TeamAccent, string> = {
-  blue: "ring-blue-500/45",
-  emerald: "ring-emerald-500/45",
-  orange: "ring-orange-400/50",
-  violet: "ring-violet-500/45",
-  amber: "ring-amber-400/50",
+  blue: "ring-white/35",
+  emerald: "ring-white/35",
+  orange: "ring-white/35",
+  violet: "ring-white/35",
+  amber: "ring-white/35",
 };
 
 const ACCENT_TAG: Record<TeamAccent, string> = {
-  blue: "border-blue-500/30 bg-blue-500/10 text-blue-100",
-  emerald: "border-emerald-500/30 bg-emerald-500/10 text-emerald-100",
-  orange: "border-orange-500/30 bg-orange-500/10 text-orange-100",
-  violet: "border-violet-500/30 bg-violet-500/10 text-violet-100",
-  amber: "border-amber-500/35 bg-amber-500/10 text-amber-100",
+  blue: "border-white/25 bg-white/10 text-white/95",
+  emerald: "border-white/25 bg-white/10 text-white/95",
+  orange: "border-white/25 bg-white/10 text-white/95",
+  violet: "border-white/25 bg-white/10 text-white/95",
+  amber: "border-white/25 bg-white/10 text-white/95",
 };
 
 const ACCENT_STAT: Record<TeamAccent, string> = {
-  blue: "border-blue-500/20 bg-blue-950/40",
-  emerald: "border-emerald-500/20 bg-emerald-950/30",
-  orange: "border-orange-500/20 bg-orange-950/30",
-  violet: "border-violet-500/20 bg-violet-950/30",
-  amber: "border-amber-500/25 bg-amber-950/30",
+  blue: "border-white/20 bg-white/5",
+  emerald: "border-white/20 bg-white/5",
+  orange: "border-white/20 bg-white/5",
+  violet: "border-white/20 bg-white/5",
+  amber: "border-white/20 bg-white/5",
 };
 
 export default function TeamCarousel() {
@@ -95,10 +95,13 @@ export default function TeamCarousel() {
   }, [go]);
 
   return (
-    <section id="nosotros" className="scroll-mt-20 border-t border-white/10 bg-zinc-950/80 py-20 lg:py-28">
+    <section
+      id="nosotros"
+      className="scroll-mt-20 border-t border-white/10 bg-[var(--lp-graphite)] py-20 text-white lg:py-28"
+    >
       <div className="mx-auto max-w-3xl px-6">
         <h2 className="text-center text-3xl font-bold sm:text-4xl">Sobre el equipo</h2>
-        <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-500">
+        <p className="mx-auto mt-3 max-w-lg text-center text-sm text-white/65">
           Abogados con experiencia en PyMEs, negocio y cumplimiento.
         </p>
 
@@ -110,7 +113,7 @@ export default function TeamCarousel() {
           <button
             type="button"
             onClick={() => go(-1)}
-            className="absolute left-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-white/10 bg-black/70 p-2.5 text-white shadow-lg backdrop-blur-md transition-colors hover:bg-white/10 md:-left-2 lg:-left-5"
+            className="absolute left-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-2.5 text-white shadow-lg backdrop-blur-md transition-colors hover:bg-white/20 md:-left-2 lg:-left-5"
             aria-label="Anterior"
           >
             <ChevronLeft className="h-6 w-6" />
@@ -118,14 +121,14 @@ export default function TeamCarousel() {
           <button
             type="button"
             onClick={() => go(1)}
-            className="absolute right-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-white/10 bg-black/70 p-2.5 text-white shadow-lg backdrop-blur-md transition-colors hover:bg-white/10 md:-right-2 lg:-right-5"
+            className="absolute right-0 top-[min(280px,35%)] z-10 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-2.5 text-white shadow-lg backdrop-blur-md transition-colors hover:bg-white/20 md:-right-2 lg:-right-5"
             aria-label="Siguiente"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
 
           <div
-            className="touch-pan-y overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-zinc-900/80 to-black/60 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.7)]"
+            className="touch-pan-y overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.35)]"
             onTouchStart={(e) => {
               touchStartX.current = e.touches[0].clientX;
             }}
@@ -157,7 +160,7 @@ export default function TeamCarousel() {
                   <div className="mx-auto max-w-xl">
                     <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:gap-6">
                       <div
-                        className={`relative h-[140px] w-[140px] shrink-0 overflow-hidden rounded-full ring-4 ring-offset-4 ring-offset-zinc-950 ${ACCENT_RING[member.accent]}`}
+                        className={`relative h-[140px] w-[140px] shrink-0 overflow-hidden rounded-full ring-4 ring-offset-4 ring-offset-[var(--lp-graphite)] ${ACCENT_RING[member.accent]}`}
                       >
                         <Image
                           src={member.imageSrc}
@@ -174,7 +177,7 @@ export default function TeamCarousel() {
                         <h3 className="text-lg font-bold tracking-tight text-white sm:text-xl">
                           {member.name}
                         </h3>
-                        <p className="mt-1 text-sm text-zinc-400">{member.role}</p>
+                        <p className="mt-1 text-sm text-white/65">{member.role}</p>
                         <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
                           {member.stats.map((s) => (
                             <div
@@ -184,7 +187,7 @@ export default function TeamCarousel() {
                               <p className="text-lg font-bold tabular-nums text-white sm:text-xl">
                                 {s.value}
                               </p>
-                              <p className="text-[11px] leading-tight text-zinc-500 sm:text-xs">
+                              <p className="text-[11px] leading-tight text-white/55 sm:text-xs">
                                 {s.label}
                               </p>
                             </div>
@@ -193,7 +196,7 @@ export default function TeamCarousel() {
                       </div>
                     </div>
 
-                    <p className="mt-6 text-left text-sm leading-relaxed text-zinc-300 sm:text-[15px]">
+                    <p className="mt-6 text-left text-sm leading-relaxed text-white/85 sm:text-[15px]">
                       {member.bio}
                     </p>
 
@@ -210,10 +213,10 @@ export default function TeamCarousel() {
 
                     <a
                       href={`mailto:${member.email}`}
-                      className="mt-6 flex items-center justify-center gap-2 border-t border-white/10 pt-5 text-sm text-zinc-400 transition hover:text-white sm:justify-start"
+                      className="mt-6 flex items-center justify-center gap-2 border-t border-white/15 pt-5 text-sm text-white/65 transition hover:text-white sm:justify-start"
                     >
-                      <Mail className="h-4 w-4 shrink-0 text-zinc-500" aria-hidden />
-                      <span className="break-all text-left font-medium text-zinc-300">
+                      <Mail className="h-4 w-4 shrink-0 text-white/50" aria-hidden />
+                      <span className="break-all text-left font-medium text-white/90">
                         {member.email}
                       </span>
                     </a>
@@ -231,8 +234,8 @@ export default function TeamCarousel() {
                 onClick={() => goTo(i)}
                 className={`h-2.5 rounded-full transition-all duration-500 ease-out ${
                   i === index
-                    ? "w-8 bg-blue-500"
-                    : "w-2.5 bg-zinc-600 hover:bg-zinc-500"
+                    ? "w-8 bg-white"
+                    : "w-2.5 bg-white/35 hover:bg-white/55"
                 }`}
                 aria-label={`Perfil ${i + 1} de ${n}: ${m.name}`}
                 aria-current={i === index}
