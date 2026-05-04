@@ -7,8 +7,12 @@ type FaqScrollArtProps = {
   sectionRef: RefObject<HTMLElement | null>;
 };
 
+/** Hosted file for https://app.lottiefiles.com/share/4454358a-c9e1-4a8d-83f6-33ce42e65840 */
+const FAQ_ORB_LOTTIE_SRC =
+  "https://lottie.host/16b69e12-0efb-4061-b33d-12dc2b93fd84/Ax2k12jKRd.lottie";
+
 /**
- * Lottie orb (symmetrical asset from LottieFiles). Same background as FAQ section.
+ * Lottie orb from LottieFiles share (above). Same background as FAQ section.
  * Playback speed reacts gently to scroll + pointer; slower when reduced motion.
  */
 export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
@@ -97,7 +101,7 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
       aria-hidden
     >
       <DotLottieReact
-        src="/lottie/faq-orb.lottie"
+        src={FAQ_ORB_LOTTIE_SRC}
         loop
         autoplay
         speed={playbackSpeed}
