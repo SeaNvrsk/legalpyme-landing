@@ -507,7 +507,7 @@ export default function Home() {
               <ScrollRevealSlide
                 key={row.step}
                 from={i % 2 === 0 ? "right" : "left"}
-                delayMs={i * 90}
+                delayMs={i * 140}
               >
                 <div className="flex flex-col items-center gap-2">
                   <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">

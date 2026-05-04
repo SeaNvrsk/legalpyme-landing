@@ -22,7 +22,7 @@ export default function ScrollRevealSlide({
   className = "",
   from,
   delayMs = 0,
-  threshold = 0.18,
+  threshold = 0.1,
 }: ScrollRevealSlideProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -35,7 +35,11 @@ export default function ScrollRevealSlide({
       ([entry]) => {
         setVisible(!!entry?.isIntersecting);
       },
-      { threshold, rootMargin: "0px 0px -10% 0px" }
+      {
+        threshold,
+        /* Start motion while the block is still entering the viewport (feels tied to scroll). */
+        rootMargin: "0px 0px 12% 0px",
+      }
     );
 
     io.observe(el);
