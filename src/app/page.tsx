@@ -18,8 +18,9 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
+import FaqScrollArt from "@/components/FaqScrollArt";
 import ContactSection from "@/components/ContactSection";
 import HeroScrollBackground from "@/components/HeroScrollBackground";
 import ScrollCountUp from "@/components/ScrollCountUp";
@@ -141,6 +142,7 @@ const FAQ = [
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const faqSectionRef = useRef<HTMLElement | null>(null);
   const onTopNavClick = useCallback((targetId: string, label: string) => {
     if (typeof window === "undefined") return;
 
@@ -540,30 +542,45 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-neutral-200 py-20 lg:py-28">
-        <div className="mx-auto max-w-2xl px-6">
-          <ScrollReveal className="text-center">
-            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.5</p>
-            <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">Preguntas frecuentes</h2>
-          </ScrollReveal>
-          <div className="mt-12 space-y-2">
-            {FAQ.map((f, i) => (
-              <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 320)}>
-              <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="flex w-full items-center justify-between px-6 py-4 text-left font-medium text-neutral-950"
-                >
-                  {f.q}
-                  <HelpCircle className="h-5 w-5 shrink-0 text-neutral-950" />
-                </button>
-                {openFaq === i && (
-                  <p className="border-t border-neutral-200 px-6 py-4 text-neutral-600">{f.a}</p>
-                )}
-              </div>
+      <section
+        ref={faqSectionRef}
+        id="faq"
+        className="scroll-mt-20 border-t border-neutral-200 py-20 lg:py-28"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-10">
+            <div className="lg:col-span-7">
+              <ScrollReveal className="text-left">
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">
+                  1.5
+                </p>
+                <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">
+                  Preguntas frecuentes
+                </h2>
               </ScrollReveal>
-            ))}
+              <div className="mt-12 space-y-2">
+                {FAQ.map((f, i) => (
+                  <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 320)}>
+                    <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                        className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left font-medium text-neutral-950"
+                      >
+                        {f.q}
+                        <HelpCircle className="h-5 w-5 shrink-0 text-neutral-950" />
+                      </button>
+                      {openFaq === i && (
+                        <p className="border-t border-neutral-200 px-6 py-4 text-neutral-600">{f.a}</p>
+                      )}
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+            <div className="hidden lg:sticky lg:top-28 lg:col-span-5 lg:block lg:self-start">
+              <FaqScrollArt sectionRef={faqSectionRef} />
+            </div>
           </div>
         </div>
       </section>
