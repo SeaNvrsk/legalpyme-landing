@@ -359,43 +359,59 @@ export default function Home() {
 
       <section className="border-t border-white/10 bg-[var(--lp-graphite)] py-16 text-white lg:py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-10 text-center sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <div className="grid gap-6 text-center sm:grid-cols-2 lg:grid-cols-4 lg:items-stretch lg:gap-5">
             <ScrollReveal delayMs={0}>
-              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
-                01
-              </p>
-              <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
-                Especialistas
-              </p>
-              <p className="mt-2 text-sm text-white/75">en derecho empresarial</p>
+              <div className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-8 transition duration-300 hover:-translate-y-0.5 hover:border-white/22 hover:bg-white/[0.05] hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.55)]">
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45 transition group-hover:text-white/60">
+                  01
+                </p>
+                <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
+                  Especialistas
+                </p>
+                <span className="mx-auto mt-4 block h-px w-12 max-w-[5rem] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                <p className="mt-4 text-sm text-white/75">en derecho empresarial</p>
+              </div>
             </ScrollReveal>
             <ScrollReveal delayMs={90}>
-              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
-                02
-              </p>
-              <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
-                Experiencia real
-              </p>
-              <p className="mt-2 text-sm text-white/75">en operación y gestión de negocios</p>
+              <div className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-8 transition duration-300 hover:-translate-y-0.5 hover:border-white/22 hover:bg-white/[0.05] hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.55)]">
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45 transition group-hover:text-white/60">
+                  02
+                </p>
+                <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
+                  Experiencia real
+                </p>
+                <span className="mx-auto mt-4 block h-px w-12 max-w-[5rem] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                <p className="mt-4 text-sm text-white/75">en operación y gestión de negocios</p>
+              </div>
             </ScrollReveal>
             <ScrollReveal delayMs={180}>
-              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
-                03
-              </p>
-              <p className="mt-3 text-3xl font-bold tabular-nums tracking-tight sm:text-4xl lg:text-[2.5rem]">
-                <ScrollCountUp end={50000} prefix="+" />
-              </p>
-              <p className="mt-2 text-sm font-semibold text-white">casos asesorados</p>
-              <p className="mt-1 text-sm text-white/65">Trayectoria y volumen que respaldan el criterio</p>
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/22 bg-gradient-to-b from-white/[0.09] to-white/[0.02] px-5 py-8 shadow-[0_24px_48px_-14px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/10 transition duration-300 hover:-translate-y-0.5 hover:border-white/35 hover:shadow-[0_28px_56px_-14px_rgba(0,0,0,0.6)] sm:py-9">
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent"
+                  aria-hidden
+                />
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/50">
+                  03
+                </p>
+                <p className="mt-3 text-3xl font-bold tabular-nums tracking-tight sm:text-4xl lg:text-[2.5rem]">
+                  <ScrollCountUp end={50000} prefix="+" />
+                </p>
+                <span className="mx-auto mt-4 block h-px w-16 max-w-[6rem] bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+                <p className="mt-4 text-sm font-semibold text-white">casos asesorados</p>
+                <p className="mt-2 text-sm text-white/65">Trayectoria y volumen que respaldan el criterio</p>
+              </div>
             </ScrollReveal>
             <ScrollReveal delayMs={270}>
-              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
-                04
-              </p>
-              <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
-                Primera orientación
-              </p>
-              <p className="mt-2 text-sm text-white/75">gratuita</p>
+              <div className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-8 transition duration-300 hover:-translate-y-0.5 hover:border-white/22 hover:bg-white/[0.05] hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.55)]">
+                <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45 transition group-hover:text-white/60">
+                  04
+                </p>
+                <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
+                  Primera orientación
+                </p>
+                <span className="mx-auto mt-4 block h-px w-12 max-w-[5rem] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                <p className="mt-4 text-sm text-white/75">gratuita</p>
+              </div>
             </ScrollReveal>
           </div>
         </div>
