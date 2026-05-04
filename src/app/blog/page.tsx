@@ -21,7 +21,7 @@ export default function BlogPage() {
     ...post,
     icon: (() => {
       const Icon = iconMap[post.icon];
-      return Icon ? <Icon className="h-8 w-8 text-white" /> : null;
+      return Icon ? <Icon className="h-8 w-8 text-[var(--lp-band-fg)]" /> : null;
     })(),
   }));
 
@@ -38,11 +38,11 @@ export default function BlogPage() {
         </p>
       </section>
 
-      <section className="border-t border-neutral-200 bg-[var(--lp-graphite)] py-20 text-white lg:py-28">
+      <section className="border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-[var(--lp-band-fg)] lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">Últimas publicaciones</h2>
-            <p className="mt-4 text-white/75">Conoce más sobre legalidad para tu PyME.</p>
+            <p className="mt-4 text-neutral-600">Conoce más sobre legalidad para tu PyME.</p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -50,13 +50,13 @@ export default function BlogPage() {
               <a
                 key={index}
                 href={`/blog/${post.slug}`}
-                className="group relative rounded-2xl border border-white/15 bg-white/5 p-8 transition-all hover:border-white/30 hover:bg-white/10"
+                className="group relative rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white/55 p-8 transition-all hover:border-[var(--lp-band-fg)]/22 hover:bg-white/90"
               >
-                <div className="mb-6 inline-block rounded-xl border border-white/20 bg-white/10 p-3 text-white">
+                <div className="mb-6 inline-block rounded-xl border border-[var(--lp-band-fg)]/12 bg-white p-3 text-[var(--lp-band-fg)]">
                   {post.icon}
                 </div>
-                <h3 className="mb-3 text-xl font-bold">{post.title}</h3>
-                <p className="leading-relaxed text-white/75">{post.description}</p>
+                <h3 className="mb-3 text-xl font-bold text-[var(--lp-band-fg)]">{post.title}</h3>
+                <p className="leading-relaxed text-neutral-600">{post.description}</p>
               </a>
             ))}
           </div>

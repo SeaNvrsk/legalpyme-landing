@@ -19,7 +19,7 @@ export default function SiteFooter() {
   return (
     <footer
       id="ubicacion"
-      className="scroll-mt-20 border-t border-white/10 bg-[var(--lp-graphite)] py-12 text-white md:py-16"
+      className="scroll-mt-20 border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-12 text-[var(--lp-band-fg)] md:py-16"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 sm:items-start sm:gap-x-6 md:gap-x-10 lg:gap-x-14">
@@ -28,10 +28,10 @@ export default function SiteFooter() {
               <BrandLogo size="sm" variant="onDark" decorative />
               <h2 className="text-lg font-semibold tracking-tight">Ubicación</h2>
             </div>
-            <p className="mt-1.5 text-sm leading-snug text-white/65">
+            <p className="mt-1.5 text-sm leading-snug text-neutral-600">
               Ciudad de México, CDMX — orientación y citas previa coordinación.
             </p>
-            <div className="mt-2 overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-inner">
+            <div className="mt-2 overflow-hidden rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white/70 shadow-inner">
               <iframe
                 title="Mapa — LegalPyme.mx, Ciudad de México"
                 src={MAP_EMBED_SRC}
@@ -45,26 +45,26 @@ export default function SiteFooter() {
               href="https://www.google.com/maps/search/?api=1&query=Ciudad+de+M%C3%A9xico+CDMX"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2.5 text-xs text-white/55 transition hover:text-white"
+              className="mt-2.5 text-xs text-neutral-500 transition hover:text-[var(--lp-band-fg)]"
             >
               Abrir en Google Maps →
             </a>
           </aside>
 
-          <div className="order-1 flex min-w-0 flex-col gap-5 text-sm text-white/65 sm:order-2 sm:border-l sm:border-white/15 sm:pl-6 md:pl-10 lg:pl-14">
+          <div className="order-1 flex min-w-0 flex-col gap-5 text-sm text-neutral-600 sm:order-2 sm:border-l sm:border-[var(--lp-band-fg)]/15 sm:pl-6 md:pl-10 lg:pl-14">
             <div>
-              <h3 className="text-lg font-semibold tracking-tight text-white">Contacto</h3>
+              <h3 className="text-lg font-semibold tracking-tight text-[var(--lp-band-fg)]">Contacto</h3>
               <p className="mt-1.5 leading-relaxed">
                 WhatsApp · +52 55 1234 5678 · contacto@legalpyme.mx
               </p>
-              <p className="mt-1 text-white/50">Ciudad de México, CDMX</p>
+              <p className="mt-1 text-neutral-500">Ciudad de México, CDMX</p>
             </div>
 
             <div>
-              <p className="font-medium text-white/80">Guías</p>
+              <p className="font-medium text-neutral-800">Guías</p>
               <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
                 {FOOTER_LINKS.map((l) => (
-                  <Link key={l.href} href={l.href} className="transition hover:text-white">
+                  <Link key={l.href} href={l.href} className="transition hover:text-[var(--lp-band-fg)]">
                     {l.label}
                   </Link>
                 ))}
@@ -72,30 +72,30 @@ export default function SiteFooter() {
             </div>
 
             <div>
-              <p className="font-medium text-white/80">Más temas</p>
+              <p className="font-medium text-neutral-800">Más temas</p>
               <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-xs">
-                <Link href="/guias/como-proteger-mi-patrimonio-personal" className="hover:text-white">
+                <Link href="/guias/como-proteger-mi-patrimonio-personal" className="hover:text-[var(--lp-band-fg)]">
                   Patrimonio personal
                 </Link>
-                <Link href="/guias/contratos-con-clientes-y-proveedores" className="hover:text-white">
+                <Link href="/guias/contratos-con-clientes-y-proveedores" className="hover:text-[var(--lp-band-fg)]">
                   Contratos clientes
                 </Link>
-                <Link href="/guias/contrato-de-confidencialidad-empresa" className="hover:text-white">
+                <Link href="/guias/contrato-de-confidencialidad-empresa" className="hover:text-[var(--lp-band-fg)]">
                   Confidencialidad
                 </Link>
-                <Link href="/guias/como-constituir-una-empresa-en-mexico" className="hover:text-white">
+                <Link href="/guias/como-constituir-una-empresa-en-mexico" className="hover:text-[var(--lp-band-fg)]">
                   Constituir empresa
                 </Link>
-                <Link href="/guias/diferencia-persona-fisica-moral" className="hover:text-white">
+                <Link href="/guias/diferencia-persona-fisica-moral" className="hover:text-[var(--lp-band-fg)]">
                   Persona física vs moral
                 </Link>
               </div>
             </div>
 
-            <Link href="/aviso-de-privacidad" className="w-fit underline transition hover:text-white">
+            <Link href="/aviso-de-privacidad" className="w-fit underline transition hover:text-[var(--lp-band-fg)]">
               Aviso de privacidad
             </Link>
-            <p className="text-xs text-white/45">© 2026 LegalPyme México. Todos los derechos reservados.</p>
+            <p className="text-xs text-neutral-500">© 2026 LegalPyme México. Todos los derechos reservados.</p>
           </div>
         </div>
       </div>

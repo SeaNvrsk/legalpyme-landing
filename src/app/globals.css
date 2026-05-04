@@ -2,11 +2,13 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0a0a0a;
-  /* Brand: white + graphite, high contrast only */
+  --foreground: #222222;
+  /* Brand: insights-style bands — light field + near-black type */
   --lp-white: #ffffff;
-  --lp-graphite: #2d2d34;
-  --lp-ink: #0a0a0a;
+  --lp-band-bg: #ebebeb;
+  --lp-band-fg: #222222;
+  --lp-graphite: var(--lp-band-bg);
+  --lp-ink: #222222;
   --lp-muted: #52525b;
 }
 

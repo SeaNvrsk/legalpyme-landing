@@ -25,7 +25,7 @@ export default function ContactSection() {
   return (
     <section
       id="contacto"
-      className="relative scroll-mt-20 overflow-hidden border-t border-white/10 bg-[var(--lp-graphite)] py-24 text-white lg:py-32"
+      className="relative scroll-mt-20 overflow-hidden border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-24 text-[var(--lp-band-fg)] lg:py-32"
     >
       <div className="relative z-10 mx-auto max-w-2xl px-6">
         <h2
@@ -34,13 +34,13 @@ export default function ContactSection() {
         >
           Agenda tu orientación gratuita
         </h2>
-        <p className="mt-6 text-center text-white/80">
+        <p className="mt-6 text-center text-neutral-600">
           Cuéntanos sobre tu empresa o tu situación legal. Respuesta rápida. Sin compromiso.
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="mt-12 rounded-2xl border border-white/15 bg-white p-6 text-neutral-950 shadow-xl sm:p-8"
+          className="mt-12 rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white p-6 text-neutral-950 shadow-xl sm:p-8"
         >
           <div className="space-y-6">
             <div>

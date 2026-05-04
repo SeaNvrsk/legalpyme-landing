@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 type BrandLogoProps = {
-  /** Use on light backgrounds: graphite square, white “LP”. */
+  /** Use on light backgrounds: near-black square, white “LP”. */
   variant?: "onLight" | "onDark";
   size?: "sm" | "md" | "lg";
   className?: string;
@@ -16,8 +16,8 @@ const textClass = { sm: "text-sm", md: "text-base", lg: "text-lg" } as const;
 
 /**
  * Square mark with LP — primary brand glyph.
- * onLight: graphite fill, white type (default on white/nav).
- * onDark: white fill, black type (on graphite sections).
+ * onLight: band-fg fill, white type (default on white/nav).
+ * onDark: white fill, black type (on gray bands / footer).
  */
 export default function BrandLogo({
   variant = "onLight",
@@ -38,7 +38,7 @@ export default function BrandLogo({
       className={`inline-flex shrink-0 items-center justify-center rounded-[4px] font-bold tabular-nums tracking-tighter ${textClass[size]} ${
         isDarkBg
           ? "bg-white text-neutral-950"
-          : "bg-[var(--lp-graphite)] text-white"
+          : "bg-[var(--lp-band-fg)] text-white"
       } ${className}`}
       style={{ width: dim, height: dim, ...style }}
     >
