@@ -21,6 +21,9 @@ export default function HeroScrollBackground() {
       const vh = window.innerHeight || 1;
       const t = Math.min(window.scrollY / vh, 1);
       el.style.opacity = String(1 - t);
+      /* Subtle Ken Burns-style zoom while fading — reads “premium” on first scroll */
+      const scale = 1 + t * 0.06;
+      el.style.transform = `scale(${scale})`;
     };
 
     const onScroll = () => {
@@ -41,8 +44,8 @@ export default function HeroScrollBackground() {
   return (
     <div
       ref={layerRef}
-      className="absolute inset-0 z-0 will-change-[opacity] [backface-visibility:hidden] [transform:translateZ(0)]"
-      style={{ opacity: 1 }}
+      className="absolute inset-0 z-0 will-change-[opacity,transform] origin-center [backface-visibility:hidden]"
+      style={{ opacity: 1, transform: "scale(1)" }}
       aria-hidden
     >
       <Image

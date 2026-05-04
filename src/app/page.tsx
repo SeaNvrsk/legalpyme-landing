@@ -13,6 +13,7 @@ import {
   FileWarning,
   Gavel,
   HelpCircle,
+  ChevronDown,
   ChevronRight,
   Menu,
   X,
@@ -20,6 +21,9 @@ import {
 import { useCallback, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import ContactSection from "@/components/ContactSection";
+import HeroScrollBackground from "@/components/HeroScrollBackground";
+import ScrollCountUp from "@/components/ScrollCountUp";
+import ScrollReveal from "@/components/ScrollReveal";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
@@ -292,95 +296,139 @@ export default function Home() {
         </div>
       </nav>
 
-      <section className="relative min-h-[100dvh] overflow-hidden bg-white">
-        <div className="relative z-10 flex min-h-[100dvh] flex-col items-center px-6 pb-24 pt-28 text-center sm:pt-32 lg:pb-32">
-          <div className="min-h-[20vh] w-full flex-1 shrink-0 sm:min-h-[24vh]" aria-hidden />
+      <section className="relative min-h-[100dvh] overflow-hidden bg-neutral-950">
+        <HeroScrollBackground />
+        <div
+          className="absolute inset-0 z-[1] bg-gradient-to-b from-neutral-950/75 via-neutral-950/55 to-neutral-950/85"
+          aria-hidden
+        />
+        <div className="relative z-10 flex min-h-[100dvh] flex-col items-center px-6 pb-28 pt-28 text-center sm:pt-32 lg:pb-36">
+          <div className="min-h-[18vh] w-full flex-1 shrink-0 sm:min-h-[22vh]" aria-hidden />
           <div className="w-full max-w-4xl shrink-0">
-            <p className="mb-4 flex justify-center">
+            <ScrollReveal className="flex justify-center">
               <BrandLogo size="lg" variant="onLight" decorative />
-            </p>
-            <h1
-              className="max-w-4xl text-4xl font-extrabold tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
-            >
-              Evita problemas laborales que pueden costarte caro
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-neutral-800 sm:text-2xl">
-              Te ayudamos a proteger tu negocio desde hoy.
-            </p>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-neutral-600">
-              Cumplimiento laboral y fiscal, contratos, manejo de personal y prevención de demandas. Te ayudamos a tomar decisiones seguras y mantener tu negocio en orden.
-            </p>
-            <p className="mx-auto mt-3 text-sm text-neutral-500">Respuesta rápida. Sin compromiso.</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <a
-                href="https://wa.me/5215512345678?text=Hola%2C%20necesito%20orientaci%C3%B3n%20legal%20para%20mi%20empresa%20(LegalPyme.mx)"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 font-bold text-white transition hover:bg-[#20bd5a]"
+            </ScrollReveal>
+            <ScrollReveal delayMs={80} className="mt-5">
+              <h1
+                className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
+                style={{ fontFamily: "var(--font-playfair), serif" }}
               >
-                Consulta por WhatsApp
-              </a>
-              <a
-                href="#contacto"
-                className="flex items-center gap-2 rounded-full border-2 border-neutral-950 bg-white px-8 py-4 font-bold text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
-              >
-                Evaluar mi caso gratis <ChevronRight className="h-5 w-5" />
-              </a>
-            </div>
+                Evita problemas laborales que pueden costarte caro
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal delayMs={140}>
+              <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-white/95 sm:text-2xl">
+                Te ayudamos a proteger tu negocio desde hoy.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delayMs={200}>
+              <p className="mx-auto mt-4 max-w-2xl text-center text-white/80">
+                Cumplimiento laboral y fiscal, contratos, manejo de personal y prevención de demandas. Te ayudamos a tomar decisiones seguras y mantener tu negocio en orden.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delayMs={260}>
+              <p className="mx-auto mt-3 text-sm text-white/55">Respuesta rápida. Sin compromiso.</p>
+            </ScrollReveal>
+            <ScrollReveal delayMs={320}>
+              <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <a
+                  href="https://wa.me/5215512345678?text=Hola%2C%20necesito%20orientaci%C3%B3n%20legal%20para%20mi%20empresa%20(LegalPyme.mx)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-[#20bd5a]"
+                >
+                  Consulta por WhatsApp
+                </a>
+                <a
+                  href="#contacto"
+                  className="flex items-center gap-2 rounded-full border-2 border-white/90 bg-white/10 px-8 py-4 font-bold text-white backdrop-blur-sm transition hover:bg-white hover:text-neutral-950"
+                >
+                  Evaluar mi caso gratis <ChevronRight className="h-5 w-5" />
+                </a>
+              </div>
+            </ScrollReveal>
+          </div>
+          <div className="mt-auto flex flex-col items-center pb-6 pt-10">
+            <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/50">
+              Desplázate para explorar
+            </span>
+            <ChevronDown className="lp-scroll-hint mt-2 h-6 w-6 text-white/70" aria-hidden />
           </div>
         </div>
       </section>
 
       <section className="border-t border-white/10 bg-[var(--lp-graphite)] py-16 text-white lg:py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-8 text-center sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <p className="text-sm font-semibold text-white">Especialistas</p>
-              <p className="mt-1 text-white/75">en derecho empresarial</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-white">Experiencia real</p>
-              <p className="mt-1 text-white/75">en operación y gestión de negocios</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-white">+50,000</p>
-              <p className="mt-1 text-white/75">casos asesorados</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-white">Primera orientación</p>
-              <p className="mt-1 text-white/75">gratuita</p>
-            </div>
+          <div className="grid gap-10 text-center sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            <ScrollReveal delayMs={0}>
+              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
+                01
+              </p>
+              <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
+                Especialistas
+              </p>
+              <p className="mt-2 text-sm text-white/75">en derecho empresarial</p>
+            </ScrollReveal>
+            <ScrollReveal delayMs={90}>
+              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
+                02
+              </p>
+              <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
+                Experiencia real
+              </p>
+              <p className="mt-2 text-sm text-white/75">en operación y gestión de negocios</p>
+            </ScrollReveal>
+            <ScrollReveal delayMs={180}>
+              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
+                03
+              </p>
+              <p className="mt-3 text-3xl font-bold tabular-nums tracking-tight sm:text-4xl lg:text-[2.5rem]">
+                <ScrollCountUp end={50000} prefix="+" />
+              </p>
+              <p className="mt-2 text-sm font-semibold text-white">casos asesorados</p>
+              <p className="mt-1 text-sm text-white/65">Trayectoria y volumen que respaldan el criterio</p>
+            </ScrollReveal>
+            <ScrollReveal delayMs={270}>
+              <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/45">
+                04
+              </p>
+              <p className="mt-3 text-lg font-semibold leading-snug text-white sm:text-xl">
+                Primera orientación
+              </p>
+              <p className="mt-2 text-sm text-white/75">gratuita</p>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <section id="problemas" className="scroll-mt-20 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-3xl font-bold text-neutral-950 sm:text-4xl">¿Te está pasando esto?</h2>
-          <p className="mt-4 text-center text-neutral-600">Identificamos riesgos antes de que escalen.</p>
+          <ScrollReveal className="text-center">
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.1</p>
+            <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Te está pasando esto?</h2>
+            <p className="mt-4 text-neutral-600">Identificamos riesgos antes de que escalen.</p>
+          </ScrollReveal>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PROBLEMAS.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div
-                  key={i}
-                  className="flex items-start gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-400"
-                >
-                  <Icon className="h-6 w-6 shrink-0 text-neutral-950" />
-                  <span className="text-left text-neutral-900">{item.text}</span>
-                </div>
+                <ScrollReveal key={i} delayMs={Math.min(i * 75, 450)}>
+                  <div className="flex h-full items-start gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-400 hover:shadow-md">
+                    <Icon className="h-6 w-6 shrink-0 text-neutral-950" />
+                    <span className="text-left text-neutral-900">{item.text}</span>
+                  </div>
+                </ScrollReveal>
               );
             })}
           </div>
-          <p className="mt-10 text-center">
+          <ScrollReveal className="mt-10 text-center">
             <a
               href="#contacto"
               className="inline-block rounded-full bg-neutral-950 px-8 py-4 font-semibold text-white transition hover:bg-neutral-800"
             >
               Revisar mi empresa
             </a>
-          </p>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -389,18 +437,23 @@ export default function Home() {
         className="scroll-mt-20 border-t border-white/10 bg-[var(--lp-graphite)] py-20 text-white lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">Qué podemos hacer por ti</h2>
-          <p className="mt-4 text-center text-white/75">Servicios legales y fiscales para empresas.</p>
+          <ScrollReveal className="text-center">
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/40">1.2</p>
+            <h2 className="mt-2 text-3xl font-bold sm:text-4xl">Qué podemos hacer por ti</h2>
+            <p className="mt-4 text-white/75">Servicios legales y fiscales para empresas.</p>
+          </ScrollReveal>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICIOS.map((s, i) => (
-              <div
-                key={i}
-                className="rounded-2xl border border-white/15 bg-white/5 p-6 transition hover:border-white/30"
-              >
-                <s.icon className="h-10 w-10 text-white" />
-                <h3 className="mt-4 text-lg font-bold">{s.title}</h3>
-                <p className="mt-2 text-sm text-white/70">{s.description}</p>
-              </div>
+              <ScrollReveal key={s.title} delayMs={Math.min(i * 80, 400)}>
+                <div className="h-full rounded-2xl border border-white/15 bg-white/5 p-6 transition hover:border-white/35 hover:bg-white/10">
+                  <span className="font-mono text-xs text-white/40">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <s.icon className="mt-3 h-10 w-10 text-white" />
+                  <h3 className="mt-4 text-lg font-bold">{s.title}</h3>
+                  <p className="mt-2 text-sm text-white/70">{s.description}</p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -408,41 +461,64 @@ export default function Home() {
 
       <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
+          <ScrollReveal>
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.3</p>
+            <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
+          </ScrollReveal>
           <div className="mt-12 space-y-8">
-            <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">1</span>
-              <p className="text-xl font-semibold text-neutral-950">Analizamos tu situación</p>
-              <p className="text-neutral-600">Nos cuentas cómo funciona tu negocio o qué problema tienes.</p>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">2</span>
-              <p className="text-xl font-semibold text-neutral-950">Definimos la mejor estrategia</p>
-              <p className="text-neutral-600">Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.</p>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">3</span>
-              <p className="text-xl font-semibold text-neutral-950">Te acompañamos en la ejecución</p>
-              <p className="text-neutral-600">Implementamos contigo las soluciones necesarias.</p>
-            </div>
+            {[
+              {
+                step: "1",
+                title: "Analizamos tu situación",
+                body: "Nos cuentas cómo funciona tu negocio o qué problema tienes.",
+              },
+              {
+                step: "2",
+                title: "Definimos la mejor estrategia",
+                body: "Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.",
+              },
+              {
+                step: "3",
+                title: "Te acompañamos en la ejecución",
+                body: "Implementamos contigo las soluciones necesarias.",
+              },
+            ].map((row, i) => (
+              <ScrollReveal key={row.step} delayMs={i * 100}>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">
+                    {row.step}
+                  </span>
+                  <p className="text-xl font-semibold text-neutral-950">{row.title}</p>
+                  <p className="text-neutral-600">{row.body}</p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
-          <p className="mt-10 rounded-xl border border-neutral-300 bg-neutral-100 px-6 py-4 text-neutral-800">
-            Sin procesos complicados. Sin lenguaje legal innecesario.
-          </p>
+          <ScrollReveal className="mt-10">
+            <p className="rounded-xl border border-neutral-300 bg-neutral-100 px-6 py-4 text-neutral-800">
+              Sin procesos complicados. Sin lenguaje legal innecesario.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="border-t border-white/10 bg-[var(--lp-graphite)] py-20 text-white lg:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">Casos reales</h2>
-          <p className="mt-4 text-center text-white/75">Ejemplos de cómo hemos ayudado a empresas.</p>
+          <ScrollReveal className="text-center">
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-white/40">1.4</p>
+            <h2 className="mt-2 text-3xl font-bold sm:text-4xl">Casos reales</h2>
+            <p className="mt-4 text-white/75">Ejemplos de cómo hemos ayudado a empresas.</p>
+          </ScrollReveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {CASOS.map((c, i) => (
-              <div key={i} className="rounded-2xl border border-white/15 bg-white/5 p-6 text-left">
-                <p className="font-semibold">{c.titulo}</p>
-                <p className="mt-1 text-sm text-white/60">{c.subtitulo}</p>
-                <p className="mt-4 text-sm leading-relaxed text-white/85">{c.resultado}</p>
-              </div>
+              <ScrollReveal key={c.titulo} delayMs={Math.min(i * 70, 420)}>
+                <div className="h-full rounded-2xl border border-white/15 bg-white/5 p-6 text-left transition hover:border-white/25 hover:bg-white/[0.07]">
+                  <p className="font-mono text-xs text-white/40">Caso {String(i + 1).padStart(2, "0")}</p>
+                  <p className="mt-2 font-semibold">{c.titulo}</p>
+                  <p className="mt-1 text-sm text-white/60">{c.subtitulo}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-white/85">{c.resultado}</p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -450,10 +526,14 @@ export default function Home() {
 
       <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-2xl px-6">
-          <h2 className="text-center text-3xl font-bold text-neutral-950 sm:text-4xl">Preguntas frecuentes</h2>
+          <ScrollReveal className="text-center">
+            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.5</p>
+            <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">Preguntas frecuentes</h2>
+          </ScrollReveal>
           <div className="mt-12 space-y-2">
             {FAQ.map((f, i) => (
-              <div key={i} className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
+              <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 320)}>
+              <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -466,29 +546,36 @@ export default function Home() {
                   <p className="border-t border-neutral-200 px-6 py-4 text-neutral-600">{f.a}</p>
                 )}
               </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      <TeamCarousel />
+      <ScrollReveal>
+        <TeamCarousel />
+      </ScrollReveal>
 
       <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-2xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-neutral-950 sm:text-4xl">Agenda tu orientación gratuita</h2>
-          <p className="mt-4 text-sm text-neutral-600">
-            Sin compromiso. En 30 minutos sabes exactamente en qué situación está tu empresa.
-          </p>
-          <a
-            href="#contacto"
-            className="mt-8 inline-block rounded-full bg-neutral-950 px-12 py-5 text-lg font-bold text-white transition hover:bg-neutral-800"
-          >
-            Enviar mi caso
-          </a>
+          <ScrollReveal>
+            <h2 className="text-3xl font-bold text-neutral-950 sm:text-4xl">Agenda tu orientación gratuita</h2>
+            <p className="mt-4 text-sm text-neutral-600">
+              Sin compromiso. En 30 minutos sabes exactamente en qué situación está tu empresa.
+            </p>
+            <a
+              href="#contacto"
+              className="mt-8 inline-block rounded-full bg-neutral-950 px-12 py-5 text-lg font-bold text-white transition hover:bg-neutral-800"
+            >
+              Enviar mi caso
+            </a>
+          </ScrollReveal>
         </div>
       </section>
 
-      <ContactSection />
+      <ScrollReveal>
+        <ContactSection />
+      </ScrollReveal>
       <StickyCtaBar />
 
       <SiteFooter />
