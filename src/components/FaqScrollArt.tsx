@@ -1,29 +1,36 @@
 "use client";
 
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import type { DotLottie } from "@lottiefiles/dotlottie-web";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 type FaqScrollArtProps = {
   sectionRef: RefObject<HTMLElement | null>;
 };
 
-/**
- * Same animation as:
- * <dotlottie-wc src="https://lottie.host/01a7214a-0e59-4a82-805f-cab989d00fff/surTa1K2QI.lottie" />
- * (React uses @lottiefiles/dotlottie-react — not the WC script; same .lottie file.)
- */
 const FAQ_ORB_LOTTIE_SRC =
   "https://lottie.host/01a7214a-0e59-4a82-805f-cab989d00fff/surTa1K2QI.lottie";
 
 /**
- * FAQ decorative Lottie. Canvas background transparent so it matches the white section.
- * Playback speed reacts gently to scroll + pointer; slower when reduced motion.
+ * Lottie scrub: progress through the animation follows scroll position in #faq
+ * (scroll down → forward, up → backward). Small horizontal pointer nudge.
  */
 export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
   const [scrollP, setScrollP] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  const scrollRef = useRef(0);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const reduceRef = useRef(false);
+  const playerRef = useRef<DotLottie | null>(null);
+
+  scrollRef.current = scrollP;
+  mouseRef.current = mouse;
+  reduceRef.current = reduceMotion;
+  playerRef.current = dotLottie;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -52,19 +59,15 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
       setScrollP(Math.min(1, Math.max(0, raw)));
     };
 
-    const onReduceMediaChange = () => {
-      updateScroll();
-    };
-
     updateScroll();
     window.addEventListener("scroll", updateScroll, { passive: true });
     window.addEventListener("resize", updateScroll);
-    mqReduce.addEventListener("change", onReduceMediaChange);
+    mqReduce.addEventListener("change", updateScroll);
 
     return () => {
       window.removeEventListener("scroll", updateScroll);
       window.removeEventListener("resize", updateScroll);
-      mqReduce.removeEventListener("change", onReduceMediaChange);
+      mqReduce.removeEventListener("change", updateScroll);
     };
   }, [sectionRef]);
 
@@ -91,12 +94,34 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
     };
   }, []);
 
-  const playbackSpeed = useMemo(() => {
-    if (reduceMotion) return 0.35;
-    const pointerBoost = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.18;
-    const raw = 0.65 + scrollP * 0.95 + pointerBoost;
-    return Math.min(2, Math.max(0.4, raw));
-  }, [scrollP, mouse, reduceMotion]);
+  const scrubRef = useRef<() => void>(() => {});
+
+  scrubRef.current = () => {
+    const d = playerRef.current;
+    if (!d?.isLoaded) return;
+    d.pause();
+    d.setLoop(false);
+    const last = Math.max(0, d.totalFrames - 1);
+    const rm = reduceRef.current;
+    const nudge = rm ? 0 : mouseRef.current.x * 0.05;
+    const p = Math.min(1, Math.max(0, scrollRef.current + nudge));
+    d.setFrame(p * last);
+  };
+
+  useEffect(() => {
+    const d = dotLottie;
+    if (!d) return;
+
+    const onLoad = () => scrubRef.current();
+    d.addEventListener("load", onLoad);
+    if (d.isLoaded) onLoad();
+
+    return () => d.removeEventListener("load", onLoad);
+  }, [dotLottie]);
+
+  useEffect(() => {
+    scrubRef.current();
+  }, [scrollP, mouse.x, reduceMotion, dotLottie]);
 
   return (
     <div
@@ -106,9 +131,10 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
     >
       <DotLottieReact
         src={FAQ_ORB_LOTTIE_SRC}
-        loop
-        autoplay
-        speed={playbackSpeed}
+        loop={false}
+        autoplay={false}
+        speed={1}
+        dotLottieRefCallback={setDotLottie}
         backgroundColor="#00000000"
         className="size-full max-h-[300px] max-w-[300px]"
         renderConfig={{ devicePixelRatio: typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1 }}
