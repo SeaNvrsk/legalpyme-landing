@@ -25,7 +25,7 @@ import ContactSection from "@/components/ContactSection";
 import HeroScrollBackground from "@/components/HeroScrollBackground";
 import ScrollCountUp from "@/components/ScrollCountUp";
 import ScrollReveal from "@/components/ScrollReveal";
-import ScrollScrubSlide from "@/components/ScrollScrubSlide";
+import ScrollScrubSlide, { useFoldProgress } from "@/components/ScrollScrubSlide";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
@@ -144,6 +144,8 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const faqSectionRef = useRef<HTMLElement | null>(null);
+  const comoFoldRef = useRef<HTMLDivElement>(null);
+  const comoFoldProgress = useFoldProgress(comoFoldRef);
   const onTopNavClick = useCallback((targetId: string, label: string) => {
     if (typeof window === "undefined") return;
 
@@ -482,38 +484,44 @@ export default function Home() {
 
       <section className="border-t border-neutral-200 py-20 lg:py-28">
         <div className="mx-auto max-w-3xl overflow-x-hidden px-6 text-center">
-          <ScrollReveal>
-            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.3</p>
-            <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
-          </ScrollReveal>
-          <div className="mt-12 space-y-8">
-            {[
-              {
-                step: "1",
-                title: "Analizamos tu situación",
-                body: "Nos cuentas cómo funciona tu negocio o qué problema tienes.",
-              },
-              {
-                step: "2",
-                title: "Definimos la mejor estrategia",
-                body: "Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.",
-              },
-              {
-                step: "3",
-                title: "Te acompañamos en la ejecución",
-                body: "Implementamos contigo las soluciones necesarias.",
-              },
-            ].map((row, i) => (
-              <ScrollScrubSlide key={row.step} from={i % 2 === 0 ? "right" : "left"}>
-                <div className="flex flex-col items-center gap-2">
-                  <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">
-                    {row.step}
-                  </span>
-                  <p className="text-xl font-semibold text-neutral-950">{row.title}</p>
-                  <p className="text-neutral-600">{row.body}</p>
-                </div>
-              </ScrollScrubSlide>
-            ))}
+          <div ref={comoFoldRef}>
+            <ScrollReveal>
+              <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.3</p>
+              <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
+            </ScrollReveal>
+            <div className="mt-12 space-y-8">
+              {[
+                {
+                  step: "1",
+                  title: "Analizamos tu situación",
+                  body: "Nos cuentas cómo funciona tu negocio o qué problema tienes.",
+                },
+                {
+                  step: "2",
+                  title: "Definimos la mejor estrategia",
+                  body: "Te explicamos qué hacer, cómo hacerlo y qué riesgos evitar.",
+                },
+                {
+                  step: "3",
+                  title: "Te acompañamos en la ejecución",
+                  body: "Implementamos contigo las soluciones necesarias.",
+                },
+              ].map((row, i) => (
+                <ScrollScrubSlide
+                  key={row.step}
+                  from={i % 2 === 0 ? "right" : "left"}
+                  progress={comoFoldProgress}
+                >
+                  <div className="flex flex-col items-center gap-2">
+                    <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">
+                      {row.step}
+                    </span>
+                    <p className="text-xl font-semibold text-neutral-950">{row.title}</p>
+                    <p className="text-neutral-600">{row.body}</p>
+                  </div>
+                </ScrollScrubSlide>
+              ))}
+            </div>
           </div>
           <ScrollReveal className="mt-10">
             <p className="rounded-xl border border-neutral-300 bg-neutral-100 px-6 py-4 text-neutral-800">

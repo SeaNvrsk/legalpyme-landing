@@ -8,29 +8,19 @@ import {
   useState,
   type CSSProperties,
   type ReactNode,
+  type RefObject,
 } from "react";
 
 function clamp(n: number, lo: number, hi: number) {
   return Math.min(hi, Math.max(lo, n));
 }
 
-type ScrollScrubSlideProps = {
-  children: ReactNode;
-  className?: string;
-  from: "left" | "right";
-};
-
 /**
- * Horizontal offset is a linear function of window scrollY (no easing): while you scroll,
- * the block moves; when scroll stops, it stops. Reverses when scrolling up.
+ * Single progress 0→1 while the element's vertical center moves toward the viewport center.
+ * All children can share this so they align together when the block is centered on screen.
  */
-export default function ScrollScrubSlide({
-  children,
-  className = "",
-  from,
-}: ScrollScrubSlideProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<CSSProperties>({});
+export function useFoldProgress(ref: RefObject<HTMLElement | null>) {
+  const [p, setP] = useState(0);
   const rafId = useRef<number | null>(null);
 
   const tick = useCallback(() => {
@@ -38,32 +28,19 @@ export default function ScrollScrubSlide({
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setStyle({ opacity: 1, transform: "none", willChange: "auto" });
+      setP(1);
       return;
     }
 
     const rect = el.getBoundingClientRect();
-    const scrollY = window.scrollY;
     const vh = window.innerHeight || 1;
-    const w = window.innerWidth || 1;
-    const maxX = clamp(w * 0.26, 80, 200);
-
-    const elTop = rect.top + scrollY;
-    const rangeStart = elTop - vh * 1.02;
-    const rangeEnd = elTop - vh * 0.2;
-    const span = Math.max(rangeEnd - rangeStart, 1);
-    const p = clamp((scrollY - rangeStart) / span, 0, 1);
-
-    const sign = from === "right" ? 1 : -1;
-    const x = sign * (1 - p) * maxX;
-    const opacity = clamp(0.08 + 0.92 * p, 0, 1);
-
-    setStyle({
-      transform: `translate3d(${x}px, 0, 0)`,
-      opacity,
-      willChange: "transform, opacity",
-    });
-  }, [from]);
+    const mid = rect.top + rect.height / 2;
+    const targetY = vh * 0.5;
+    const startY = vh * 0.88;
+    const span = Math.max(startY - targetY, 1);
+    const next = clamp((startY - mid) / span, 0, 1);
+    setP((prev) => (Math.abs(next - prev) < 0.002 ? prev : next));
+  }, []);
 
   useLayoutEffect(() => {
     tick();
@@ -93,8 +70,52 @@ export default function ScrollScrubSlide({
     };
   }, [tick]);
 
+  return p;
+}
+
+type ScrollScrubSlideProps = {
+  children: ReactNode;
+  className?: string;
+  from: "left" | "right";
+  /** 0 = at side, 1 = centered (typically shared from useFoldProgress). */
+  progress: number;
+};
+
+/**
+ * Horizontal offset from shared scroll progress (linear, no time-based animation).
+ */
+export default function ScrollScrubSlide({
+  children,
+  className = "",
+  from,
+  progress,
+}: ScrollScrubSlideProps) {
+  const [maxX, setMaxX] = useState(160);
+  const [style, setStyle] = useState<CSSProperties>({});
+
+  useEffect(() => {
+    const sync = () => setMaxX(clamp(window.innerWidth * 0.26, 80, 200));
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+
+  useLayoutEffect(() => {
+    const rm =
+      typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const p = clamp(progress, 0, 1);
+    const sign = from === "right" ? 1 : -1;
+    const x = rm ? 0 : sign * (1 - p) * maxX;
+    const opacity = rm ? 1 : clamp(0.08 + 0.92 * p, 0, 1);
+    setStyle({
+      transform: `translate3d(${x}px, 0, 0)`,
+      opacity,
+      willChange: rm ? "auto" : "transform, opacity",
+    });
+  }, [from, progress, maxX]);
+
   return (
-    <div ref={ref} className={className} style={style}>
+    <div className={className} style={style}>
       {children}
     </div>
   );
