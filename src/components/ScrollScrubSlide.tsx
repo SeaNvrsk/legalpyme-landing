@@ -14,11 +14,6 @@ function clamp(n: number, lo: number, hi: number) {
   return Math.min(hi, Math.max(lo, n));
 }
 
-function smoothstep(t: number) {
-  const x = clamp(t, 0, 1);
-  return x * x * (3 - 2 * x);
-}
-
 type ScrollScrubSlideProps = {
   children: ReactNode;
   className?: string;
@@ -26,8 +21,8 @@ type ScrollScrubSlideProps = {
 };
 
 /**
- * Horizontal position and opacity follow scroll: scrubbed from viewport band,
- * reverses when scrolling up. Not time-based.
+ * Horizontal offset is a linear function of window scrollY (no easing): while you scroll,
+ * the block moves; when scroll stops, it stops. Reverses when scrolling up.
  */
 export default function ScrollScrubSlide({
   children,
@@ -48,19 +43,20 @@ export default function ScrollScrubSlide({
     }
 
     const rect = el.getBoundingClientRect();
+    const scrollY = window.scrollY;
     const vh = window.innerHeight || 1;
     const w = window.innerWidth || 1;
     const maxX = clamp(w * 0.26, 80, 200);
 
-    const cy = rect.top + rect.height * 0.32;
-    const bandStart = vh * 1.12;
-    const bandEnd = vh * 0.28;
-    let p = (bandStart - cy) / (bandStart - bandEnd);
-    p = smoothstep(p);
+    const elTop = rect.top + scrollY;
+    const rangeStart = elTop - vh * 1.02;
+    const rangeEnd = elTop - vh * 0.2;
+    const span = Math.max(rangeEnd - rangeStart, 1);
+    const p = clamp((scrollY - rangeStart) / span, 0, 1);
 
     const sign = from === "right" ? 1 : -1;
     const x = sign * (1 - p) * maxX;
-    const opacity = clamp(0.1 + 0.9 * p, 0, 1);
+    const opacity = clamp(0.08 + 0.92 * p, 0, 1);
 
     setStyle({
       transform: `translate3d(${x}px, 0, 0)`,
@@ -75,7 +71,7 @@ export default function ScrollScrubSlide({
 
   useEffect(() => {
     const schedule = () => {
-      if (rafId.current != null) cancelAnimationFrame(rafId.current);
+      if (rafId.current != null) return;
       rafId.current = requestAnimationFrame(() => {
         rafId.current = null;
         tick();
