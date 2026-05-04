@@ -180,7 +180,7 @@ export default function TeamCarousel() {
             }}
           >
             <div
-              className="flex"
+              className="flex items-stretch"
               style={{
                 transform:
                   slideWidth > 0 ? `translate3d(-${translateX}px, 0, 0)` : undefined,
@@ -191,13 +191,13 @@ export default function TeamCarousel() {
               {TEAM.map((member, i) => (
                 <article
                   key={member.id}
-                  className="shrink-0 px-3 py-6 sm:px-6 sm:py-8 lg:px-5 lg:py-8"
+                  className="flex shrink-0 flex-col px-3 py-6 sm:px-6 sm:py-8 lg:px-5 lg:py-8"
                   style={{
                     width: slideWidth > 0 ? `${slideWidth}px` : `${100 / activePerView}%`,
                   }}
                   aria-hidden={i < index || i >= index + activePerView}
                 >
-                  <div className="mx-auto max-w-xl lg:max-w-none">
+                  <div className="mx-auto flex min-h-0 w-full max-w-xl flex-1 flex-col lg:max-w-none">
                     <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:gap-6">
                       <div
                         className={`relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-full ring-4 ring-offset-4 ring-offset-white sm:h-[140px] sm:w-[140px] ${ACCENT_RING[member.accent]}`}
@@ -251,15 +251,17 @@ export default function TeamCarousel() {
                       ))}
                     </div>
 
-                    <a
-                      href={`mailto:${member.email}`}
-                      className="mt-6 flex items-center justify-center gap-2 border-t border-neutral-200 pt-5 text-sm text-neutral-600 transition hover:text-neutral-950 sm:justify-start"
-                    >
-                      <Mail className="h-4 w-4 shrink-0 text-neutral-500" aria-hidden />
-                      <span className="break-all text-left font-medium text-neutral-900">
-                        {member.email}
-                      </span>
-                    </a>
+                    <div className="mt-auto border-t border-neutral-200 pt-5">
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="flex items-center justify-center gap-2 text-sm text-neutral-600 transition hover:text-neutral-950 sm:justify-start"
+                      >
+                        <Mail className="h-4 w-4 shrink-0 text-neutral-500" aria-hidden />
+                        <span className="break-all text-left font-medium text-neutral-900">
+                          {member.email}
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </article>
               ))}
