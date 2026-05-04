@@ -25,6 +25,7 @@ import ContactSection from "@/components/ContactSection";
 import HeroScrollBackground from "@/components/HeroScrollBackground";
 import ScrollCountUp from "@/components/ScrollCountUp";
 import ScrollReveal from "@/components/ScrollReveal";
+import ScrollRevealSlide from "@/components/ScrollRevealSlide";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
@@ -480,7 +481,7 @@ export default function Home() {
       </section>
 
       <section className="border-t border-neutral-200 py-20 lg:py-28">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+        <div className="mx-auto max-w-3xl overflow-x-hidden px-6 text-center">
           <ScrollReveal>
             <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.3</p>
             <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
@@ -503,7 +504,11 @@ export default function Home() {
                 body: "Implementamos contigo las soluciones necesarias.",
               },
             ].map((row, i) => (
-              <ScrollReveal key={row.step} delayMs={i * 100}>
+              <ScrollRevealSlide
+                key={row.step}
+                from={i % 2 === 0 ? "right" : "left"}
+                delayMs={i * 90}
+              >
                 <div className="flex flex-col items-center gap-2">
                   <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">
                     {row.step}
@@ -511,7 +516,7 @@ export default function Home() {
                   <p className="text-xl font-semibold text-neutral-950">{row.title}</p>
                   <p className="text-neutral-600">{row.body}</p>
                 </div>
-              </ScrollReveal>
+              </ScrollRevealSlide>
             ))}
           </div>
           <ScrollReveal className="mt-10">
