@@ -25,7 +25,7 @@ import ContactSection from "@/components/ContactSection";
 import HeroScrollBackground from "@/components/HeroScrollBackground";
 import ScrollCountUp from "@/components/ScrollCountUp";
 import ScrollReveal from "@/components/ScrollReveal";
-import ScrollRevealSlide from "@/components/ScrollRevealSlide";
+import ScrollScrubSlide from "@/components/ScrollScrubSlide";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
@@ -504,11 +504,7 @@ export default function Home() {
                 body: "Implementamos contigo las soluciones necesarias.",
               },
             ].map((row, i) => (
-              <ScrollRevealSlide
-                key={row.step}
-                from={i % 2 === 0 ? "right" : "left"}
-                delayMs={i * 140}
-              >
+              <ScrollScrubSlide key={row.step} from={i % 2 === 0 ? "right" : "left"}>
                 <div className="flex flex-col items-center gap-2">
                   <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">
                     {row.step}
@@ -516,7 +512,7 @@ export default function Home() {
                   <p className="text-xl font-semibold text-neutral-950">{row.title}</p>
                   <p className="text-neutral-600">{row.body}</p>
                 </div>
-              </ScrollRevealSlide>
+              </ScrollScrubSlide>
             ))}
           </div>
           <ScrollReveal className="mt-10">

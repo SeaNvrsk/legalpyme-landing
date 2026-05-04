@@ -59,39 +59,6 @@ body {
   }
 }
 
-/* Horizontal slide: toggles .lp-reveal-slide--visible while in view (reversible on scroll) */
-@media (prefers-reduced-motion: no-preference) {
-  .lp-reveal-slide {
-    --lp-slide-x: clamp(4rem, 26vw, 11rem);
-    opacity: 0;
-    transition:
-      opacity 1.15s cubic-bezier(0.16, 1, 0.32, 1),
-      transform 1.25s cubic-bezier(0.16, 1, 0.32, 1);
-    will-change: opacity, transform;
-  }
-
-  .lp-reveal-slide--from-right {
-    transform: translate3d(var(--lp-slide-x), 0, 0);
-  }
-
-  .lp-reveal-slide--from-left {
-    transform: translate3d(calc(-1 * var(--lp-slide-x)), 0, 0);
-  }
-
-  .lp-reveal-slide.lp-reveal-slide--visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lp-reveal-slide {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
 @keyframes lp-scroll-hint {
   0%,
   100% {
