@@ -7,12 +7,16 @@ type FaqScrollArtProps = {
   sectionRef: RefObject<HTMLElement | null>;
 };
 
-/** Hosted file for https://app.lottiefiles.com/share/4454358a-c9e1-4a8d-83f6-33ce42e65840 */
+/**
+ * Same animation as:
+ * <dotlottie-wc src="https://lottie.host/01a7214a-0e59-4a82-805f-cab989d00fff/surTa1K2QI.lottie" />
+ * (React uses @lottiefiles/dotlottie-react — not the WC script; same .lottie file.)
+ */
 const FAQ_ORB_LOTTIE_SRC =
-  "https://lottie.host/16b69e12-0efb-4061-b33d-12dc2b93fd84/Ax2k12jKRd.lottie";
+  "https://lottie.host/01a7214a-0e59-4a82-805f-cab989d00fff/surTa1K2QI.lottie";
 
 /**
- * Lottie orb from LottieFiles share (above). Same background as FAQ section.
+ * FAQ decorative Lottie. Canvas background transparent so it matches the white section.
  * Playback speed reacts gently to scroll + pointer; slower when reduced motion.
  */
 export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
@@ -97,7 +101,7 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
   return (
     <div
       ref={panelRef}
-      className="relative mx-auto aspect-square w-full max-w-[min(100%,17rem)] md:max-w-[min(100%,20rem)]"
+      className="relative mx-auto aspect-square w-full max-w-[300px]"
       aria-hidden
     >
       <DotLottieReact
@@ -105,7 +109,8 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
         loop
         autoplay
         speed={playbackSpeed}
-        className="size-full"
+        backgroundColor="#00000000"
+        className="size-full max-h-[300px] max-w-[300px]"
         renderConfig={{ devicePixelRatio: typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1 }}
       />
     </div>
