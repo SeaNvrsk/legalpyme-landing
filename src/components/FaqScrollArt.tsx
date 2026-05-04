@@ -1,29 +1,33 @@
 "use client";
 
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 
 type FaqScrollArtProps = {
   sectionRef: RefObject<HTMLElement | null>;
 };
 
 /**
- * Flat 2D “orb”: interwoven ellipses; rotation follows scroll + pointer (lerped).
+ * Lottie orb (symmetrical asset from LottieFiles). Same background as FAQ section.
+ * Playback speed reacts gently to scroll + pointer; slower when reduced motion.
  */
 export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
   const [scrollP, setScrollP] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [reduceMotion, setReduceMotion] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
-  const rotateLayerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef(0);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const angleRef = useRef(0);
-  const reduceRef = useRef(false);
 
-  scrollRef.current = scrollP;
-  mouseRef.current = mouse;
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
     const updateScroll = () => {
       const el = sectionRef.current;
       if (!el) return;
@@ -40,10 +44,7 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
       setScrollP(Math.min(1, Math.max(0, raw)));
     };
 
-    reduceRef.current = mqReduce.matches;
-
     const onReduceMediaChange = () => {
-      reduceRef.current = mqReduce.matches;
       updateScroll();
     };
 
@@ -82,93 +83,27 @@ export default function FaqScrollArt({ sectionRef }: FaqScrollArtProps) {
     };
   }, []);
 
-  useEffect(() => {
-    let id = 0;
-
-    const loop = () => {
-      const reduce = reduceRef.current;
-      const el = rotateLayerRef.current;
-      if (!el) {
-        id = requestAnimationFrame(loop);
-        return;
-      }
-
-      let target: number;
-      if (reduce) {
-        target = 18;
-      } else {
-        const sp = scrollRef.current;
-        const m = mouseRef.current;
-        target = sp * 520 + m.x * 32 + m.y * -26;
-      }
-
-      angleRef.current += (target - angleRef.current) * 0.14;
-      el.style.transform = `rotate(${angleRef.current}deg)`;
-
-      id = requestAnimationFrame(loop);
-    };
-
-    id = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(id);
-  }, []);
+  const playbackSpeed = useMemo(() => {
+    if (reduceMotion) return 0.35;
+    const pointerBoost = (Math.abs(mouse.x) + Math.abs(mouse.y)) * 0.18;
+    const raw = 0.65 + scrollP * 0.95 + pointerBoost;
+    return Math.min(2, Math.max(0.4, raw));
+  }, [scrollP, mouse, reduceMotion]);
 
   return (
     <div
       ref={panelRef}
-      className="relative mx-auto aspect-square w-full max-w-[min(100%,22rem)] overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#5a6478] via-[#4f5869] to-[#454d5c] shadow-[0_24px_48px_-20px_rgba(0,0,0,0.35)] ring-1 ring-white/10 lg:max-w-sm"
+      className="relative mx-auto aspect-square w-full max-w-[min(100%,17rem)] md:max-w-[min(100%,20rem)]"
       aria-hidden
     >
-      <div
-        ref={rotateLayerRef}
-        className="absolute inset-0 flex items-center justify-center will-change-transform"
-        style={{ transform: "rotate(0deg)" }}
-      >
-        <svg
-          viewBox="0 0 240 240"
-          className="h-[85%] w-[85%]"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g transform="translate(120 120)">
-            {[0, 60, 120].map((deg) => (
-              <ellipse
-                key={deg}
-                cx={0}
-                cy={0}
-                rx={92}
-                ry={30}
-                stroke="#f2e6c4"
-                strokeWidth={10}
-                strokeLinecap="round"
-                transform={`rotate(${deg})`}
-              />
-            ))}
-            <ellipse
-              cx={0}
-              cy={0}
-              rx={92}
-              ry={30}
-              stroke="#ecd9a8"
-              strokeWidth={7}
-              strokeOpacity={0.65}
-              strokeLinecap="round"
-              transform="rotate(30)"
-            />
-            <ellipse
-              cx={0}
-              cy={0}
-              rx={92}
-              ry={30}
-              stroke="#ecd9a8"
-              strokeWidth={7}
-              strokeOpacity={0.65}
-              strokeLinecap="round"
-              transform="rotate(90)"
-            />
-            <circle r={36} stroke="#f8efd8" strokeWidth={6} strokeOpacity={0.9} />
-          </g>
-        </svg>
-      </div>
+      <DotLottieReact
+        src="/lottie/faq-orb.lottie"
+        loop
+        autoplay
+        speed={playbackSpeed}
+        className="size-full"
+        renderConfig={{ devicePixelRatio: typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1 }}
+      />
     </div>
   );
 }

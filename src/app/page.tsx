@@ -550,7 +550,7 @@ export default function Home() {
         className="scroll-mt-20 border-t border-neutral-200 py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 md:grid-cols-12 md:items-stretch md:gap-10">
+          <div className="grid gap-12 md:grid-cols-12 md:items-center md:gap-10">
             <div className="md:col-span-7 md:min-h-0">
               <ScrollReveal className="text-left">
                 <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">
@@ -583,10 +583,8 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="relative hidden md:col-span-5 md:block md:min-h-0">
-              <div className="sticky top-0 flex h-screen w-full items-center justify-center py-4">
-                <FaqScrollArt sectionRef={faqSectionRef} />
-              </div>
+            <div className="relative hidden md:col-span-5 md:flex md:min-h-0 md:items-center md:justify-center md:py-2">
+              <FaqScrollArt sectionRef={faqSectionRef} />
             </div>
           </div>
         </div>
