@@ -548,8 +548,8 @@ export default function Home() {
         className="scroll-mt-20 border-t border-neutral-200 py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-start lg:gap-10">
-            <div className="lg:col-span-7">
+          <div className="grid gap-12 md:grid-cols-12 md:items-start md:gap-10">
+            <div className="md:col-span-7">
               <ScrollReveal className="text-left">
                 <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">
                   1.5
@@ -558,7 +558,10 @@ export default function Home() {
                   Preguntas frecuentes
                 </h2>
               </ScrollReveal>
-              <div className="mt-12 space-y-2">
+              <div className="mt-10 md:hidden">
+                <FaqScrollArt sectionRef={faqSectionRef} />
+              </div>
+              <div className="mt-12 space-y-2 md:mt-12">
                 {FAQ.map((f, i) => (
                   <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 320)}>
                     <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
@@ -578,7 +581,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="hidden lg:sticky lg:top-28 lg:col-span-5 lg:block lg:self-start">
+            <div className="hidden md:sticky md:top-28 md:col-span-5 md:block md:self-start">
               <FaqScrollArt sectionRef={faqSectionRef} />
             </div>
           </div>

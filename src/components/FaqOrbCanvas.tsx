@@ -79,7 +79,13 @@ function Orb({ scrollP, mouse }: OrbProps) {
   );
 }
 
-export default function FaqOrbCanvas({ scrollP, mouse }: FaqOrbCanvasProps) {
+export default function FaqOrbCanvas({
+  scrollP,
+  mouse,
+}: {
+  scrollP: number;
+  mouse: { x: number; y: number };
+}) {
   return (
     <Canvas
       camera={{ position: [0, 0.12, 3.6], fov: 40 }}
