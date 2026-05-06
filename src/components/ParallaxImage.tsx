@@ -18,14 +18,14 @@ export default function ParallaxImage({
 }: ParallaxImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number | null>(null);
-  const [offsetX, setOffsetX] = useState(0);
+  const [offsetY, setOffsetY] = useState(0);
 
   const tick = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setOffsetX(0);
+      setOffsetY(0);
       return;
     }
 
@@ -37,9 +37,9 @@ export default function ParallaxImage({
 
     // progress: 0 when element enters bottom, 1 when exits top
     const progress = (vh - rect.top) / (vh + rect.height);
-    // map to -30px ... +30px horizontal shift
-    const x = (progress - 0.5) * 60;
-    setOffsetX((prev) => (Math.abs(x - prev) < 0.3 ? prev : x));
+    // Vertical parallax: stronger shift while scrolling (± ~72px max)
+    const y = (progress - 0.5) * 144;
+    setOffsetY((prev) => (Math.abs(y - prev) < 0.5 ? prev : y));
   }, []);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function ParallaxImage({
         fill
         className="object-cover"
         style={{
-          transform: `translate3d(${offsetX}px, 0, 0) scale(1.08)`,
+          transform: `translate3d(0, ${offsetY}px, 0) scale(1.14)`,
           willChange: "transform",
         }}
         loading={priority ? undefined : "lazy"}
