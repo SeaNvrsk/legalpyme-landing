@@ -12,91 +12,63 @@ const FOOTER_LINKS = [
   { href: "/guias/pacto-de-socios-mexico", label: "Pacto de socios" },
 ];
 
-const MAP_EMBED_SRC =
-  "https://www.google.com/maps?q=19.4326,-99.1332&hl=es&z=13&output=embed";
-
 export default function SiteFooter() {
   return (
     <footer
       id="ubicacion"
-      className="scroll-mt-20 border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-12 text-[var(--lp-band-fg)] md:py-16"
+      className="scroll-mt-20 border-t border-neutral-100 py-16 md:py-24"
     >
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 sm:items-start sm:gap-x-6 md:gap-x-10 lg:gap-x-14">
-          <aside className="order-2 flex min-w-0 flex-col sm:order-1" aria-label="Ubicación">
-            <div className="mb-3 flex items-center gap-2">
-              <BrandLogo size="sm" variant="onDark" decorative />
-              <h2 className="text-lg font-semibold tracking-tight">Ubicación</h2>
+      <div className="mx-auto max-w-5xl px-6 sm:px-8">
+        <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-16">
+          {/* Left: brand + contact */}
+          <div className="min-w-0 max-w-sm">
+            <div className="flex items-center gap-2.5">
+              <BrandLogo size="sm" variant="onLight" decorative />
+              <span
+                className="text-lg tracking-tight"
+                style={{ fontFamily: "var(--font-serif), serif" }}
+              >
+                LegalPyme<span className="text-neutral-400">.mx</span>
+              </span>
             </div>
-            <p className="mt-1.5 text-sm leading-snug text-neutral-600">
-              Ciudad de México, CDMX — orientación y citas previa coordinación.
+            <p className="mt-4 text-sm leading-relaxed text-neutral-500">
+              Ciudad de México, CDMX
             </p>
-            <div className="mt-2 overflow-hidden rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white/70 shadow-inner">
-              <iframe
-                title="Mapa — LegalPyme.mx, Ciudad de México"
-                src={MAP_EMBED_SRC}
-                className="h-[220px] w-full border-0 sm:h-[248px] lg:h-[260px]"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-            </div>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Ciudad+de+M%C3%A9xico+CDMX"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2.5 text-xs text-neutral-500 transition hover:text-[var(--lp-band-fg)]"
-            >
-              Abrir en Google Maps →
-            </a>
-          </aside>
+            <p className="mt-1 text-sm text-neutral-500">
+              contacto@legalpyme.mx · +52 55 1234 5678
+            </p>
+          </div>
 
-          <div className="order-1 flex min-w-0 flex-col gap-5 text-sm text-neutral-600 sm:order-2 sm:border-l sm:border-[var(--lp-band-fg)]/15 sm:pl-6 md:pl-10 lg:pl-14">
+          {/* Right: links */}
+          <div className="grid grid-cols-2 gap-x-12 gap-y-6 text-sm">
             <div>
-              <h3 className="text-lg font-semibold tracking-tight text-[var(--lp-band-fg)]">Contacto</h3>
-              <p className="mt-1.5 leading-relaxed">
-                WhatsApp · +52 55 1234 5678 · contacto@legalpyme.mx
-              </p>
-              <p className="mt-1 text-neutral-500">Ciudad de México, CDMX</p>
-            </div>
-
-            <div>
-              <p className="font-medium text-neutral-800">Guías</p>
-              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
-                {FOOTER_LINKS.map((l) => (
-                  <Link key={l.href} href={l.href} className="transition hover:text-[var(--lp-band-fg)]">
+              <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">Guías</p>
+              <div className="mt-3 flex flex-col gap-2 text-neutral-600">
+                {FOOTER_LINKS.slice(0, 4).map((l) => (
+                  <Link key={l.href} href={l.href} className="transition hover:text-neutral-950">
                     {l.label}
                   </Link>
                 ))}
               </div>
             </div>
-
             <div>
-              <p className="font-medium text-neutral-800">Más temas</p>
-              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-xs">
-                <Link href="/guias/como-proteger-mi-patrimonio-personal" className="hover:text-[var(--lp-band-fg)]">
-                  Patrimonio personal
-                </Link>
-                <Link href="/guias/contratos-con-clientes-y-proveedores" className="hover:text-[var(--lp-band-fg)]">
-                  Contratos clientes
-                </Link>
-                <Link href="/guias/contrato-de-confidencialidad-empresa" className="hover:text-[var(--lp-band-fg)]">
-                  Confidencialidad
-                </Link>
-                <Link href="/guias/como-constituir-una-empresa-en-mexico" className="hover:text-[var(--lp-band-fg)]">
-                  Constituir empresa
-                </Link>
-                <Link href="/guias/diferencia-persona-fisica-moral" className="hover:text-[var(--lp-band-fg)]">
-                  Persona física vs moral
-                </Link>
+              <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">Más</p>
+              <div className="mt-3 flex flex-col gap-2 text-neutral-600">
+                {FOOTER_LINKS.slice(4).map((l) => (
+                  <Link key={l.href} href={l.href} className="transition hover:text-neutral-950">
+                    {l.label}
+                  </Link>
+                ))}
               </div>
             </div>
-
-            <Link href="/aviso-de-privacidad" className="w-fit underline transition hover:text-[var(--lp-band-fg)]">
-              Aviso de privacidad
-            </Link>
-            <p className="text-xs text-neutral-500">© 2026 LegalPyme México. Todos los derechos reservados.</p>
           </div>
+        </div>
+
+        <div className="mt-14 flex flex-col items-start gap-3 border-t border-neutral-100 pt-8 text-xs text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 LegalPyme México. Todos los derechos reservados.</p>
+          <Link href="/aviso-de-privacidad" className="transition hover:text-neutral-950">
+            Aviso de privacidad
+          </Link>
         </div>
       </div>
     </footer>

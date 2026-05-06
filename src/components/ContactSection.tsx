@@ -20,86 +20,82 @@ export default function ContactSection() {
   };
 
   const inputClass =
-    "w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-neutral-950 placeholder-neutral-400 outline-none transition focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/15";
+    "w-full border-b border-neutral-300 bg-transparent px-0 py-3 text-neutral-950 placeholder-neutral-400 outline-none transition focus:border-neutral-950";
 
   return (
     <section
       id="contacto"
-      className="relative scroll-mt-20 overflow-hidden border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-24 text-[var(--lp-band-fg)] lg:py-32"
+      className="relative scroll-mt-20 border-t border-neutral-100 py-28 lg:py-40"
     >
-      <div className="relative z-10 mx-auto max-w-2xl px-6">
+      <div className="mx-auto max-w-2xl px-6 sm:px-8">
+        <p className="font-mono text-xs tracking-widest text-neutral-400">Contacto</p>
         <h2
-          className="text-center text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
+          className="mt-6 text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+          style={{ fontFamily: "var(--font-serif), serif" }}
         >
-          Agenda tu orientación gratuita
+          Escríbenos
         </h2>
-        <p className="mt-6 text-center text-neutral-600">
+        <p className="mt-6 text-neutral-500">
           Cuéntanos sobre tu empresa o tu situación legal. Respuesta rápida. Sin compromiso.
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="mt-12 rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white p-6 text-neutral-950 shadow-xl sm:p-8"
-        >
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="cs-name" className="mb-2 block text-sm font-medium text-neutral-700">
-                Nombre
-              </label>
-              <input
-                id="cs-name"
-                name="name"
-                type="text"
-                required
-                className={inputClass}
-                placeholder="Tu nombre"
-              />
-            </div>
-            <div>
-              <label htmlFor="cs-email" className="mb-2 block text-sm font-medium text-neutral-700">
-                Email
-              </label>
-              <input
-                id="cs-email"
-                name="email"
-                type="email"
-                required
-                className={inputClass}
-                placeholder="tu@email.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="cs-whatsapp" className="mb-2 block text-sm font-medium text-neutral-700">
-                WhatsApp
-              </label>
-              <input
-                id="cs-whatsapp"
-                name="whatsapp"
-                type="tel"
-                className={inputClass}
-                placeholder="+52 55 1234 5678"
-              />
-            </div>
-            <div>
-              <label htmlFor="cs-message" className="mb-2 block text-sm font-medium text-neutral-700">
-                Mensaje
-              </label>
-              <textarea
-                id="cs-message"
-                name="message"
-                rows={4}
-                required
-                className={`${inputClass} resize-y`}
-                placeholder="Describe tu empresa o el tema legal que necesitas resolver."
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="mt-14 space-y-8">
+          <div>
+            <label htmlFor="cs-name" className="block text-xs font-medium uppercase tracking-wider text-neutral-400">
+              Nombre
+            </label>
+            <input
+              id="cs-name"
+              name="name"
+              type="text"
+              required
+              className={inputClass}
+              placeholder="Tu nombre"
+            />
           </div>
-          <div className="mt-8">
+          <div>
+            <label htmlFor="cs-email" className="block text-xs font-medium uppercase tracking-wider text-neutral-400">
+              Email
+            </label>
+            <input
+              id="cs-email"
+              name="email"
+              type="email"
+              required
+              className={inputClass}
+              placeholder="tu@email.com"
+            />
+          </div>
+          <div>
+            <label htmlFor="cs-whatsapp" className="block text-xs font-medium uppercase tracking-wider text-neutral-400">
+              WhatsApp
+            </label>
+            <input
+              id="cs-whatsapp"
+              name="whatsapp"
+              type="tel"
+              className={inputClass}
+              placeholder="+52 55 1234 5678"
+            />
+          </div>
+          <div>
+            <label htmlFor="cs-message" className="block text-xs font-medium uppercase tracking-wider text-neutral-400">
+              Mensaje
+            </label>
+            <textarea
+              id="cs-message"
+              name="message"
+              rows={4}
+              required
+              className={`${inputClass} resize-y`}
+              placeholder="Describe tu empresa o el tema legal que necesitas resolver."
+            />
+          </div>
+          <div className="pt-4">
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full rounded-full bg-neutral-950 px-6 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-neutral-800 disabled:opacity-60"
+              className="rounded-full bg-neutral-950 px-10 py-4 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-60"
             >
               {status === "sending"
                 ? "Enviando…"
@@ -108,7 +104,7 @@ export default function ContactSection() {
                   : "Enviar mi caso"}
             </button>
             {status === "error" && (
-              <p className="mt-3 text-center text-sm text-red-600">
+              <p className="mt-3 text-sm text-red-600">
                 No se pudo enviar. Intenta de nuevo.
               </p>
             )}

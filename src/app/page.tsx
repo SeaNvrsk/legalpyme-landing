@@ -2,19 +2,18 @@
 
 import Link from "next/link";
 import {
-  Building2,
+  Users,
   AlertTriangle,
   Receipt,
   Scale,
-  Users,
+  FileWarning,
   UserCircle,
   Layers,
   ShieldCheck,
-  FileWarning,
+  Building2,
   Gavel,
   HelpCircle,
   ChevronDown,
-  ChevronRight,
   Menu,
   X,
 } from "lucide-react";
@@ -22,12 +21,11 @@ import { useCallback, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import FaqScrollArt from "@/components/FaqScrollArt";
 import ContactSection from "@/components/ContactSection";
-import HeroScrollBackground from "@/components/HeroScrollBackground";
 import ScrollCountUp from "@/components/ScrollCountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollScrubSlide, { useFoldProgress } from "@/components/ScrollScrubSlide";
+import ScrollTextReveal from "@/components/ScrollTextReveal";
 import SiteFooter from "@/components/SiteFooter";
-import StickyCtaBar from "@/components/StickyCtaBar";
 import TeamCarousel from "@/components/TeamCarousel";
 
 const PROBLEMAS = [
@@ -146,335 +144,212 @@ export default function Home() {
   const faqSectionRef = useRef<HTMLElement | null>(null);
   const comoFoldRef = useRef<HTMLDivElement>(null);
   const comoFoldProgress = useFoldProgress(comoFoldRef);
-  const onTopNavClick = useCallback((targetId: string, label: string) => {
-    if (typeof window === "undefined") return;
 
-    const debug = window.location.search.includes("debugNav=1");
-    const t0 = performance.now();
+  const onTopNavClick = useCallback((targetId: string) => {
     const target = document.getElementById(targetId);
-
-    if (debug) {
-      console.info(`[TopNav] click "${label}" -> #${targetId}`, {
-        y: Math.round(window.scrollY),
-        t: Math.round(t0),
-        targetFound: Boolean(target),
-      });
-    }
-
-    if (!target) {
-      if (debug) console.warn(`[TopNav] target not found: #${targetId}`);
-      return;
-    }
-
+    if (!target) return;
     target.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.replaceState(null, "", `#${targetId}`);
-
-    if (debug) {
-      const probe = (ms: number) => {
-        window.setTimeout(() => {
-          console.info(`[TopNav] ${label} +${ms}ms`, {
-            y: Math.round(window.scrollY),
-            elapsed: Math.round(performance.now() - t0),
-          });
-        }, ms);
-      };
-      probe(150);
-      probe(400);
-      probe(900);
-    }
   }, []);
 
   const onMobileNavClick = useCallback(
-    (targetId: string, label: string) => {
+    (targetId: string) => {
       setMobileMenuOpen(false);
-      onTopNavClick(targetId, label);
+      onTopNavClick(targetId);
     },
     [onTopNavClick]
   );
 
   return (
-    <div className="min-h-screen bg-white pb-28 text-neutral-950 selection:bg-neutral-200">
+    <div className="min-h-screen bg-white text-[var(--foreground)] selection:bg-neutral-200">
+      {/* Mobile overlay */}
       <button
         type="button"
         aria-label="Cerrar menú"
         onClick={() => setMobileMenuOpen(false)}
-        className={`fixed inset-0 z-40 bg-neutral-950/30 transition-opacity duration-250 md:hidden ${
+        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity duration-250 md:hidden ${
           mobileMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
 
-      <nav className="fixed top-0 z-50 w-full border-b border-neutral-200 bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-          <Link href="/" className="flex shrink-0 items-center gap-2.5 sm:gap-3">
+      {/* ─── Navigation ─── */}
+      <nav className="fixed top-0 z-50 w-full bg-white/80 backdrop-blur-lg">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-8">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5">
             <BrandLogo size="md" variant="onLight" />
-            <span className="text-lg font-bold tracking-tight text-neutral-950 sm:text-xl">
-              LegalPyme<span className="text-neutral-500">.mx</span>
+            <span
+              className="text-lg font-normal tracking-tight"
+              style={{ fontFamily: "var(--font-serif), serif" }}
+            >
+              LegalPyme<span className="text-neutral-400">.mx</span>
             </span>
           </Link>
 
-          <div className="hidden min-w-0 flex-1 items-center justify-end gap-2 md:flex md:gap-3">
+          <div className="hidden items-center gap-8 md:flex">
             <a
-              href="#ubicacion"
-              onClick={(e) => {
-                e.preventDefault();
-                onTopNavClick("ubicacion", "Dónde estamos");
-              }}
-              className="rounded-full border border-neutral-300 bg-white px-2.5 py-1.5 text-[11px] font-medium text-neutral-800 transition hover:border-neutral-400 hover:bg-neutral-50 sm:px-4 sm:text-sm"
+              href="#servicios"
+              onClick={(e) => { e.preventDefault(); onTopNavClick("servicios"); }}
+              className="text-sm text-neutral-600 transition hover:text-neutral-950"
             >
-              Dónde estamos
+              Servicios
             </a>
             <a
               href="#nosotros"
-              onClick={(e) => {
-                e.preventDefault();
-                onTopNavClick("nosotros", "Nosotros");
-              }}
-              className="rounded-full border border-neutral-300 bg-white px-2.5 py-1.5 text-[11px] font-medium text-neutral-800 transition hover:border-neutral-400 hover:bg-neutral-50 sm:px-4 sm:text-sm"
+              onClick={(e) => { e.preventDefault(); onTopNavClick("nosotros"); }}
+              className="text-sm text-neutral-600 transition hover:text-neutral-950"
             >
               Nosotros
             </a>
             <a
               href="#contacto"
-              className="shrink-0 rounded-full bg-neutral-950 px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-neutral-800 sm:px-5 sm:py-2 sm:text-sm"
+              className="text-sm font-medium text-neutral-950 transition hover:opacity-70"
             >
-              <span className="hidden min-[400px]:inline">Evaluar mi caso gratis</span>
-              <span className="min-[400px]:hidden">Evaluar gratis</span>
+              Contacto
             </a>
           </div>
 
           <button
             type="button"
             onClick={() => setMobileMenuOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-900 transition hover:bg-neutral-50 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-neutral-900 transition hover:bg-neutral-100 md:hidden"
             aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-nav"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
 
+        {/* Mobile menu */}
         <div
-          id="mobile-nav"
-          className={`overflow-hidden border-t border-neutral-200 bg-white px-4 sm:px-6 md:hidden ${
-            mobileMenuOpen ? "max-h-64 pb-4 pt-3" : "max-h-0 pb-0 pt-0"
+          className={`border-t border-neutral-100 bg-white px-6 md:hidden ${
+            mobileMenuOpen ? "max-h-52 pb-5 pt-4" : "max-h-0 overflow-hidden pb-0 pt-0"
           } transition-[max-height,padding] duration-300 ease-out`}
         >
-          <div className="flex flex-col gap-2">
-            <button
-              type="button"
-              onClick={() => onMobileNavClick("ubicacion", "Dónde estamos")}
-              className={`rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-left text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-neutral-100 ${
-                mobileMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none -translate-y-2 opacity-0"
-              }`}
-              style={{ transitionDelay: mobileMenuOpen ? "40ms" : "0ms" }}
-            >
-              Dónde estamos
+          <div className="flex flex-col gap-3">
+            <button type="button" onClick={() => onMobileNavClick("servicios")} className="text-left text-sm text-neutral-700">
+              Servicios
             </button>
-            <button
-              type="button"
-              onClick={() => onMobileNavClick("nosotros", "Nosotros")}
-              className={`rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-left text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-neutral-100 ${
-                mobileMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none -translate-y-2 opacity-0"
-              }`}
-              style={{ transitionDelay: mobileMenuOpen ? "110ms" : "0ms" }}
-            >
+            <button type="button" onClick={() => onMobileNavClick("nosotros")} className="text-left text-sm text-neutral-700">
               Nosotros
             </button>
-            <a
-              href="#contacto"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`rounded-xl bg-neutral-950 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-neutral-800 ${
-                mobileMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none -translate-y-2 opacity-0"
-              }`}
-              style={{ transitionDelay: mobileMenuOpen ? "180ms" : "0ms" }}
-            >
-              Evaluar mi caso gratis
+            <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-left text-sm font-medium text-neutral-950">
+              Contacto
             </a>
           </div>
         </div>
       </nav>
 
-      <section className="relative min-h-[100dvh] overflow-hidden bg-neutral-950">
-        <HeroScrollBackground />
-        <div
-          className="absolute inset-0 z-[1] bg-gradient-to-b from-neutral-950/75 via-neutral-950/55 to-neutral-950/85"
-          aria-hidden
-        />
-        <div className="relative z-10 flex min-h-[100dvh] flex-col items-center px-6 pb-28 pt-28 text-center sm:pt-32 lg:pb-36">
-          <div className="min-h-[18vh] w-full flex-1 shrink-0 sm:min-h-[22vh]" aria-hidden />
-          <div className="w-full max-w-4xl shrink-0">
-            <ScrollReveal className="flex justify-center">
-              <BrandLogo size="lg" variant="onLight" decorative />
+      {/* ─── Hero (1.0) ─── */}
+      <section className="relative flex min-h-[100dvh] flex-col items-center justify-center px-6 pt-20">
+        <p className="absolute left-6 top-24 font-mono text-xs tracking-widest text-neutral-400 sm:left-10">
+          1.0
+        </p>
+
+        <div className="max-w-5xl text-center">
+          <ScrollTextReveal
+            as="h1"
+            className="text-5xl leading-[1.1] tracking-tight sm:text-6xl lg:text-8xl"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            Derecho con visión de negocio.
+          </ScrollTextReveal>
+          <ScrollReveal delayMs={200}>
+            <p className="mx-auto mt-8 max-w-2xl text-lg text-neutral-500 sm:text-xl">
+              Asesoría legal y fiscal para empresas que quieren operar con tranquilidad.
+            </p>
+          </ScrollReveal>
+        </div>
+
+        <div className="mt-auto flex flex-col items-center pb-10 pt-16">
+          <span className="text-[11px] font-medium uppercase tracking-[0.25em] text-neutral-400">
+            Scroll to explore
+          </span>
+          <ChevronDown className="lp-scroll-hint mt-2 h-5 w-5 text-neutral-400" aria-hidden />
+        </div>
+      </section>
+
+      {/* ─── Company (1.1) — Stats ─── */}
+      <section className="border-t border-neutral-100 py-28 lg:py-40">
+        <div className="mx-auto max-w-5xl px-6 sm:px-8">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-widest text-neutral-400">1.1</p>
+          </ScrollReveal>
+
+          <ScrollTextReveal
+            as="p"
+            className="mt-6 max-w-3xl text-xl leading-relaxed text-neutral-700 sm:text-2xl"
+          >
+            LegalPyme es un equipo de abogados con experiencia real en la operación de negocios. Asesoramos empresas de todos los tamaños en las áreas más complejas del derecho empresarial.
+          </ScrollTextReveal>
+
+          <div className="mt-20 grid gap-12 sm:grid-cols-3">
+            <ScrollReveal delayMs={0}>
+              <div className="text-center">
+                <p
+                  className="text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl"
+                  style={{ fontFamily: "var(--font-serif), serif" }}
+                >
+                  <ScrollCountUp end={25} />
+                </p>
+                <p className="mt-3 text-sm text-neutral-500">años de experiencia</p>
+              </div>
             </ScrollReveal>
-            <ScrollReveal delayMs={80} className="mt-5">
-              <h1
-                className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
-                style={{ fontFamily: "var(--font-playfair), serif" }}
-              >
-                Evita problemas laborales que pueden costarte caro
-              </h1>
-            </ScrollReveal>
-            <ScrollReveal delayMs={140}>
-              <p className="mx-auto mt-6 max-w-2xl text-center text-xl text-white/95 sm:text-2xl">
-                Te ayudamos a proteger tu negocio desde hoy.
-              </p>
+            <ScrollReveal delayMs={100}>
+              <div className="text-center">
+                <p
+                  className="text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl"
+                  style={{ fontFamily: "var(--font-serif), serif" }}
+                >
+                  +<ScrollCountUp end={50} />k
+                </p>
+                <p className="mt-3 text-sm text-neutral-500">casos asesorados</p>
+              </div>
             </ScrollReveal>
             <ScrollReveal delayMs={200}>
-              <p className="mx-auto mt-4 max-w-2xl text-center text-white/80">
-                Cumplimiento laboral y fiscal, contratos, manejo de personal y prevención de demandas. Te ayudamos a tomar decisiones seguras y mantener tu negocio en orden.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delayMs={260}>
-              <p className="mx-auto mt-3 text-sm text-white/55">Respuesta rápida. Sin compromiso.</p>
-            </ScrollReveal>
-            <ScrollReveal delayMs={320}>
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <a
-                  href="https://wa.me/5215512345678?text=Hola%2C%20necesito%20orientaci%C3%B3n%20legal%20para%20mi%20empresa%20(LegalPyme.mx)"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 font-bold text-white shadow-lg shadow-black/20 transition hover:bg-[#20bd5a]"
+              <div className="text-center">
+                <p
+                  className="text-5xl font-normal tracking-tight sm:text-6xl lg:text-7xl"
+                  style={{ fontFamily: "var(--font-serif), serif" }}
                 >
-                  Consulta por WhatsApp
-                </a>
-                <a
-                  href="#contacto"
-                  className="flex items-center gap-2 rounded-full border-2 border-white/90 bg-white/10 px-8 py-4 font-bold text-white backdrop-blur-sm transition hover:bg-white hover:text-neutral-950"
-                >
-                  Evaluar mi caso gratis <ChevronRight className="h-5 w-5" />
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-          <div className="mt-auto flex flex-col items-center pb-6 pt-10">
-            <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-white/50">
-              Desplázate para explorar
-            </span>
-            <ChevronDown className="lp-scroll-hint mt-2 h-6 w-6 text-white/70" aria-hidden />
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-16 text-neutral-900 lg:py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-6 text-center sm:grid-cols-2 lg:grid-cols-4 lg:items-stretch lg:gap-5">
-            <ScrollReveal delayMs={0}>
-              <div className="group flex h-full flex-col rounded-2xl border border-[var(--lp-band-fg)]/10 bg-white/60 px-5 py-8 transition duration-300 hover:-translate-y-0.5 hover:border-[var(--lp-band-fg)]/20 hover:bg-white/85 hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)]">
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-500 transition group-hover:text-neutral-700">
-                  01
+                  <ScrollCountUp end={4} />
                 </p>
-                <p className="mt-3 text-lg font-semibold leading-snug text-[var(--lp-band-fg)] sm:text-xl">
-                  Especialistas
-                </p>
-                <span className="mx-auto mt-4 block h-px w-12 max-w-[5rem] bg-gradient-to-r from-transparent via-[var(--lp-band-fg)]/20 to-transparent" />
-                <p className="mt-4 text-sm text-neutral-600">en derecho empresarial</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delayMs={90}>
-              <div className="group flex h-full flex-col rounded-2xl border border-[var(--lp-band-fg)]/10 bg-white/60 px-5 py-8 transition duration-300 hover:-translate-y-0.5 hover:border-[var(--lp-band-fg)]/20 hover:bg-white/85 hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)]">
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-500 transition group-hover:text-neutral-700">
-                  02
-                </p>
-                <p className="mt-3 text-lg font-semibold leading-snug text-[var(--lp-band-fg)] sm:text-xl">
-                  Experiencia real
-                </p>
-                <span className="mx-auto mt-4 block h-px w-12 max-w-[5rem] bg-gradient-to-r from-transparent via-[var(--lp-band-fg)]/20 to-transparent" />
-                <p className="mt-4 text-sm text-neutral-600">en operación y gestión de negocios</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delayMs={180}>
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--lp-band-fg)]/15 bg-gradient-to-b from-white/95 to-white/55 px-5 py-8 shadow-[0_24px_48px_-14px_rgba(0,0,0,0.12)] ring-1 ring-inset ring-[var(--lp-band-fg)]/10 transition duration-300 hover:-translate-y-0.5 hover:border-[var(--lp-band-fg)]/25 hover:shadow-[0_28px_56px_-14px_rgba(0,0,0,0.14)] sm:py-9">
-                <div
-                  className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--lp-band-fg)]/25 to-transparent"
-                  aria-hidden
-                />
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-500">
-                  03
-                </p>
-                <p className="mt-3 text-3xl font-bold tabular-nums tracking-tight text-[var(--lp-band-fg)] sm:text-4xl lg:text-[2.5rem]">
-                  <ScrollCountUp end={50000} prefix="+" />
-                </p>
-                <span className="mx-auto mt-4 block h-px w-16 max-w-[6rem] bg-gradient-to-r from-transparent via-[var(--lp-band-fg)]/22 to-transparent" />
-                <p className="mt-4 text-sm font-semibold text-[var(--lp-band-fg)]">casos asesorados</p>
-                <p className="mt-2 text-sm text-neutral-600">Trayectoria y volumen que respaldan el criterio</p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delayMs={270}>
-              <div className="group flex h-full flex-col rounded-2xl border border-[var(--lp-band-fg)]/10 bg-white/60 px-5 py-8 transition duration-300 hover:-translate-y-0.5 hover:border-[var(--lp-band-fg)]/20 hover:bg-white/85 hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)]">
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-500 transition group-hover:text-neutral-700">
-                  04
-                </p>
-                <p className="mt-3 text-lg font-semibold leading-snug text-[var(--lp-band-fg)] sm:text-xl">
-                  Primera orientación
-                </p>
-                <span className="mx-auto mt-4 block h-px w-12 max-w-[5rem] bg-gradient-to-r from-transparent via-[var(--lp-band-fg)]/20 to-transparent" />
-                <p className="mt-4 text-sm text-neutral-600">gratuita</p>
+                <p className="mt-3 text-sm text-neutral-500">áreas de práctica</p>
               </div>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      <section id="problemas" className="scroll-mt-20 py-20 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <ScrollReveal className="text-center">
-            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.1</p>
-            <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Te está pasando esto?</h2>
-            <p className="mt-4 text-neutral-600">Identificamos riesgos antes de que escalen.</p>
+      {/* ─── Services (1.2) ─── */}
+      <section id="servicios" className="scroll-mt-20 border-t border-neutral-100 bg-[var(--lp-band-bg)] py-28 lg:py-40">
+        <div className="mx-auto max-w-5xl px-6 sm:px-8">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-widest text-neutral-400">1.2</p>
           </ScrollReveal>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {PROBLEMAS.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <ScrollReveal key={i} delayMs={Math.min(i * 75, 450)}>
-                  <div className="flex h-full items-start gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-400 hover:shadow-md">
-                    <Icon className="h-6 w-6 shrink-0 text-neutral-950" />
-                    <span className="text-left text-neutral-900">{item.text}</span>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-          <ScrollReveal className="mt-10 text-center">
-            <a
-              href="#contacto"
-              className="inline-block rounded-full bg-neutral-950 px-8 py-4 font-semibold text-white transition hover:bg-neutral-800"
-            >
-              Revisar mi empresa
-            </a>
+          <ScrollTextReveal
+            as="h2"
+            className="mt-6 text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            Nuestros servicios
+          </ScrollTextReveal>
+          <ScrollReveal delayMs={100}>
+            <p className="mt-6 max-w-xl text-neutral-500">
+              Servicios legales y fiscales para empresas en las áreas más complejas.
+            </p>
           </ScrollReveal>
-        </div>
-      </section>
 
-      <section
-        id="servicios"
-        className="scroll-mt-20 border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-neutral-900 lg:py-28"
-      >
-        <div className="mx-auto max-w-7xl px-6">
-          <ScrollReveal className="text-center">
-            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-500">1.2</p>
-            <h2 className="mt-2 text-3xl font-bold text-[var(--lp-band-fg)] sm:text-4xl">
-              Qué podemos hacer por ti
-            </h2>
-            <p className="mt-4 text-neutral-600">Servicios legales y fiscales para empresas.</p>
-          </ScrollReveal>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 space-y-0 divide-y divide-neutral-200">
             {SERVICIOS.map((s, i) => (
-              <ScrollReveal key={s.title} delayMs={Math.min(i * 80, 400)}>
-                <div className="h-full rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white/55 p-6 transition hover:border-[var(--lp-band-fg)]/22 hover:bg-white/85">
-                  <span className="font-mono text-xs text-neutral-500">
+              <ScrollReveal key={s.title} delayMs={Math.min(i * 80, 320)}>
+                <div className="flex items-start gap-6 py-8 sm:gap-10">
+                  <span className="font-mono text-sm text-neutral-400">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <s.icon className="mt-3 h-10 w-10 text-[var(--lp-band-fg)]" />
-                  <h3 className="mt-4 text-lg font-bold text-[var(--lp-band-fg)]">{s.title}</h3>
-                  <p className="mt-2 text-sm text-neutral-600">{s.description}</p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-lg font-semibold text-neutral-950 sm:text-xl">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-neutral-600">{s.description}</p>
+                  </div>
                 </div>
               </ScrollReveal>
             ))}
@@ -482,14 +357,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-neutral-200 py-20 lg:py-28">
-        <div className="mx-auto max-w-3xl overflow-x-hidden px-6 text-center">
+      {/* ─── How it works (1.3) ─── */}
+      <section className="border-t border-neutral-100 py-28 lg:py-40">
+        <div className="mx-auto max-w-4xl overflow-x-hidden px-6 text-center sm:px-8">
           <div ref={comoFoldRef}>
             <ScrollReveal>
-              <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">1.3</p>
-              <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">¿Cómo funciona?</h2>
+              <p className="font-mono text-xs tracking-widest text-neutral-400">1.3</p>
             </ScrollReveal>
-            <div className="mt-12 space-y-8">
+            <ScrollTextReveal
+              as="h2"
+              className="mt-6 text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+              style={{ fontFamily: "var(--font-serif), serif" }}
+            >
+              ¿Cómo funciona?
+            </ScrollTextReveal>
+
+            <div className="mt-16 space-y-12">
               {[
                 {
                   step: "1",
@@ -507,45 +390,79 @@ export default function Home() {
                   body: "Implementamos contigo las soluciones necesarias.",
                 },
               ].map((row, i) => (
-                <ScrollScrubSlide
-                  key={row.step}
-                  from={i % 2 === 0 ? "right" : "left"}
-                  progress={comoFoldProgress}
-                >
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="rounded-full bg-neutral-950 px-4 py-1 text-sm font-bold text-white">
+                <ScrollScrubSlide key={row.step} from={i % 2 === 0 ? "right" : "left"} progress={comoFoldProgress}>
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-950 text-sm font-bold text-white">
                       {row.step}
                     </span>
-                    <p className="text-xl font-semibold text-neutral-950">{row.title}</p>
-                    <p className="text-neutral-600">{row.body}</p>
+                    <p className="text-xl font-semibold text-neutral-950 sm:text-2xl">{row.title}</p>
+                    <p className="text-neutral-500">{row.body}</p>
                   </div>
                 </ScrollScrubSlide>
               ))}
             </div>
           </div>
-          <ScrollReveal className="mt-10">
-            <p className="rounded-xl border border-neutral-300 bg-neutral-100 px-6 py-4 text-neutral-800">
-              Sin procesos complicados. Sin lenguaje legal innecesario.
-            </p>
-          </ScrollReveal>
         </div>
       </section>
 
-      <section className="border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-neutral-900 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <ScrollReveal className="text-center">
-            <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-500">1.4</p>
-            <h2 className="mt-2 text-3xl font-bold text-[var(--lp-band-fg)] sm:text-4xl">Casos reales</h2>
-            <p className="mt-4 text-neutral-600">Ejemplos de cómo hemos ayudado a empresas.</p>
+      {/* ─── Problems (1.4) ─── */}
+      <section id="problemas" className="scroll-mt-20 border-t border-neutral-100 bg-[var(--lp-band-bg)] py-28 lg:py-40">
+        <div className="mx-auto max-w-5xl px-6 sm:px-8">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-widest text-neutral-400">1.4</p>
           </ScrollReveal>
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <ScrollTextReveal
+            as="h2"
+            className="mt-6 text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            ¿Te está pasando esto?
+          </ScrollTextReveal>
+          <ScrollReveal delayMs={100}>
+            <p className="mt-6 text-neutral-500">Identificamos riesgos antes de que escalen.</p>
+          </ScrollReveal>
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {PROBLEMAS.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <ScrollReveal key={i} delayMs={Math.min(i * 75, 450)}>
+                  <div className="flex items-start gap-4 rounded-2xl border border-neutral-200 bg-white p-6 transition hover:shadow-sm">
+                    <Icon className="h-5 w-5 shrink-0 text-neutral-950" />
+                    <span className="text-sm text-neutral-700">{item.text}</span>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Case Studies (1.5) ─── */}
+      <section className="border-t border-neutral-100 py-28 lg:py-40">
+        <div className="mx-auto max-w-5xl px-6 sm:px-8">
+          <ScrollReveal>
+            <p className="font-mono text-xs tracking-widest text-neutral-400">1.5</p>
+          </ScrollReveal>
+          <ScrollTextReveal
+            as="h2"
+            className="mt-6 text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            Casos reales
+          </ScrollTextReveal>
+          <ScrollReveal delayMs={100}>
+            <p className="mt-6 text-neutral-500">Ejemplos de cómo hemos ayudado a empresas.</p>
+          </ScrollReveal>
+          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-200 lg:grid-cols-2">
             {CASOS.map((c, i) => (
               <ScrollReveal key={c.titulo} delayMs={Math.min(i * 70, 420)}>
-                <div className="h-full rounded-2xl border border-[var(--lp-band-fg)]/12 bg-white/55 p-6 text-left transition hover:border-[var(--lp-band-fg)]/22 hover:bg-white/85">
-                  <p className="font-mono text-xs text-neutral-500">Caso {String(i + 1).padStart(2, "0")}</p>
-                  <p className="mt-2 font-semibold text-[var(--lp-band-fg)]">{c.titulo}</p>
-                  <p className="mt-1 text-sm text-neutral-500">{c.subtitulo}</p>
-                  <p className="mt-4 text-sm leading-relaxed text-neutral-700">{c.resultado}</p>
+                <div className="flex h-full flex-col bg-white p-7">
+                  <p className="font-mono text-xs text-neutral-400">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <p className="mt-3 font-semibold text-neutral-950">{c.titulo}</p>
+                  <p className="mt-1 text-xs text-neutral-400">{c.subtitulo}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-neutral-600">{c.resultado}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -553,66 +470,79 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── FAQ (1.6) ─── */}
       <section
         ref={faqSectionRef}
         id="faq"
-        className="scroll-mt-20 border-t border-neutral-200 py-20 lg:py-28"
+        className="scroll-mt-20 border-t border-neutral-100 bg-[var(--lp-band-bg)] py-28 lg:py-40"
       >
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-5xl px-6 sm:px-8">
           <div className="grid gap-12 md:grid-cols-12 md:items-center md:gap-10">
-            <div className="md:col-span-7 md:min-h-0">
-              <ScrollReveal className="text-left">
-                <p className="font-mono text-xs font-medium uppercase tracking-widest text-neutral-400">
-                  1.5
-                </p>
-                <h2 className="mt-2 text-3xl font-bold text-neutral-950 sm:text-4xl">
-                  Preguntas frecuentes
-                </h2>
+            <div className="md:col-span-7">
+              <ScrollReveal>
+                <p className="font-mono text-xs tracking-widest text-neutral-400">1.6</p>
               </ScrollReveal>
+              <ScrollTextReveal
+                as="h2"
+                className="mt-6 text-4xl tracking-tight sm:text-5xl"
+                style={{ fontFamily: "var(--font-serif), serif" }}
+              >
+                Preguntas frecuentes
+              </ScrollTextReveal>
+
               <div className="mt-10 md:hidden">
                 <FaqScrollArt sectionRef={faqSectionRef} />
               </div>
-              <div className="mt-12 space-y-2 md:mt-12">
+
+              <div className="mt-12 space-y-2">
                 {FAQ.map((f, i) => (
                   <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 320)}>
                     <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
                       <button
                         type="button"
                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                        className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left font-medium text-neutral-950"
+                        className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left text-sm font-medium text-neutral-950"
                       >
                         {f.q}
-                        <HelpCircle className="h-5 w-5 shrink-0 text-neutral-950" />
+                        <HelpCircle className="h-4 w-4 shrink-0 text-neutral-400" />
                       </button>
                       {openFaq === i && (
-                        <p className="border-t border-neutral-200 px-6 py-4 text-neutral-600">{f.a}</p>
+                        <p className="border-t border-neutral-100 px-6 py-4 text-sm text-neutral-600">{f.a}</p>
                       )}
                     </div>
                   </ScrollReveal>
                 ))}
               </div>
             </div>
-            <div className="relative hidden md:col-span-5 md:flex md:min-h-0 md:items-center md:justify-center md:py-2">
+            <div className="relative hidden md:col-span-5 md:flex md:items-center md:justify-center md:py-2">
               <FaqScrollArt sectionRef={faqSectionRef} />
             </div>
           </div>
         </div>
       </section>
 
+      {/* ─── Team ─── */}
       <ScrollReveal>
         <TeamCarousel />
       </ScrollReveal>
 
-      <section className="border-t border-neutral-200 py-20 lg:py-28">
-        <div className="mx-auto max-w-2xl px-6 text-center">
-          <ScrollReveal>
-            <h2 className="text-3xl font-bold text-neutral-950 sm:text-4xl">Agenda tu orientación gratuita</h2>
-            <p className="mt-4 text-sm text-neutral-600">
+      {/* ─── CTA ─── */}
+      <section className="border-t border-neutral-100 py-28 lg:py-40">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <ScrollTextReveal
+            as="h2"
+            className="text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            Agenda tu orientación gratuita
+          </ScrollTextReveal>
+          <ScrollReveal delayMs={100}>
+            <p className="mt-6 text-neutral-500">
               Sin compromiso. En 30 minutos sabes exactamente en qué situación está tu empresa.
             </p>
             <a
               href="#contacto"
-              className="mt-8 inline-block rounded-full bg-neutral-950 px-12 py-5 text-lg font-bold text-white transition hover:bg-neutral-800"
+              className="mt-10 inline-block border-b-2 border-neutral-950 pb-1 text-sm font-semibold text-neutral-950 transition hover:opacity-70"
             >
               Enviar mi caso
             </a>
@@ -620,10 +550,10 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Contact ─── */}
       <ScrollReveal>
         <ContactSection />
       </ScrollReveal>
-      <StickyCtaBar />
 
       <SiteFooter />
     </div>

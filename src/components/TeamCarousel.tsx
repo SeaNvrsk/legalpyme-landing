@@ -202,11 +202,17 @@ export default function TeamCarousel() {
   return (
     <section
       id="nosotros"
-      className="scroll-mt-20 border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-neutral-900 lg:py-28"
+      className="scroll-mt-20 border-t border-neutral-100 py-28 text-neutral-900 lg:py-40"
     >
       <div className="mx-auto max-w-3xl px-6 lg:max-w-6xl">
-        <h2 className="text-center text-3xl font-bold sm:text-4xl">Sobre el equipo</h2>
-        <p className="mx-auto mt-3 max-w-lg text-center text-sm text-neutral-600">
+        <p className="text-center font-mono text-xs tracking-widest text-neutral-400">Equipo</p>
+        <h2
+          className="mt-4 text-center text-4xl tracking-tight sm:text-5xl"
+          style={{ fontFamily: "var(--font-serif), serif" }}
+        >
+          Sobre el equipo
+        </h2>
+        <p className="mx-auto mt-4 max-w-lg text-center text-sm text-neutral-500">
           Abogados con experiencia en PyMEs, negocio y cumplimiento.
         </p>
 
