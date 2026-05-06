@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
-import FaqScrollArt from "@/components/FaqScrollArt";
 import ContactSection from "@/components/ContactSection";
 import ScrollCountUp from "@/components/ScrollCountUp";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -442,51 +441,40 @@ export default function Home() {
         className="scroll-mt-20 py-28 lg:py-40"
       >
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <div className="grid gap-12 md:grid-cols-12 md:items-start md:gap-10">
-            <div className="md:col-span-7">
-              {/* Section header */}
-              <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
-                <span className="text-sm text-neutral-500">Preguntas frecuentes</span>
-                <span className="font-mono text-xs text-neutral-400">1.5</span>
-              </div>
+          {/* Section header */}
+          <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
+            <span className="text-sm text-neutral-500">Preguntas frecuentes</span>
+            <span className="font-mono text-xs text-neutral-400">1.5</span>
+          </div>
 
-              <ScrollTextReveal
-                as="h2"
-                className="mt-10 text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl"
-              >
-                Resolvemos tus dudas.
-              </ScrollTextReveal>
+          <ScrollTextReveal
+            as="h2"
+            className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
+          >
+            Resolvemos tus dudas.
+          </ScrollTextReveal>
 
-              <div className="mt-10 md:hidden">
-                <FaqScrollArt sectionRef={faqSectionRef} />
-              </div>
-
-              <div className="mt-12 divide-y divide-neutral-100">
-                {FAQ.map((f, i) => (
-                  <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 280)}>
-                    <div>
-                      <button
-                        type="button"
-                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                        className="flex w-full items-center justify-between gap-4 py-5 text-left"
-                      >
-                        <div className="flex items-start gap-4">
-                          <span className="font-mono text-sm text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
-                          <span className="text-[15px] font-medium text-neutral-950">{f.q}</span>
-                        </div>
-                        <HelpCircle className={`h-5 w-5 shrink-0 transition ${openFaq === i ? "rotate-45 text-neutral-950" : "text-neutral-300"}`} />
-                      </button>
-                      {openFaq === i && (
-                        <p className="pb-5 pl-10 text-sm leading-relaxed text-neutral-600">{f.a}</p>
-                      )}
+          <div className="mt-12 divide-y divide-neutral-100">
+            {FAQ.map((f, i) => (
+              <ScrollReveal key={f.q} delayMs={Math.min(i * 40, 280)}>
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="font-mono text-sm text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="text-[15px] font-medium text-neutral-950">{f.q}</span>
                     </div>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-            <div className="relative hidden md:col-span-5 md:flex md:items-center md:justify-center md:py-12">
-              <FaqScrollArt sectionRef={faqSectionRef} />
-            </div>
+                    <HelpCircle className={`h-5 w-5 shrink-0 transition ${openFaq === i ? "rotate-45 text-neutral-950" : "text-neutral-300"}`} />
+                  </button>
+                  {openFaq === i && (
+                    <p className="pb-5 pl-10 text-sm leading-relaxed text-neutral-600">{f.a}</p>
+                  )}
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>

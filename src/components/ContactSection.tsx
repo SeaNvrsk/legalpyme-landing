@@ -27,16 +27,21 @@ export default function ContactSection() {
       id="contacto"
       className="relative scroll-mt-20 border-t border-neutral-100 py-28 lg:py-40"
     >
-      <div className="mx-auto max-w-2xl px-6 sm:px-8">
-        <p className="font-mono text-xs tracking-widest text-neutral-400">Contacto</p>
-        <h2 className="mt-6 text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+      <div className="mx-auto max-w-6xl px-6 sm:px-8">
+        {/* Section header */}
+        <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
+          <span className="text-sm text-neutral-500">Contacto</span>
+          <span className="font-mono text-xs text-neutral-400">1.7</span>
+        </div>
+
+        <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Escríbenos
         </h2>
-        <p className="mt-6 text-neutral-500">
+        <p className="mt-4 max-w-xl text-neutral-500">
           Cuéntanos sobre tu empresa o tu situación legal. Respuesta rápida. Sin compromiso.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-14 space-y-8">
+        <form onSubmit={handleSubmit} className="mt-14 max-w-2xl space-y-8">
           <div>
             <label htmlFor="cs-name" className="block text-xs font-medium uppercase tracking-wider text-neutral-400">
               Nombre

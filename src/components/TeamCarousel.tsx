@@ -19,7 +19,7 @@ export default function TeamCarousel() {
           <span className="font-mono text-xs text-neutral-400">1.6</span>
         </div>
 
-        <h2 className="mt-8 text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl">
+        <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Sobre el equipo
         </h2>
         <p className="mt-4 max-w-xl text-neutral-500">
