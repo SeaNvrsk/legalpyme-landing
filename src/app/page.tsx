@@ -17,6 +17,7 @@ import ScrollCountUp from "@/components/ScrollCountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollScrubSlide, { useFoldProgress } from "@/components/ScrollScrubSlide";
 import ScrollTextReveal from "@/components/ScrollTextReveal";
+import ParallaxImage from "@/components/ParallaxImage";
 import SiteFooter from "@/components/SiteFooter";
 import TeamCarousel from "@/components/TeamCarousel";
 
@@ -325,26 +326,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Photo break (2 images side by side) ─── */}
+      {/* ─── Photo break (2 images side by side with parallax) ─── */}
       <section className="grid grid-cols-1 sm:grid-cols-2" aria-hidden>
-        <div className="relative h-[50vh] sm:h-[60vh]">
-          <Image
-            src="/img/section-lawyer.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            loading="lazy"
-          />
-        </div>
-        <div className="relative h-[50vh] sm:h-[60vh]">
-          <Image
-            src="/img/section-arch.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            loading="lazy"
-          />
-        </div>
+        <ParallaxImage
+          src="/img/section-lawyer.jpg"
+          className="h-[50vh] sm:h-[60vh]"
+        />
+        <ParallaxImage
+          src="/img/section-arch.jpg"
+          className="h-[50vh] sm:h-[60vh]"
+        />
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -436,16 +427,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Photo break (single full-bleed) ─── */}
-      <section className="relative h-[50vh] sm:h-[60vh]" aria-hidden>
-        <Image
-          src="/img/section-lawyer.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          loading="lazy"
-        />
-      </section>
+      {/* ─── Photo break (single full-bleed with parallax) ─── */}
+      <ParallaxImage
+        src="/img/section-docs.jpg"
+        className="h-[50vh] sm:h-[60vh]"
+      />
 
       {/* ═══════════════════════════════════════════════════════════════════
           FAQ (1.5)
