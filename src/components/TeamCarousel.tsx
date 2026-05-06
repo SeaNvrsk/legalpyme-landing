@@ -202,14 +202,14 @@ export default function TeamCarousel() {
   return (
     <section
       id="nosotros"
-      className="scroll-mt-20 border-t border-neutral-100 py-28 text-neutral-900 lg:py-40"
+      className="scroll-mt-20 py-28 text-neutral-900 lg:py-40"
     >
       <div className="mx-auto max-w-3xl px-6 lg:max-w-6xl">
-        <p className="text-center font-mono text-xs tracking-widest text-neutral-400">Equipo</p>
-        <h2
-          className="mt-4 text-center text-4xl tracking-tight sm:text-5xl"
-          style={{ fontFamily: "var(--font-serif), serif" }}
-        >
+        <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
+          <span className="text-sm text-neutral-500">Equipo</span>
+          <span className="font-mono text-xs text-neutral-400">1.6</span>
+        </div>
+        <h2 className="mt-8 text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl">
           Sobre el equipo
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-center text-sm text-neutral-500">

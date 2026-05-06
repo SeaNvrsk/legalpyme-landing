@@ -24,10 +24,7 @@ export default function SiteFooter() {
           <div className="min-w-0 max-w-sm">
             <div className="flex items-center gap-2.5">
               <BrandLogo size="sm" variant="onLight" decorative />
-              <span
-                className="text-lg tracking-tight"
-                style={{ fontFamily: "var(--font-serif), serif" }}
-              >
+              <span className="text-lg font-medium tracking-tight">
                 LegalPyme<span className="text-neutral-400">.mx</span>
               </span>
             </div>

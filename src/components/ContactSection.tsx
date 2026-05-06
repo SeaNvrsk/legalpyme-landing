@@ -29,10 +29,7 @@ export default function ContactSection() {
     >
       <div className="mx-auto max-w-2xl px-6 sm:px-8">
         <p className="font-mono text-xs tracking-widest text-neutral-400">Contacto</p>
-        <h2
-          className="mt-6 text-4xl tracking-tight sm:text-5xl lg:text-6xl"
-          style={{ fontFamily: "var(--font-serif), serif" }}
-        >
+        <h2 className="mt-6 text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Escríbenos
         </h2>
         <p className="mt-6 text-neutral-500">
