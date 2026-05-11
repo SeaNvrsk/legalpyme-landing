@@ -485,9 +485,9 @@ export default function Home() {
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     className="flex w-full items-center justify-between gap-4 py-5 text-left"
                   >
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-center gap-4">
                       <FaqRouletteIndex value={i + 1} rowIndex={i} spinKey={faqSpinKey} />
-                      <span className="text-[15px] font-medium text-neutral-950">{f.q}</span>
+                      <span className="text-[15px] font-medium leading-snug text-neutral-950">{f.q}</span>
                     </div>
                     <HelpCircle className={`h-5 w-5 shrink-0 transition ${openFaq === i ? "rotate-45 text-neutral-950" : "text-neutral-300"}`} />
                   </button>

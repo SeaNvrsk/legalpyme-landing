@@ -97,7 +97,7 @@ export default function FaqRouletteIndex({
   const baseDelay = rowIndex * 110;
 
   return (
-    <span className="inline-flex shrink-0 items-start gap-0.5 pt-0.5" aria-hidden>
+    <span className="inline-flex h-[30px] shrink-0 items-center gap-px" aria-hidden>
       <DigitRoll digit={tens} delayMs={baseDelay} spinKey={spinKey} />
       <DigitRoll digit={ones} delayMs={baseDelay + 70} spinKey={spinKey} />
     </span>
