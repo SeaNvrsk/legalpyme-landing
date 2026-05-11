@@ -9,7 +9,7 @@ import ArticleBodyBlocks from "@/components/ArticleBodyBlocks";
 import SiteFooter from "@/components/SiteFooter";
 import { BLOG_POST_ICON_MAP } from "@/lib/blog-post-icons";
 
-export default function BlogPostPage() {
+export default function ArticuloSlugPage() {
   const params = useParams();
   const slug = typeof params?.slug === "string" ? params.slug : null;
 
@@ -28,10 +28,10 @@ export default function BlogPostPage() {
 
       <article className="mx-auto max-w-3xl px-6 pb-24 pt-32 lg:pb-32 lg:pt-40">
         <Link
-          href="/blog"
+          href="/articulos"
           className="mb-8 inline-flex items-center gap-1 text-sm text-neutral-500 transition-colors hover:text-neutral-950"
         >
-          ← Volver al blog
+          ← Volver a artículos
         </Link>
 
         <div className="mb-8 inline-flex rounded-xl border border-neutral-200 bg-neutral-100 p-3">
@@ -53,7 +53,7 @@ export default function BlogPostPage() {
             Solicitar asesoría
           </Link>
           <Link
-            href="/blog"
+            href="/articulos"
             className="rounded-full border-2 border-neutral-950 px-6 py-3 font-semibold text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
           >
             Más artículos

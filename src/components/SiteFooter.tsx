@@ -37,7 +37,24 @@ export default function SiteFooter() {
           </div>
 
           {/* Right: links */}
-          <div className="grid grid-cols-2 gap-x-12 gap-y-6 text-sm">
+          <div className="grid grid-cols-2 gap-x-12 gap-y-6 text-sm sm:grid-cols-3">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">Sitio</p>
+              <div className="mt-3 flex flex-col gap-2 text-neutral-600">
+                <Link href="/servicios" className="transition hover:text-neutral-950">
+                  Servicios
+                </Link>
+                <Link href="/casos" className="transition hover:text-neutral-950">
+                  Casos
+                </Link>
+                <Link href="/equipo" className="transition hover:text-neutral-950">
+                  Equipo
+                </Link>
+                <Link href="/articulos" className="transition hover:text-neutral-950">
+                  Artículos
+                </Link>
+              </div>
+            </div>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">Guías</p>
               <div className="mt-3 flex flex-col gap-2 text-neutral-600">

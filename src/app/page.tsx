@@ -9,7 +9,7 @@ import {
   X,
   ArrowRight,
 } from "lucide-react";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import ContactSection from "@/components/ContactSection";
 import ScrollCountUp from "@/components/ScrollCountUp";
@@ -18,57 +18,7 @@ import ScrollScrubSlide, { useFoldProgress } from "@/components/ScrollScrubSlide
 import ScrollTextReveal from "@/components/ScrollTextReveal";
 import ParallaxImage from "@/components/ParallaxImage";
 import SiteFooter from "@/components/SiteFooter";
-import TeamCarousel from "@/components/TeamCarousel";
-
-const SERVICIOS = [
-  "Estructura legal y fiscal",
-  "Protección de operación y patrimonio",
-  "Prevención de riesgos legales",
-  "Resolución de conflictos",
-  "Contratos corporativos",
-  "Cumplimiento laboral",
-  "Defensa fiscal",
-  "Asesoría para socios",
-];
-
-const CASOS = [
-  {
-    titulo: "Su socio intentó quedarse con el negocio",
-    subtitulo: "Empresa comercial · Ciudad de México",
-    resultado:
-      "El cliente recuperó el control total de la empresa. Reestructuramos el pacto de socios para evitar que se repita.",
-  },
-  {
-    titulo: "Startup con irregularidades corporativas",
-    subtitulo: "Tecnología · Guadalajara",
-    resultado:
-      "Regularizamos actas, contratos y estructura accionaria en 6 semanas. La empresa cerró su ronda de inversión sin contratiempos.",
-  },
-  {
-    titulo: "Costos laborales ocultos",
-    subtitulo: "Sector salud",
-    resultado:
-      "Rediseñamos el esquema de contratación. Eliminamos una contingencia laboral de millones de pesos.",
-  },
-  {
-    titulo: "Conflicto que amenazaba a una escuela",
-    subtitulo: "Educación · Estado de México",
-    resultado:
-      "Contingencia resuelta sin juicio. La institución cuenta hoy con reglamentos y contratos que la protegen.",
-  },
-  {
-    titulo: "Dividendos y revisión fiscal",
-    subtitulo: "Sector inmobiliario",
-    resultado:
-      "Reparto de utilidades blindado fiscalmente. Marcas vigentes, sin contingencias pendientes.",
-  },
-  {
-    titulo: "Proveedor clave que frenaba la operación",
-    subtitulo: "Retail · Monterrey",
-    resultado:
-      "Aclaramos un contrato ambiguo, fijamos entregas y penalidades. La cadena de suministro se restableció sin juicio.",
-  },
-];
+import { CASOS, SERVICIOS } from "@/lib/site-content";
 
 const FAQ = [
   {
@@ -104,13 +54,6 @@ export default function Home() {
   const comoFoldRef = useRef<HTMLDivElement>(null);
   const comoFoldProgress = useFoldProgress(comoFoldRef);
 
-  const onTopNavClick = useCallback((targetId: string) => {
-    const target = document.getElementById(targetId);
-    if (!target) return;
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(null, "", `#${targetId}`);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white text-[var(--foreground)] selection:bg-neutral-200">
       {/* Mobile overlay */}
@@ -125,7 +68,7 @@ export default function Home() {
 
       {/* ─── Navigation ─── */}
       <nav className="fixed top-0 z-50 w-full bg-transparent">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 sm:px-8">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5 sm:px-8">
           <Link href="/" className="flex shrink-0 items-center gap-2.5">
             <BrandLogo size="md" variant="onDark" />
             <span className="text-lg font-medium tracking-tight text-white">
@@ -134,24 +77,19 @@ export default function Home() {
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
-            <a
-              href="#servicios"
-              onClick={(e) => { e.preventDefault(); onTopNavClick("servicios"); }}
-              className="text-sm text-white/70 transition hover:text-white"
-            >
+            <Link href="/servicios" className="text-sm text-white/70 transition hover:text-white">
               Servicios
-            </a>
-            <a
-              href="#nosotros"
-              onClick={(e) => { e.preventDefault(); onTopNavClick("nosotros"); }}
-              className="text-sm text-white/70 transition hover:text-white"
-            >
-              Nosotros
-            </a>
-            <a
-              href="#contacto"
-              className="text-sm text-white/70 transition hover:text-white"
-            >
+            </Link>
+            <Link href="/casos" className="text-sm text-white/70 transition hover:text-white">
+              Casos
+            </Link>
+            <Link href="/equipo" className="text-sm text-white/70 transition hover:text-white">
+              Equipo
+            </Link>
+            <Link href="/articulos" className="text-sm text-white/70 transition hover:text-white">
+              Artículos
+            </Link>
+            <a href="#contacto" className="text-sm text-white/70 transition hover:text-white">
               Contacto
             </a>
           </div>
@@ -168,14 +106,18 @@ export default function Home() {
 
         {/* Mobile menu */}
         <div
-          className={`bg-neutral-950/95 px-6 backdrop-blur-lg md:hidden ${
-            mobileMenuOpen ? "max-h-52 pb-5 pt-4" : "max-h-0 overflow-hidden pb-0 pt-0"
+          className={`bg-neutral-950/95 backdrop-blur-lg md:hidden ${
+            mobileMenuOpen ? "max-h-80 pb-5 pt-4" : "max-h-0 overflow-hidden pb-0 pt-0"
           } transition-[max-height,padding] duration-300 ease-out`}
         >
-          <div className="flex flex-col gap-4">
-            <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Servicios</a>
-            <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Nosotros</a>
-            <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Contacto</a>
+          <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
+            <div className="flex flex-col gap-4">
+              <Link href="/servicios" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Servicios</Link>
+              <Link href="/casos" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Casos</Link>
+              <Link href="/equipo" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Equipo</Link>
+              <Link href="/articulos" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Artículos</Link>
+              <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-sm text-white/80">Contacto</a>
+            </div>
           </div>
         </div>
       </nav>
@@ -199,7 +141,7 @@ export default function Home() {
 
         <div className="relative z-10">
           {/* Hero area */}
-          <div className="flex min-h-[100dvh] flex-col px-6 pb-12 pt-28 sm:px-8">
+          <div className="mx-auto flex min-h-[100dvh] w-full max-w-6xl flex-col px-6 pb-12 pt-28 sm:px-8">
             {/* Intro line + 1.0 */}
             <div className="flex items-baseline justify-between">
               <p className="max-w-sm text-sm italic leading-relaxed text-white/60">
@@ -228,7 +170,7 @@ export default function Home() {
           </div>
 
           {/* Stats area (still on dark photo) */}
-          <div className="border-t border-white/10 px-6 py-24 sm:px-8 lg:py-32">
+          <div className="mx-auto w-full max-w-6xl border-t border-white/10 px-6 py-24 sm:px-8 lg:py-32">
             {/* Section header */}
             <div className="flex items-baseline justify-between pb-6">
               <span className="text-sm text-white/50">Company</span>
@@ -283,13 +225,11 @@ export default function Home() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section id="servicios" className="scroll-mt-20 py-28 lg:py-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          {/* Section header */}
           <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
             <span className="text-sm text-neutral-500">Nuestros servicios</span>
             <span className="font-mono text-xs text-neutral-400">1.2</span>
           </div>
 
-          {/* Large heading */}
           <ScrollTextReveal
             as="h2"
             className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
@@ -297,29 +237,31 @@ export default function Home() {
             Servicios legales para las áreas más complejas del derecho empresarial.
           </ScrollTextReveal>
 
-          {/* Two-column ruled list */}
-          <div className="mt-16 grid gap-x-12 border-t border-neutral-200 sm:grid-cols-2">
-            {SERVICIOS.map((name, i) => (
-              <ScrollReveal key={name} delayMs={Math.min(i * 60, 400)}>
-                <div className="flex items-baseline justify-between border-b border-neutral-100 py-5">
+          <ul className="mt-12 space-y-0 border-t border-neutral-200">
+            {SERVICIOS.slice(0, 4).map((name, i) => (
+              <ScrollReveal key={name} delayMs={Math.min(i * 60, 240)}>
+                <li className="flex items-baseline justify-between border-b border-neutral-100 py-4">
                   <span className="text-[15px] text-neutral-900">{name}</span>
                   <span className="font-mono text-xs text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
-                </div>
+                </li>
               </ScrollReveal>
             ))}
-          </div>
+          </ul>
 
-          {/* CTA card */}
-          <ScrollReveal className="mt-16">
+          <ScrollReveal className="mt-10 flex flex-wrap items-center gap-6">
+            <Link
+              href="/servicios"
+              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 underline-offset-4 transition hover:underline"
+            >
+              Ver todos los servicios
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
             <a
               href="#contacto"
-              className="inline-flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-6 py-5 transition hover:border-neutral-300 hover:bg-neutral-100"
+              className="inline-flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-5 py-4 text-sm font-medium text-neutral-900 transition hover:border-neutral-300 hover:bg-neutral-100"
             >
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-neutral-400">Servicios</p>
-                <p className="mt-1 text-sm font-medium text-neutral-900">Agenda una consulta gratuita.</p>
-              </div>
-              <ArrowRight className="h-5 w-5 text-neutral-400" />
+              Agenda una consulta gratuita
+              <ArrowRight className="h-4 w-4 text-neutral-400" aria-hidden />
             </a>
           </ScrollReveal>
         </div>
@@ -392,9 +334,8 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════════════════
           CASE STUDIES (1.4)
       ═══════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 lg:py-40">
+      <section id="casos" className="scroll-mt-20 py-28 lg:py-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          {/* Section header */}
           <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
             <span className="text-sm text-neutral-500">Casos reales</span>
             <span className="font-mono text-xs text-neutral-400">1.4</span>
@@ -407,9 +348,9 @@ export default function Home() {
             Ayudamos a nuestros clientes a alcanzar sus objetivos.
           </ScrollTextReveal>
 
-          <div className="mt-16 space-y-0 divide-y divide-neutral-100">
-            {CASOS.map((c, i) => (
-              <ScrollReveal key={c.titulo} delayMs={Math.min(i * 60, 360)}>
+          <div className="mt-12 space-y-0 divide-y divide-neutral-100">
+            {CASOS.slice(0, 2).map((c, i) => (
+              <ScrollReveal key={c.titulo} delayMs={Math.min(i * 60, 200)}>
                 <div className="py-8">
                   <div className="flex items-start gap-6">
                     <span className="font-mono text-sm text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
@@ -423,6 +364,16 @@ export default function Home() {
               </ScrollReveal>
             ))}
           </div>
+
+          <ScrollReveal className="mt-8">
+            <Link
+              href="/casos"
+              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 underline-offset-4 transition hover:underline"
+            >
+              Ver todos los casos
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -479,10 +430,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Team ─── */}
-      <ScrollReveal>
-        <TeamCarousel />
-      </ScrollReveal>
+      {/* ─── Team teaser → /equipo ─── */}
+      <section id="nosotros" className="scroll-mt-20 py-28 lg:py-40">
+        <div className="mx-auto max-w-6xl px-6 sm:px-8">
+          <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
+            <span className="text-sm text-neutral-500">Equipo</span>
+            <span className="font-mono text-xs text-neutral-400">1.6</span>
+          </div>
+          <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+            Sobre el equipo
+          </h2>
+          <p className="mt-4 max-w-xl text-neutral-500">
+            Abogados con experiencia en PyMEs, negocio y cumplimiento.
+          </p>
+          <ScrollReveal className="mt-10">
+            <Link
+              href="/equipo"
+              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 underline-offset-4 transition hover:underline"
+            >
+              Conocer al equipo
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* ─── Contact ─── */}
       <ScrollReveal>

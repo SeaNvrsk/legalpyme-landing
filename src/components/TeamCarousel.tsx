@@ -5,13 +5,24 @@ import { Mail } from "lucide-react";
 import { TEAM } from "@/lib/team";
 import ScrollReveal from "@/components/ScrollReveal";
 
+type TeamCarouselProps = {
+  /** On the home page: anchor #nosotros and h2. On /equipo: document h1 and no section id. */
+  variant?: "home" | "page";
+};
+
 /**
  * Minimal team section matching the Maxima Legal editorial style:
  * section header row, large heading, clean list of team members.
  */
-export default function TeamCarousel() {
+export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
+  const isPage = variant === "page";
+  const HeadingTag = isPage ? "h1" : "h2";
+
   return (
-    <section id="nosotros" className="scroll-mt-20 py-28 lg:py-40">
+    <section
+      {...(!isPage ? { id: "nosotros" } : {})}
+      className="scroll-mt-20 py-28 lg:py-40"
+    >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         {/* Section header */}
         <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
@@ -19,9 +30,9 @@ export default function TeamCarousel() {
           <span className="font-mono text-xs text-neutral-400">1.6</span>
         </div>
 
-        <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+        <HeadingTag className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Sobre el equipo
-        </h2>
+        </HeadingTag>
         <p className="mt-4 max-w-xl text-neutral-500">
           Abogados con experiencia en PyMEs, negocio y cumplimiento.
         </p>
