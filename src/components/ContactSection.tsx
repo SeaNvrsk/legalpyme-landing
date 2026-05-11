@@ -29,7 +29,7 @@ export default function ContactSection() {
       className="relative scroll-mt-20 border-t border-neutral-100 py-28 lg:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        <SectionIndexRail label="Contacto" index="1.7" />
+        <SectionIndexRail label="Contacto" />
 
         <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Escríbenos

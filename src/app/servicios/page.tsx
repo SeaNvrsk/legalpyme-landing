@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import LegalHeader from "@/components/LegalHeader";
+import MarketingSiteNav from "@/components/MarketingSiteNav";
 import SectionIndexRail from "@/components/SectionIndexRail";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollTextReveal from "@/components/ScrollTextReveal";
@@ -12,7 +12,7 @@ import { SERVICIOS } from "@/lib/site-content";
 export default function ServiciosPage() {
   return (
     <div className="min-h-screen bg-white text-[var(--foreground)] selection:bg-neutral-200">
-      <LegalHeader ctaLabel="Contactar" />
+      <MarketingSiteNav />
 
       <section className="scroll-mt-20 py-28 pt-32 lg:py-40 lg:pt-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">

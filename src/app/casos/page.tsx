@@ -1,6 +1,6 @@
 "use client";
 
-import LegalHeader from "@/components/LegalHeader";
+import MarketingSiteNav from "@/components/MarketingSiteNav";
 import SectionIndexRail from "@/components/SectionIndexRail";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollTextReveal from "@/components/ScrollTextReveal";
@@ -10,7 +10,7 @@ import { CASOS } from "@/lib/site-content";
 export default function CasosPage() {
   return (
     <div className="min-h-screen bg-white text-[var(--foreground)] selection:bg-neutral-200">
-      <LegalHeader ctaLabel="Contactar" />
+      <MarketingSiteNav />
 
       <section className="scroll-mt-20 py-28 pt-32 lg:py-40 lg:pt-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">

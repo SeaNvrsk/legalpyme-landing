@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { blogPosts } from "@/lib/blog-posts";
-import LegalHeader from "@/components/LegalHeader";
+import MarketingSiteNav from "@/components/MarketingSiteNav";
 import SectionIndexRail from "@/components/SectionIndexRail";
 import SiteFooter from "@/components/SiteFooter";
 import { BLOG_POST_ICON_MAP } from "@/lib/blog-post-icons";
@@ -16,11 +16,11 @@ export default function ArticulosPage() {
 
   return (
     <div className="min-h-screen bg-white text-neutral-950 selection:bg-neutral-200">
-      <LegalHeader ctaLabel="Contactar" />
+      <MarketingSiteNav />
 
       <section className="overflow-hidden px-6 pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Artículos" index="2.0" />
+          <SectionIndexRail label="Artículos" />
         </div>
         <div className="mx-auto mt-10 flex max-w-4xl flex-col items-center px-6 text-center sm:px-8">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
@@ -34,7 +34,7 @@ export default function ArticulosPage() {
 
       <section className="border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-[var(--lp-band-fg)] lg:py-28">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail variant="band" label="Publicaciones" index="2.1" />
+          <SectionIndexRail variant="band" label="Publicaciones" />
           <div className="mb-12 mt-10 text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">Publicaciones</h2>
             <p className="mt-4 text-neutral-600">Legalidad y cumplimiento para tu PyME.</p>

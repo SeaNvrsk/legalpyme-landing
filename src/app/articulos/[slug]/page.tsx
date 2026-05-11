@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { blogPosts } from "@/lib/blog-posts";
 import { getArticleContent } from "@/lib/blog-articles";
-import LegalHeader from "@/components/LegalHeader";
+import MarketingSiteNav from "@/components/MarketingSiteNav";
 import SectionIndexRail from "@/components/SectionIndexRail";
 import ArticleBodyBlocks from "@/components/ArticleBodyBlocks";
 import SiteFooter from "@/components/SiteFooter";
@@ -25,7 +25,7 @@ export default function ArticuloSlugPage() {
 
   return (
     <div className="min-h-screen bg-white text-neutral-950 selection:bg-neutral-200">
-      <LegalHeader ctaLabel="Contactar" />
+      <MarketingSiteNav />
 
       <article className="mx-auto max-w-3xl px-6 pb-24 pt-32 lg:pb-32 lg:pt-40">
         <Link

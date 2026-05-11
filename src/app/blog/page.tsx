@@ -20,7 +20,7 @@ export default function BlogPage() {
 
       <section className="overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Blog" index="2.0" />
+          <SectionIndexRail label="Blog" />
         </div>
         <div className="mx-auto mt-10 flex max-w-4xl flex-col items-center px-6 text-center sm:px-8">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
@@ -34,7 +34,7 @@ export default function BlogPage() {
 
       <section className="border-t border-[var(--lp-band-fg)]/10 bg-[var(--lp-band-bg)] py-20 text-[var(--lp-band-fg)] lg:py-28">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail variant="band" label="Últimas publicaciones" index="2.1" />
+          <SectionIndexRail variant="band" label="Últimas publicaciones" />
           <div className="mb-12 mt-10 text-center">
             <h2 className="text-3xl font-bold sm:text-4xl">Últimas publicaciones</h2>
             <p className="mt-4 text-neutral-600">Conoce más sobre legalidad para tu PyME.</p>
