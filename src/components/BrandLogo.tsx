@@ -35,7 +35,7 @@ export default function BrandLogo({
       role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : ariaLabel}
-      className={`relative inline-flex shrink-0 overflow-hidden rounded-[4px] ring-0 outline-none ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-[#f0ede8] ${className}`}
       style={{ width: dim, height: dim, ...style }}
     >
       <Image
@@ -43,7 +43,7 @@ export default function BrandLogo({
         alt={decorative ? "" : ariaLabel}
         width={512}
         height={512}
-        className="pointer-events-none absolute left-1/2 top-1/2 block min-h-[108%] min-w-[108%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover object-center select-none"
+        className="block h-full w-full object-contain object-center select-none"
         sizes={`${dim}px`}
         priority={priority}
       />
