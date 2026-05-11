@@ -35,14 +35,14 @@ export default function BrandLogo({
       role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : ariaLabel}
-      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-[#f0ede8] ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-[#f6f5ef] ${className}`}
       style={{ width: dim, height: dim, ...style }}
     >
       <Image
         src="/img/brand-lp-mark.png"
         alt={decorative ? "" : ariaLabel}
-        width={512}
-        height={512}
+        width={488}
+        height={484}
         className="block h-full w-full object-contain object-center select-none"
         sizes={`${dim}px`}
         priority={priority}
