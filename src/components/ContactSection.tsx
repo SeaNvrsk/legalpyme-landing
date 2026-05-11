@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import SectionIndexRail from "@/components/SectionIndexRail";
 import { useState } from "react";
 
 export default function ContactSection() {
@@ -28,11 +29,7 @@ export default function ContactSection() {
       className="relative scroll-mt-20 border-t border-neutral-100 py-28 lg:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header */}
-        <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
-          <span className="text-sm text-neutral-500">Contacto</span>
-          <span className="font-mono text-xs text-neutral-400">1.7</span>
-        </div>
+        <SectionIndexRail label="Contacto" index="1.7" />
 
         <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Escríbenos

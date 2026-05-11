@@ -1,48 +1,52 @@
+import Image from "next/image";
 import type { CSSProperties } from "react";
 
 type BrandLogoProps = {
-  /** Use on light backgrounds: near-black square, white “LP”. */
+  /** Kept for API compatibility; mark is the same asset on light or dark UI. */
   variant?: "onLight" | "onDark";
   size?: "sm" | "md" | "lg";
   className?: string;
   style?: CSSProperties;
   /** If true, hide from assistive tech (e.g. next to a text heading). */
   decorative?: boolean;
+  /** Prefer for above-the-fold marks (e.g. home nav). */
+  priority?: boolean;
   "aria-label"?: string;
 };
 
 const sizes = { sm: 36, md: 44, lg: 52 } as const;
-const textClass = { sm: "text-sm", md: "text-base", lg: "text-lg" } as const;
 
 /**
- * Square mark with LP — primary brand glyph.
- * onLight: band-fg fill, white type (default on white/nav).
- * onDark: white fill, black type (on gray bands / footer).
+ * LP serif mark with rule (brand asset). Scales to a square hit area.
  */
 export default function BrandLogo({
-  variant = "onLight",
+  variant: _variant = "onLight",
   size = "md",
   className = "",
   style,
   decorative = false,
+  priority = false,
   "aria-label": ariaLabel = "LegalPyme",
 }: BrandLogoProps) {
   const dim = sizes[size];
-  const isDarkBg = variant === "onDark";
 
   return (
     <span
       role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : ariaLabel}
-      className={`inline-flex shrink-0 items-center justify-center rounded-[4px] font-bold tabular-nums tracking-tighter ${textClass[size]} ${
-        isDarkBg
-          ? "bg-white text-neutral-950"
-          : "bg-[var(--lp-band-fg)] text-white"
-      } ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] ${className}`}
       style={{ width: dim, height: dim, ...style }}
     >
-      LP
+      <Image
+        src="/img/brand-lp-mark.png"
+        alt={decorative ? "" : ariaLabel}
+        width={512}
+        height={512}
+        className="h-full w-full object-cover"
+        sizes={`${dim}px`}
+        priority={priority}
+      />
     </span>
   );
 }

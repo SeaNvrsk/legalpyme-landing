@@ -5,6 +5,7 @@ import { notFound, useParams } from "next/navigation";
 import { blogPosts } from "@/lib/blog-posts";
 import { getArticleContent } from "@/lib/blog-articles";
 import LegalHeader from "@/components/LegalHeader";
+import SectionIndexRail from "@/components/SectionIndexRail";
 import ArticleBodyBlocks from "@/components/ArticleBodyBlocks";
 import SiteFooter from "@/components/SiteFooter";
 import { BLOG_POST_ICON_MAP } from "@/lib/blog-post-icons";
@@ -33,6 +34,8 @@ export default function BlogPostPage() {
         >
           ← Volver al blog
         </Link>
+
+        <SectionIndexRail label="Entrada" index="2.2" className="mb-8" />
 
         <div className="mb-8 inline-flex rounded-xl border border-neutral-200 bg-neutral-100 p-3">
           {IconComponent && <IconComponent className="h-8 w-8 text-neutral-950" />}

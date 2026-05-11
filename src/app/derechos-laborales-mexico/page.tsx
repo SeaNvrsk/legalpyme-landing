@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import LegalHeader from "@/components/LegalHeader";
+import SectionIndexRail from "@/components/SectionIndexRail";
 
 export default function DerechosLaboralesMexicoPage() {
   return (
@@ -15,6 +16,7 @@ export default function DerechosLaboralesMexicoPage() {
         >
           ← Volver al inicio
         </Link>
+        <SectionIndexRail label="Legal laboral" index="3.2" className="mb-8" />
         <BookOpen className="mb-6 h-12 w-12 text-neutral-950" />
         <h1 className="text-4xl font-bold">Derechos laborales en México</h1>
         <p className="mt-4 text-neutral-600">

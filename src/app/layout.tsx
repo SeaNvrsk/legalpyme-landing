@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const faqRoulette = Oswald({
+  variable: "--font-faq-roulette",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -45,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${inter.variable} font-sans antialiased bg-white text-neutral-950`}
+        className={`${inter.variable} ${faqRoulette.variable} font-sans antialiased bg-white text-neutral-950`}
       >
         {children}
       </body>

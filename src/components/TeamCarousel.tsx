@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Mail } from "lucide-react";
 import { TEAM } from "@/lib/team";
 import ScrollReveal from "@/components/ScrollReveal";
+import SectionIndexRail from "@/components/SectionIndexRail";
 
 type TeamCarouselProps = {
   /** On the home page: anchor #nosotros and h2. On /equipo: document h1 and no section id. */
@@ -24,11 +25,7 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
       className="scroll-mt-20 py-28 lg:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        {/* Section header */}
-        <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
-          <span className="text-sm text-neutral-500">Equipo</span>
-          <span className="font-mono text-xs text-neutral-400">1.6</span>
-        </div>
+        <SectionIndexRail label="Equipo" index="1.6" />
 
         <HeadingTag className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Sobre el equipo

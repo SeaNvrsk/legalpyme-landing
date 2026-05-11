@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import LegalHeader from "@/components/LegalHeader";
+import SectionIndexRail from "@/components/SectionIndexRail";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollTextReveal from "@/components/ScrollTextReveal";
 import SiteFooter from "@/components/SiteFooter";
@@ -15,10 +16,7 @@ export default function ServiciosPage() {
 
       <section className="scroll-mt-20 py-28 pt-32 lg:py-40 lg:pt-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <div className="flex items-baseline justify-between border-b border-neutral-200 pb-4">
-            <span className="text-sm text-neutral-500">Nuestros servicios</span>
-            <span className="font-mono text-xs text-neutral-400">1.2</span>
-          </div>
+          <SectionIndexRail label="Nuestros servicios" index="1.2" />
 
           <ScrollTextReveal
             as="h1"

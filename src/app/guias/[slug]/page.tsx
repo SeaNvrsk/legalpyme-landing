@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { guiasContent } from "@/lib/guias-content";
 import LegalHeader from "@/components/LegalHeader";
+import SectionIndexRail from "@/components/SectionIndexRail";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -24,6 +25,7 @@ export default async function GuiaPage({ params }: Props) {
         >
           ← Volver al inicio
         </Link>
+        <SectionIndexRail label="Guía" index="3.0" className="mb-8" />
         <h1 className="text-4xl font-bold">{content.title}</h1>
         <p className="mt-6 leading-relaxed text-neutral-600">{content.body}</p>
         <a

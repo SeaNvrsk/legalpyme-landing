@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { UserX } from "lucide-react";
 import LegalHeader from "@/components/LegalHeader";
+import SectionIndexRail from "@/components/SectionIndexRail";
 
 export default function DespidoInjustificadoPage() {
   return (
@@ -15,6 +16,7 @@ export default function DespidoInjustificadoPage() {
         >
           ← Volver al inicio
         </Link>
+        <SectionIndexRail label="Legal laboral" index="3.1" className="mb-8" />
         <UserX className="mb-6 h-12 w-12 text-neutral-950" />
         <h1 className="text-4xl font-bold">Despido injustificado</h1>
         <p className="mt-4 text-neutral-600">
