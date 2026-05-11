@@ -25,7 +25,7 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
       className="scroll-mt-20 py-28 lg:py-40"
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
-        <SectionIndexRail label="Equipo" index="1.6" />
+        <SectionIndexRail label="Equipo" />
 
         <HeadingTag className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
           Sobre el equipo
@@ -53,14 +53,9 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
 
                 {/* Info */}
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <div>
-                      <h3 className="text-lg font-medium text-neutral-950">{member.name}</h3>
-                      <p className="mt-0.5 text-sm text-neutral-500">{member.role}</p>
-                    </div>
-                    <span className="hidden font-mono text-xs text-neutral-300 sm:block">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                  <div>
+                    <h3 className="text-lg font-medium text-neutral-950">{member.name}</h3>
+                    <p className="mt-0.5 text-sm text-neutral-500">{member.role}</p>
                   </div>
 
                   <p className="mt-3 text-sm leading-relaxed text-neutral-600">

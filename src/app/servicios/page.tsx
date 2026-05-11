@@ -16,7 +16,7 @@ export default function ServiciosPage() {
 
       <section className="scroll-mt-20 py-28 pt-32 lg:py-40 lg:pt-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Nuestros servicios" index="1.2" />
+          <SectionIndexRail label="Nuestros servicios" />
 
           <ScrollTextReveal
             as="h1"
@@ -28,9 +28,8 @@ export default function ServiciosPage() {
           <div className="mt-16 grid gap-x-12 border-t border-neutral-200 sm:grid-cols-2">
             {SERVICIOS.map((name, i) => (
               <ScrollReveal key={name} delayMs={Math.min(i * 60, 400)}>
-                <div className="flex items-baseline justify-between border-b border-neutral-100 py-5">
+                <div className="border-b border-neutral-100 py-5">
                   <span className="text-[15px] text-neutral-900">{name}</span>
-                  <span className="font-mono text-xs text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
                 </div>
               </ScrollReveal>
             ))}

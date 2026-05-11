@@ -14,7 +14,7 @@ export default function CasosPage() {
 
       <section className="scroll-mt-20 py-28 pt-32 lg:py-40 lg:pt-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Casos reales" index="1.4" />
+          <SectionIndexRail label="Casos reales" />
 
           <ScrollTextReveal
             as="h1"

@@ -239,7 +239,7 @@ export default function Home() {
         <div className="relative z-10">
           {/* Hero area */}
           <div className="mx-auto flex min-h-[100dvh] w-full max-w-6xl flex-col px-6 pb-12 pt-28 sm:px-8">
-            <SectionIndexRail variant="dark" label="LegalPyme" index="1.0" className="mb-4" />
+            <SectionIndexRail variant="dark" label="LegalPyme" className="mb-4" />
             <p className="max-w-sm text-sm italic leading-relaxed text-white/60">
               LegalPyme es un despacho con más de 25 años de experiencia en derecho empresarial.
             </p>
@@ -265,16 +265,12 @@ export default function Home() {
 
           {/* Stats area (still on dark photo) */}
           <div className="mx-auto w-full max-w-6xl border-t border-white/10 px-6 py-24 sm:px-8 lg:py-32">
-            <SectionIndexRail variant="dark" label="Company" index="1.1" className="mb-8" />
+            <SectionIndexRail variant="dark" label="Company" className="mb-8" />
 
-            {/* Description */}
-            <div className="mt-8 grid gap-10 lg:grid-cols-2">
-              <div />
-              <p className="text-lg leading-relaxed text-white/70 sm:text-xl">
-                Un equipo de abogados con experiencia real en la operación de negocios.
-                Asesoramos empresas de todos los tamaños en las áreas más complejas del derecho empresarial.
-              </p>
-            </div>
+            <p className="mt-8 max-w-3xl text-lg leading-relaxed text-white/70 sm:text-xl">
+              Un equipo de abogados con experiencia real en la operación de negocios.
+              Asesoramos empresas de todos los tamaños en las áreas más complejas del derecho empresarial.
+            </p>
 
             {/* Numbers */}
             <div className="mt-20 grid gap-8 sm:grid-cols-3">
@@ -315,7 +311,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section id="servicios" className="scroll-mt-20 py-28 lg:py-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Nuestros servicios" index="1.2" />
+          <SectionIndexRail label="Nuestros servicios" />
 
           <ScrollTextReveal
             as="h2"
@@ -327,9 +323,8 @@ export default function Home() {
           <ul className="mt-12 space-y-0 border-t border-neutral-200">
             {SERVICIOS.slice(0, 4).map((name, i) => (
               <ScrollReveal key={name} delayMs={Math.min(i * 60, 240)}>
-                <li className="flex items-baseline justify-between border-b border-neutral-100 py-4">
+                <li className="border-b border-neutral-100 py-4">
                   <span className="text-[15px] text-neutral-900">{name}</span>
-                  <span className="font-mono text-xs text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
                 </li>
               </ScrollReveal>
             ))}
@@ -371,7 +366,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="py-28 lg:py-40">
         <div className="mx-auto max-w-6xl overflow-x-hidden px-6 sm:px-8">
-          <SectionIndexRail label="¿Cómo funciona?" index="1.3" />
+          <SectionIndexRail label="¿Cómo funciona?" />
 
           <div ref={comoFoldRef} className="mt-10">
             <ScrollTextReveal
@@ -419,7 +414,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section id="casos" className="scroll-mt-20 py-28 lg:py-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Casos reales" index="1.4" />
+          <SectionIndexRail label="Casos reales" />
 
           <ScrollTextReveal
             as="h2"
@@ -472,7 +467,7 @@ export default function Home() {
         className="scroll-mt-20 py-28 lg:py-40"
       >
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Preguntas frecuentes" index="1.5" />
+          <SectionIndexRail label="Preguntas frecuentes" />
 
           <ScrollTextReveal
             as="h2"
@@ -509,7 +504,7 @@ export default function Home() {
       {/* ─── Team teaser → /equipo ─── */}
       <section id="nosotros" className="scroll-mt-20 py-28 lg:py-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Equipo" index="1.6" />
+          <SectionIndexRail label="Equipo" />
           <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             Sobre el equipo
           </h2>

@@ -1,8 +1,8 @@
 type SectionIndexRailProps = {
   /** Left label (e.g. section title in small caps style). */
   label: string;
-  /** Right index, e.g. "1.2" — matches editorial numbering across the site. */
-  index: string;
+  /** Optional right index (e.g. "1.2"). Omit for label-only rail. */
+  index?: string;
   /** `light`: white pages. `dark`: hero on photo. `band`: green editorial band. */
   variant?: "light" | "dark" | "band";
   className?: string;
@@ -36,10 +36,20 @@ export default function SectionIndexRail({
   className = "",
 }: SectionIndexRailProps) {
   const v = variants[variant];
+  const showIndex = index != null && index !== "";
+
   return (
-    <div className={`flex items-baseline justify-between border-b pb-4 ${v.row} ${className}`}>
-      <span className={`text-sm ${v.label}`}>{label}</span>
-      <span className={`font-mono text-xs ${v.index}`}>{index}</span>
+    <div
+      className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b pb-4 ${showIndex ? "justify-between" : "justify-start"} ${v.row} ${className}`}
+    >
+      <span className={`min-w-0 text-sm font-normal leading-5 ${v.label}`}>{label}</span>
+      {showIndex && (
+        <span
+          className={`shrink-0 font-mono text-sm font-medium tabular-nums leading-5 tracking-tight ${v.index}`}
+        >
+          {index}
+        </span>
+      )}
     </div>
   );
 }
