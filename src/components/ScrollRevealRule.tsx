@@ -55,7 +55,7 @@ export default function ScrollRevealRule({
   return (
     <div ref={ref} className={`relative h-px w-full overflow-hidden ${className}`} aria-hidden>
       <div
-        className={`h-full w-full origin-left transform-gpu will-change-transform transition-transform duration-[900ms] ease-out motion-reduce:duration-0 motion-reduce:transition-none ${barClass[variant]} ${
+        className={`h-full w-full origin-left transform-gpu will-change-transform transition-transform duration-[2000ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-0 motion-reduce:transition-none ${barClass[variant]} ${
           visible ? "scale-x-100" : "scale-x-0"
         }`}
         style={visible && revealDelayMs > 0 ? { transitionDelay: `${revealDelayMs}ms` } : undefined}

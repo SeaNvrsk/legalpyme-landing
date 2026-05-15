@@ -63,10 +63,10 @@ export default function Home() {
         {/* Background photo */}
         <div className="absolute inset-0">
           <Image
-            src="/img/hero-building.jpg"
-            alt="Torre de oficinas con fachada de cristal en Polanco, Ciudad de México"
+            src="/mexico-city-bg.jpg"
+            alt="Ciudad de México, horizonte urbano"
             fill
-            className="object-cover object-[center_22%] sm:object-center"
+            className="object-cover object-center"
             priority
             quality={85}
           />
@@ -153,7 +153,7 @@ export default function Home() {
             Servicios legales para las áreas más complejas del derecho empresarial.
           </ScrollTextReveal>
 
-          <ScrollRevealRule className="mt-12" revealDelayMs={160} />
+          <ScrollRevealRule className="mt-12" revealDelayMs={280} />
           <ul className="space-y-0">
             {SERVICIOS.slice(0, 4).map((name, i) => (
               <ScrollReveal key={name} delayMs={Math.min(i * 60, 240)}>
