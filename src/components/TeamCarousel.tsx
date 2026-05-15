@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Mail } from "lucide-react";
 import { TEAM } from "@/lib/team";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -16,15 +16,69 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
   const isPage = variant === "page";
   const HeadingTag = isPage ? "h1" : "h2";
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const scrollByCard = (direction: -1 | 1) => {
+  const scrollToIndex = useCallback((index: number) => {
+    const clamped = Math.max(0, Math.min(TEAM.length - 1, index));
+    const scroller = scrollerRef.current;
+    const card = cardRefs.current[clamped];
+    if (!scroller || !card) return;
+
+    const scrollerRect = scroller.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const delta = cardRect.left - scrollerRect.left;
+    const targetLeft = scroller.scrollLeft + delta;
+
+    scroller.scrollTo({ left: targetLeft, behavior: "smooth" });
+    setActiveIndex(clamped);
+  }, []);
+
+  const goPrev = useCallback(() => scrollToIndex(activeIndex - 1), [activeIndex, scrollToIndex]);
+  const goNext = useCallback(() => scrollToIndex(activeIndex + 1), [activeIndex, scrollToIndex]);
+
+  useEffect(() => {
+    if (!isPage) return;
     const el = scrollerRef.current;
     if (!el) return;
-    const card = el.querySelector<HTMLElement>("[data-team-card]");
-    const gap = 24;
-    const w = card?.getBoundingClientRect().width ?? 320;
-    el.scrollBy({ left: direction * (w + gap), behavior: "smooth" });
-  };
+
+    let raf = 0;
+    const syncFromScroll = () => {
+      raf = 0;
+      const scroller = scrollerRef.current;
+      if (!scroller) return;
+      const mid = scroller.getBoundingClientRect().left + scroller.clientWidth * 0.28;
+      let best = 0;
+      let bestDist = Number.POSITIVE_INFINITY;
+      cardRefs.current.forEach((node, i) => {
+        if (!node) return;
+        const left = node.getBoundingClientRect().left;
+        const dist = Math.abs(left - mid);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      setActiveIndex((prev) => (prev === best ? prev : best));
+    };
+
+    const schedule = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(syncFromScroll);
+    };
+
+    const onScrollEnd = () => syncFromScroll();
+    el.addEventListener("scroll", schedule, { passive: true });
+    el.addEventListener("scrollend", onScrollEnd);
+    window.addEventListener("resize", schedule, { passive: true });
+    syncFromScroll();
+    return () => {
+      el.removeEventListener("scroll", schedule);
+      el.removeEventListener("scrollend", onScrollEnd);
+      window.removeEventListener("resize", schedule);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [isPage]);
 
   if (!isPage) {
     return (
@@ -115,16 +169,18 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
           <button
             type="button"
             aria-label="Tarjeta anterior"
-            onClick={() => scrollByCard(-1)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50"
+            disabled={activeIndex <= 0}
+            onClick={goPrev}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-35"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden />
           </button>
           <button
             type="button"
             aria-label="Tarjeta siguiente"
-            onClick={() => scrollByCard(1)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50"
+            disabled={activeIndex >= TEAM.length - 1}
+            onClick={goNext}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-35"
           >
             <ChevronRight className="h-5 w-5" aria-hidden />
           </button>
@@ -132,11 +188,14 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
 
         <div
           ref={scrollerRef}
-          className="-mx-6 mt-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-2 pt-2 [scrollbar-width:thin] sm:-mx-8 sm:px-8"
+          className="-mx-6 relative mt-4 flex snap-x snap-proximity gap-6 overflow-x-auto overscroll-x-contain px-6 pb-2 pt-2 [scrollbar-width:thin] [touch-action:pan-x] sm:-mx-8 sm:px-8"
         >
           {TEAM.map((member, i) => (
             <article
               key={member.id}
+              ref={(node) => {
+                cardRefs.current[i] = node;
+              }}
               data-team-card
               className="w-[min(22rem,calc(100vw-3rem))] shrink-0 snap-start sm:w-[26rem]"
             >
