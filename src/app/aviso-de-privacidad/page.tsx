@@ -15,7 +15,7 @@ export default function AvisoPrivacidadPage() {
         >
           ← Volver al inicio
         </Link>
-        <SectionIndexRail label="Legal" index="4.1" className="mb-8" />
+        <SectionIndexRail label="Legal" className="mb-8" />
         <h1 className="text-4xl font-bold">Aviso de privacidad</h1>
         <p className="mt-6 leading-relaxed text-neutral-600">
           LegalPyme México es responsable del tratamiento de sus datos personales. Los datos que nos proporcione (nombre, correo, teléfono, WhatsApp y descripción de su consulta) serán utilizados para dar seguimiento a su solicitud y, en su caso, prestar servicios de asesoría legal y fiscal. Puede ejercer sus derechos ARCO contactándonos. No realizamos transferencias de sus datos sin su consentimiento. Más información: contacto@legalpyme.mx.

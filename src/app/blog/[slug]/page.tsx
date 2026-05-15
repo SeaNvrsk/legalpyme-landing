@@ -35,7 +35,7 @@ export default function BlogPostPage() {
           ← Volver al blog
         </Link>
 
-        <SectionIndexRail label="Entrada" index="2.2" className="mb-8" />
+        <SectionIndexRail label="Entrada" className="mb-8" />
 
         <div className="mb-8 inline-flex rounded-xl border border-neutral-200 bg-neutral-100 p-3">
           {IconComponent && <IconComponent className="h-8 w-8 text-neutral-950" />}

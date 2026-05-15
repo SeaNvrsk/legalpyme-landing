@@ -28,7 +28,7 @@ export default function CasosPage() {
               <ScrollReveal key={c.titulo} delayMs={Math.min(i * 60, 360)}>
                 <div className="py-8">
                   <div className="flex items-start gap-6">
-                    <span className="font-mono text-sm text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="shrink-0 text-sm font-normal tabular-nums text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
                     <div className="min-w-0 flex-1">
                       <p className="font-medium text-neutral-950">{c.titulo}</p>
                       <p className="mt-1 text-xs text-neutral-400">{c.subtitulo}</p>

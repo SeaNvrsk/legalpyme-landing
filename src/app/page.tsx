@@ -230,7 +230,7 @@ export default function Home() {
               ].map((row, i) => (
                 <ScrollScrubSlide key={row.step} from={i % 2 === 0 ? "right" : "left"} progress={comoFoldProgress}>
                   <div className="flex items-start gap-6 border-b border-neutral-100 pb-10">
-                    <span className="font-mono text-sm text-neutral-400">{row.step}</span>
+                    <span className="shrink-0 text-sm font-normal tabular-nums text-neutral-400">{row.step}</span>
                     <div>
                       <p className="text-xl font-medium text-neutral-950 sm:text-2xl">{row.title}</p>
                       <p className="mt-2 text-neutral-500">{row.body}</p>
