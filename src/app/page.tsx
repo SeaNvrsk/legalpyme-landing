@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { HelpCircle, ArrowRight } from "lucide-react";
+import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";
 import MarketingSiteNav from "@/components/MarketingSiteNav";
 import ContactSection from "@/components/ContactSection";
@@ -12,9 +12,10 @@ import ScrollScrubSlide, { useFoldProgress } from "@/components/ScrollScrubSlide
 import ScrollTextReveal from "@/components/ScrollTextReveal";
 import ParallaxImage from "@/components/ParallaxImage";
 import SectionIndexRail from "@/components/SectionIndexRail";
+import ScrollRevealRule from "@/components/ScrollRevealRule";
 import FaqRouletteIndex, { useFaqRouletteSpin } from "@/components/FaqRouletteIndex";
 import SiteFooter from "@/components/SiteFooter";
-import { CASOS, SERVICIOS } from "@/lib/site-content";
+import { SERVICIOS } from "@/lib/site-content";
 
 const FAQ = [
   {
@@ -88,6 +89,13 @@ export default function Home() {
                 Derecho con visión de negocio.
               </ScrollTextReveal>
             </div>
+
+            <div className="flex items-center gap-3">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-white/50">
+                Desplázate para explorar
+              </span>
+              <ChevronDown className="h-4 w-4 text-white/50" aria-hidden />
+            </div>
           </div>
 
           {/* Stats area (still on dark photo) */}
@@ -136,7 +144,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════════════════ */}
       <section id="servicios" className="scroll-mt-20 py-28 lg:py-40">
         <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Nuestros servicios" />
+          <SectionIndexRail label="Nuestros servicios" revealBottomRule />
 
           <ScrollTextReveal
             as="h2"
@@ -145,7 +153,8 @@ export default function Home() {
             Servicios legales para las áreas más complejas del derecho empresarial.
           </ScrollTextReveal>
 
-          <ul className="mt-12 space-y-0 border-t border-neutral-200">
+          <ScrollRevealRule className="mt-12" revealDelayMs={160} />
+          <ul className="space-y-0">
             {SERVICIOS.slice(0, 4).map((name, i) => (
               <ScrollReveal key={name} delayMs={Math.min(i * 60, 240)}>
                 <li className="border-b border-neutral-100 py-4">
@@ -234,49 +243,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          CASE STUDIES (1.4)
-      ═══════════════════════════════════════════════════════════════════ */}
-      <section id="casos" className="scroll-mt-20 py-28 lg:py-40">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Casos reales" />
-
-          <ScrollTextReveal
-            as="h2"
-            className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl"
-          >
-            Ayudamos a nuestros clientes a alcanzar sus objetivos.
-          </ScrollTextReveal>
-
-          <div className="mt-12 space-y-0 divide-y divide-neutral-100">
-            {CASOS.slice(0, 2).map((c, i) => (
-              <ScrollReveal key={c.titulo} delayMs={Math.min(i * 60, 200)}>
-                <div className="py-8">
-                  <div className="flex items-start gap-6">
-                    <span className="font-mono text-sm text-neutral-400">{String(i + 1).padStart(2, "0")}</span>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-medium text-neutral-950">{c.titulo}</p>
-                      <p className="mt-1 text-xs text-neutral-400">{c.subtitulo}</p>
-                      <p className="mt-3 text-sm leading-relaxed text-neutral-600">{c.resultado}</p>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          <ScrollReveal className="mt-8">
-            <Link
-              href="/casos"
-              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 underline-offset-4 transition hover:underline"
-            >
-              Ver todos los casos
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </ScrollReveal>
-        </div>
-      </section>
-
       {/* ─── Photo break (single full-bleed with parallax) ─── */}
       <ParallaxImage
         src="/img/section-docs.jpg"
@@ -323,28 +289,6 @@ export default function Home() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ─── Team teaser → /equipo ─── */}
-      <section id="nosotros" className="scroll-mt-20 py-28 lg:py-40">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8">
-          <SectionIndexRail label="Equipo" />
-          <h2 className="mt-10 max-w-3xl text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-            Sobre el equipo
-          </h2>
-          <p className="mt-4 max-w-xl text-neutral-500">
-            Abogados con experiencia en PyMEs, negocio y cumplimiento.
-          </p>
-          <ScrollReveal className="mt-10">
-            <Link
-              href="/equipo"
-              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-950 underline-offset-4 transition hover:underline"
-            >
-              Conocer al equipo
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </ScrollReveal>
         </div>
       </section>
 

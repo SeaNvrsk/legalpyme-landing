@@ -1,3 +1,5 @@
+import ScrollRevealRule from "@/components/ScrollRevealRule";
+
 type SectionIndexRailProps = {
   /** Left label (e.g. section title in small caps style). */
   label: string;
@@ -6,6 +8,8 @@ type SectionIndexRailProps = {
   /** `light`: white pages. `dark`: hero on photo. `band`: green editorial band. */
   variant?: "light" | "dark" | "band";
   className?: string;
+  /** When set, the bottom rule animates L→R on scroll instead of a static border. */
+  revealBottomRule?: boolean;
 };
 
 const variants = {
@@ -34,14 +38,13 @@ export default function SectionIndexRail({
   index,
   variant = "light",
   className = "",
+  revealBottomRule = false,
 }: SectionIndexRailProps) {
   const v = variants[variant];
   const showIndex = index != null && index !== "";
 
-  return (
-    <div
-      className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b pb-4 ${showIndex ? "justify-between" : "justify-start"} ${v.row} ${className}`}
-    >
+  const row = (
+    <>
       <span className={`min-w-0 text-sm font-normal leading-5 ${v.label}`}>{label}</span>
       {showIndex && (
         <span
@@ -50,6 +53,25 @@ export default function SectionIndexRail({
           {index}
         </span>
       )}
+    </>
+  );
+
+  if (!revealBottomRule) {
+    return (
+      <div
+        className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b pb-4 ${showIndex ? "justify-between" : "justify-start"} ${v.row} ${className}`}
+      >
+        {row}
+      </div>
+    );
+  }
+
+  return (
+    <div className={className}>
+      <div className={`flex flex-wrap items-baseline gap-x-4 gap-y-1 pb-4 ${showIndex ? "justify-between" : "justify-start"}`}>
+        {row}
+      </div>
+      <ScrollRevealRule variant={variant} />
     </div>
   );
 }
