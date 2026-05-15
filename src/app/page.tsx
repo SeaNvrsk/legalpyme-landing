@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MarketingSiteNav from "@/components/MarketingSiteNav";
 import ContactSection from "@/components/ContactSection";
 import ScrollCountUp from "@/components/ScrollCountUp";
@@ -48,9 +48,52 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const faqSectionRef = useRef<HTMLElement | null>(null);
   const darkHeroRef = useRef<HTMLElement | null>(null);
+  const heroParallaxBgRef = useRef<HTMLDivElement>(null);
+  const heroParallaxFgRef = useRef<HTMLDivElement>(null);
   const comoFoldRef = useRef<HTMLDivElement>(null);
   const comoFoldProgress = useFoldProgress(comoFoldRef);
   const faqSpinKey = useFaqRouletteSpin(faqSectionRef);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const section = darkHeroRef.current;
+    const bg = heroParallaxBgRef.current;
+    const fg = heroParallaxFgRef.current;
+    if (!section || !bg || !fg) return;
+
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const h = rect.height;
+      const scrollPast = -rect.top;
+      const range = Math.max(h * 0.75, vh * 1.1);
+      const raw = Math.max(0, Math.min(1, scrollPast / range));
+      const eased = 1 - (1 - raw) ** 2.4;
+      const bgPx = eased * vh * 0.22;
+      const fgPx = eased * vh * 0.07;
+      bg.style.transform = `translate3d(0, ${bgPx}px, 0) scale(1.14)`;
+      fg.style.transform = `translate3d(0, ${-fgPx}px, 0)`;
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-[var(--foreground)] selection:bg-neutral-200">
@@ -59,21 +102,26 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════════════════
           HERO + STATS (dark photo section)
       ═══════════════════════════════════════════════════════════════════ */}
-      <section ref={darkHeroRef} className="relative bg-neutral-950 text-white">
-        {/* Background photo */}
-        <div className="absolute inset-0">
-          <Image
-            src="/mexico-city-bg.jpg"
-            alt="Ciudad de México, horizonte urbano"
-            fill
-            className="object-cover object-center"
-            priority
-            quality={85}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-black/28 to-black/68" />
+      <section ref={darkHeroRef} className="relative overflow-hidden bg-neutral-950 text-white">
+        {/* Background photo — vertical parallax while scrolling through hero */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            ref={heroParallaxBgRef}
+            className="absolute inset-0 will-change-transform [transform:translate3d(0,0,0)_scale(1.14)]"
+          >
+            <Image
+              src="/mexico-city-bg.jpg"
+              alt="Ciudad de México, horizonte urbano"
+              fill
+              className="object-cover object-center"
+              priority
+              quality={85}
+            />
+          </div>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/38 via-black/28 to-black/68" />
         </div>
 
-        <div className="relative z-10">
+        <div ref={heroParallaxFgRef} className="relative z-10 will-change-transform">
           {/* Hero area */}
           <div className="mx-auto flex min-h-[100dvh] w-full max-w-6xl flex-col px-6 pb-12 pt-28 sm:px-8">
             <p className="max-w-sm text-sm italic leading-relaxed text-white/60">
