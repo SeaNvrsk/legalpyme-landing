@@ -63,13 +63,13 @@ export default function Home() {
         <div className="absolute inset-0">
           <Image
             src="/img/hero-building.jpg"
-            alt=""
+            alt="Torre de oficinas con fachada de cristal en Polanco, Ciudad de México"
             fill
-            className="object-cover"
+            className="object-cover object-[center_22%] sm:object-center"
             priority
             quality={85}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-black/28 to-black/68" />
         </div>
 
         <div className="relative z-10">
