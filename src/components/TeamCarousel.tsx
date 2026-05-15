@@ -1,84 +1,119 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type TransitionEvent,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ChevronLeft, ChevronRight, Mail } from "lucide-react";
-import { TEAM } from "@/lib/team";
+import { TEAM, type TeamMember } from "@/lib/team";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionIndexRail from "@/components/SectionIndexRail";
+
+const CARD_GAP_PX = 24;
+
+type SlideItem = { member: TeamMember; slideKey: string; clone: boolean };
 
 type TeamCarouselProps = {
   /** On the home page: anchor #nosotros and h2. On /equipo: document h1 and no section id. */
   variant?: "home" | "page";
 };
 
+function buildInfiniteSlides(): SlideItem[] {
+  const n = TEAM.length;
+  if (n === 0) return [];
+  return [
+    { member: TEAM[n - 1], slideKey: `${TEAM[n - 1].id}__prev`, clone: true },
+    ...TEAM.map((m) => ({ member: m, slideKey: m.id, clone: false })),
+    { member: TEAM[0], slideKey: `${TEAM[0].id}__next`, clone: true },
+  ];
+}
+
 export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
   const isPage = variant === "page";
   const HeadingTag = isPage ? "h1" : "h2";
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const scrollToIndex = useCallback((index: number) => {
-    const clamped = Math.max(0, Math.min(TEAM.length - 1, index));
-    const scroller = scrollerRef.current;
-    const card = cardRefs.current[clamped];
-    if (!scroller || !card) return;
+  const slides = useMemo(() => buildInfiniteSlides(), []);
+  const lastSlide = slides.length - 1;
 
-    const scrollerRect = scroller.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-    const delta = cardRect.left - scrollerRect.left;
-    const targetLeft = scroller.scrollLeft + delta;
+  const [slideIndex, setSlideIndex] = useState(1);
+  const [transitionOn, setTransitionOn] = useState(true);
+  const [stepPx, setStepPx] = useState(0);
 
-    scroller.scrollTo({ left: targetLeft, behavior: "smooth" });
-    setActiveIndex(clamped);
-  }, []);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const slideIndexRef = useRef(slideIndex);
+  slideIndexRef.current = slideIndex;
 
-  const goPrev = useCallback(() => scrollToIndex(activeIndex - 1), [activeIndex, scrollToIndex]);
-  const goNext = useCallback(() => scrollToIndex(activeIndex + 1), [activeIndex, scrollToIndex]);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => setReduceMotion(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  useLayoutEffect(() => {
     if (!isPage) return;
-    const el = scrollerRef.current;
-    if (!el) return;
+    const vp = viewportRef.current;
+    if (!vp) return;
 
-    let raf = 0;
-    const syncFromScroll = () => {
-      raf = 0;
-      const scroller = scrollerRef.current;
-      if (!scroller) return;
-      const mid = scroller.getBoundingClientRect().left + scroller.clientWidth * 0.28;
-      let best = 0;
-      let bestDist = Number.POSITIVE_INFINITY;
-      cardRefs.current.forEach((node, i) => {
-        if (!node) return;
-        const left = node.getBoundingClientRect().left;
-        const dist = Math.abs(left - mid);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = i;
-        }
-      });
-      setActiveIndex((prev) => (prev === best ? prev : best));
+    const measure = () => {
+      const card = vp.querySelector<HTMLElement>("[data-carousel-card]");
+      if (card?.offsetWidth) setStepPx(card.offsetWidth + CARD_GAP_PX);
     };
 
-    const schedule = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(syncFromScroll);
-    };
-
-    const onScrollEnd = () => syncFromScroll();
-    el.addEventListener("scroll", schedule, { passive: true });
-    el.addEventListener("scrollend", onScrollEnd);
-    window.addEventListener("resize", schedule, { passive: true });
-    syncFromScroll();
-    return () => {
-      el.removeEventListener("scroll", schedule);
-      el.removeEventListener("scrollend", onScrollEnd);
-      window.removeEventListener("resize", schedule);
-      if (raf) cancelAnimationFrame(raf);
-    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(vp);
+    const first = vp.querySelector<HTMLElement>("[data-carousel-card]");
+    if (first) ro.observe(first);
+    return () => ro.disconnect();
   }, [isPage]);
+
+  const settleInfinite = useCallback(() => {
+    const i = slideIndexRef.current;
+    if (i === lastSlide) {
+      setTransitionOn(false);
+      setSlideIndex(1);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setTransitionOn(true));
+      });
+    } else if (i === 0) {
+      setTransitionOn(false);
+      setSlideIndex(TEAM.length);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setTransitionOn(true));
+      });
+    }
+  }, [lastSlide]);
+
+  const onTrackTransitionEnd = useCallback(
+    (e: TransitionEvent<HTMLDivElement>) => {
+      if (e.propertyName !== "transform") return;
+      settleInfinite();
+    },
+    [settleInfinite]
+  );
+
+  const bump = useCallback(
+    (dir: -1 | 1) => {
+      setSlideIndex((prev) => {
+        const next = prev + dir;
+        if (next < 0 || next > lastSlide) return prev;
+        return next;
+      });
+    },
+    [lastSlide]
+  );
+
+  const touchStartX = useRef<number | null>(null);
 
   if (!isPage) {
     return (
@@ -135,6 +170,12 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
     );
   }
 
+  const offsetPx = stepPx > 0 ? slideIndex * stepPx : 0;
+  const transitionClass =
+    transitionOn && !reduceMotion
+      ? "transition-transform duration-[720ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+      : "transition-none duration-0";
+
   return (
     <section className="scroll-mt-20 py-28 lg:py-40">
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
@@ -168,71 +209,92 @@ export default function TeamCarousel({ variant = "home" }: TeamCarouselProps) {
         <div className="mt-8 flex items-center justify-end gap-2 sm:mt-10">
           <button
             type="button"
-            aria-label="Tarjeta anterior"
-            disabled={activeIndex <= 0}
-            onClick={goPrev}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-35"
+            aria-label="Anterior"
+            onClick={() => bump(-1)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50"
           >
             <ChevronLeft className="h-5 w-5" aria-hidden />
           </button>
           <button
             type="button"
-            aria-label="Tarjeta siguiente"
-            disabled={activeIndex >= TEAM.length - 1}
-            onClick={goNext}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-35"
+            aria-label="Siguiente"
+            onClick={() => bump(1)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-neutral-300 hover:bg-neutral-50"
           >
             <ChevronRight className="h-5 w-5" aria-hidden />
           </button>
         </div>
 
         <div
-          ref={scrollerRef}
-          className="-mx-6 relative mt-4 flex snap-x snap-proximity gap-6 overflow-x-auto overscroll-x-contain px-6 pb-2 pt-2 [scrollbar-width:thin] [touch-action:pan-x] sm:-mx-8 sm:px-8"
+          ref={viewportRef}
+          className="-mx-6 mt-4 overflow-hidden px-6 pb-2 pt-2 sm:-mx-8 sm:px-8"
+          onTouchStart={(e) => {
+            touchStartX.current = e.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(e) => {
+            const start = touchStartX.current;
+            touchStartX.current = null;
+            if (start == null) return;
+            const end = e.changedTouches[0]?.clientX ?? start;
+            const d = end - start;
+            if (d < -52) bump(1);
+            else if (d > 52) bump(-1);
+          }}
         >
-          {TEAM.map((member, i) => (
-            <article
-              key={member.id}
-              ref={(node) => {
-                cardRefs.current[i] = node;
-              }}
-              data-team-card
-              className="w-[min(22rem,calc(100vw-3rem))] shrink-0 snap-start sm:w-[26rem]"
-            >
-              <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]">
-                <div className="relative aspect-[3/4] w-full bg-neutral-100">
-                  <Image
-                    src={member.imageSrc}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 640px) 90vw, 416px"
-                    className="object-cover"
-                    style={{ objectPosition: member.imagePosition ?? "50% 50%" }}
-                    priority={i === 0}
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-6 sm:p-7">
-                  <h3 className="text-lg font-medium text-neutral-950">{member.name}</h3>
-                  <p className="mt-1 text-sm text-neutral-500">{member.role}</p>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-neutral-600">{member.bio}</p>
-                  <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
-                    {member.tags.map((t) => (
-                      <span key={t} className="text-xs text-neutral-400">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="mt-5 inline-flex items-center gap-1.5 text-sm text-neutral-500 transition hover:text-neutral-950"
+          <div
+            className={`flex gap-6 will-change-transform ${transitionClass} ${stepPx === 0 ? "opacity-0" : "opacity-100"}`}
+            style={{ transform: `translate3d(-${offsetPx}px, 0, 0)` }}
+            onTransitionEnd={onTrackTransitionEnd}
+          >
+            {slides.map((slide, i) => {
+              const { member } = slide;
+              return (
+                <article
+                  key={slide.slideKey}
+                  data-carousel-card
+                  aria-hidden={slide.clone ? true : undefined}
+                  className="w-[min(22rem,calc(100vw-3rem))] shrink-0 sm:w-[26rem]"
+                >
+                  <div
+                    className={`flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] ${slide.clone ? "pointer-events-none" : ""}`}
+                    inert={slide.clone ? true : undefined}
                   >
-                    <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                    <span className="min-w-0 break-all">{member.email}</span>
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+                    <div className="relative aspect-[3/4] w-full bg-neutral-100">
+                      <Image
+                        src={member.imageSrc}
+                        alt={slide.clone ? "" : member.name}
+                        fill
+                        sizes="(max-width: 640px) 90vw, 416px"
+                        className="object-cover"
+                        style={{ objectPosition: member.imagePosition ?? "50% 50%" }}
+                        priority={i === 1}
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-6 sm:p-7">
+                      <h3 className="text-lg font-medium text-neutral-950">{member.name}</h3>
+                      <p className="mt-1 text-sm text-neutral-500">{member.role}</p>
+                      <p className="mt-4 flex-1 text-sm leading-relaxed text-neutral-600">{member.bio}</p>
+                      <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
+                        {member.tags.map((t) => (
+                          <span key={t} className="text-xs text-neutral-400">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <a
+                        href={`mailto:${member.email}`}
+                        tabIndex={slide.clone ? -1 : undefined}
+                        className="mt-5 inline-flex items-center gap-1.5 text-sm text-neutral-500 transition hover:text-neutral-950"
+                      >
+                        <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                        <span className="min-w-0 break-all">{member.email}</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
