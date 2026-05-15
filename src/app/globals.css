@@ -56,26 +56,3 @@ body {
     transition: none !important;
   }
 }
-
-@keyframes lp-scroll-hint {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.55;
-  }
-  50% {
-    transform: translate3d(0, 6px, 0);
-    opacity: 1;
-  }
-}
-
-.lp-scroll-hint {
-  animation: lp-scroll-hint 2s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lp-scroll-hint {
-    animation: none;
-    opacity: 0.75;
-  }
-}

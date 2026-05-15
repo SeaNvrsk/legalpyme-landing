@@ -16,9 +16,9 @@ type BrandLogoProps = {
 
 const sizes = { sm: 36, md: 44, lg: 52 } as const;
 
-/** LegalPyme logo (`/logo_1.png`). Square hit area; tile contrast follows `variant`. */
+/** LegalPyme logo (`/logo_1.png`). Transparent wrapper so the asset’s alpha shows through. */
 export default function BrandLogo({
-  variant = "onLight",
+  variant: _variant = "onLight",
   size = "md",
   className = "",
   style,
@@ -27,17 +27,13 @@ export default function BrandLogo({
   "aria-label": ariaLabel = "LegalPyme",
 }: BrandLogoProps) {
   const dim = sizes[size];
-  const tileClass =
-    variant === "onDark"
-      ? "bg-white/12 ring-1 ring-white/15"
-      : "bg-neutral-100 ring-1 ring-neutral-200/80";
 
   return (
     <span
       role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : ariaLabel}
-      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[6px] ${tileClass} ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center bg-transparent ${className}`}
       style={{ width: dim, height: dim, ...style }}
     >
       <Image

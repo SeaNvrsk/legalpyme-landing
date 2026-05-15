@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
+import { HelpCircle, ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";
 import MarketingSiteNav from "@/components/MarketingSiteNav";
 import ContactSection from "@/components/ContactSection";
@@ -75,7 +75,6 @@ export default function Home() {
         <div className="relative z-10">
           {/* Hero area */}
           <div className="mx-auto flex min-h-[100dvh] w-full max-w-6xl flex-col px-6 pb-12 pt-28 sm:px-8">
-            <SectionIndexRail variant="dark" label="LegalPyme" className="mb-4" />
             <p className="max-w-sm text-sm italic leading-relaxed text-white/60">
               LegalPyme es un despacho con más de 25 años de experiencia en derecho empresarial.
             </p>
@@ -89,21 +88,11 @@ export default function Home() {
                 Derecho con visión de negocio.
               </ScrollTextReveal>
             </div>
-
-            {/* Scroll indicator */}
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] uppercase tracking-[0.25em] text-white/50">
-                Scroll to explore
-              </span>
-              <ChevronDown className="lp-scroll-hint h-4 w-4 text-white/50" aria-hidden />
-            </div>
           </div>
 
           {/* Stats area (still on dark photo) */}
-          <div className="mx-auto w-full max-w-6xl border-t border-white/10 px-6 py-24 sm:px-8 lg:py-32">
-            <SectionIndexRail variant="dark" label="Company" className="mb-8" />
-
-            <p className="mt-8 max-w-3xl text-lg leading-relaxed text-white/70 sm:text-xl">
+          <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8 lg:py-32">
+            <p className="max-w-3xl text-lg leading-relaxed text-white/70 sm:text-xl">
               Un equipo de abogados con experiencia real en la operación de negocios.
               Asesoramos empresas de todos los tamaños en las áreas más complejas del derecho empresarial.
             </p>
