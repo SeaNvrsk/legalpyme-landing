@@ -16,11 +16,9 @@ type BrandLogoProps = {
 
 const sizes = { sm: 36, md: 44, lg: 52 } as const;
 
-/**
- * LP serif mark with rule (brand asset). Scales to a square hit area.
- */
+/** LegalPyme logo (`/logo_1.png`). Square hit area; tile contrast follows `variant`. */
 export default function BrandLogo({
-  variant: _variant = "onLight",
+  variant = "onLight",
   size = "md",
   className = "",
   style,
@@ -29,20 +27,24 @@ export default function BrandLogo({
   "aria-label": ariaLabel = "LegalPyme",
 }: BrandLogoProps) {
   const dim = sizes[size];
+  const tileClass =
+    variant === "onDark"
+      ? "bg-white/12 ring-1 ring-white/15"
+      : "bg-neutral-100 ring-1 ring-neutral-200/80";
 
   return (
     <span
       role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : ariaLabel}
-      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-[#f6f5ef] ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center overflow-hidden rounded-[6px] ${tileClass} ${className}`}
       style={{ width: dim, height: dim, ...style }}
     >
       <Image
-        src="/img/brand-lp-mark.png"
+        src="/logo_1.png"
         alt={decorative ? "" : ariaLabel}
-        width={488}
-        height={484}
+        width={313}
+        height={313}
         className="block h-full w-full object-contain object-center select-none"
         sizes={`${dim}px`}
         priority={priority}
